@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import AuthCard from "@/components/auth/AuthCard";
 import AuthShell from "@/components/auth/AuthShell";
 import GoogleLoginButton from "@/components/auth/GoogleLoginButton";
@@ -14,10 +14,6 @@ export default function LoginFormView() {
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
-
-  useEffect(() => {
-    router.prefetch("/dashboard");
-  }, [router]);
 
   const infoMessage = useMemo(() => {
     if (searchParams.get("registered"))
@@ -47,7 +43,8 @@ export default function LoginFormView() {
       return;
     }
 
-    router.push("/dashboard");
+    router.replace("/dashboard");
+    router.refresh();
   }
 
   return (
