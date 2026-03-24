@@ -9,9 +9,6 @@ export const useRegister = () => {
     mutationFn: (data: any) => postRequest(apiList.register, data),
     onSuccess: (response) => {
       if (response.success) {
-        if (response.data?.token) {
-          setToken(response.data.token);
-        }
         TOAST("success", response.message || "Registration successful!");
       }
     },
