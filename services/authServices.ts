@@ -254,4 +254,38 @@ export const authServices = {
       throw error;
     }
   },
+
+  // CURRENT USER BY TOKEN
+  getCurrentUser: async (token: string) => {
+    try {
+      const decodedToken = jwtUtils.vJT(token);
+      if (!decodedToken?.email) {
+        return {
+          flag: false,
+          data: "auth.invalidToken",
+          status: 401,
+        };
+      }
+
+      const user = await User.findOne({
+        email: String(decodedToken.email).trim().toLowerCase(),
+      }).select("fullName email role country timeZone isVerified createdAt updatedAt");
+
+      if (!user) {
+        return {
+          flag: false,
+          data: "auth.accountNotFound",
+          status: 404,
+        };
+      }
+
+      return {
+        flag: true,
+        data: user,
+      };
+    } catch (error) {
+      await logger.error("Error in authServices.getCurrentUser: ", error);
+      throw error;
+    }
+  },
 };

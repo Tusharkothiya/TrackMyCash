@@ -12,3 +12,37 @@
 --------------------------------------------------
 [2026-03-24T16:07:09.252Z] ERROR: Failure Response: Account not found
 --------------------------------------------------
+[2026-03-25T16:25:48.362Z] ERROR: Failure Response: Invalid or expired token
+--------------------------------------------------
+[2026-03-25T16:26:28.688Z] ERROR: Failure Response: Invalid or expired token
+--------------------------------------------------
+[2026-03-25T16:26:41.635Z] ERROR: Failure Response: Invalid or expired token
+--------------------------------------------------
+[2026-03-25T16:28:21.066Z] ERROR: Failure Response: Invalid or expired token
+--------------------------------------------------
+[2026-03-25T16:35:05.421Z] ERROR: JWT verification failed:
+Details: JsonWebTokenError: invalid token
+    at module.exports [as verify] (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__00e68339._.js:12755:21)
+    at Object.vJT (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__ae7d5d50._.js:324:172)
+    at Object.getCurrentUser (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__ae7d5d50._.js:701:159)
+    at E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__ae7d5d50._.js:764:165
+    at E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__ae7d5d50._.js:221:26
+    at async AppRouteRouteModule.do (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:37866)
+--------------------------------------------------
+[2026-03-25T16:35:05.422Z] ERROR: Failure Response: Invalid or expired token
+--------------------------------------------------
+[2026-03-25T16:37:53.155Z] ERROR: Failure Response: Incorrect password
+--------------------------------------------------
+[2026-03-25T16:40:30.877Z] ERROR: Failure Response: Invalid or expired token
+--------------------------------------------------
+[2026-03-25T16:40:49.466Z] ERROR: JWT verification failed:
+Details: JsonWebTokenError: invalid token
+    at module.exports [as verify] (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__00e68339._.js:12755:21)
+    at Object.vJT (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__ae7d5d50._.js:324:172)
+    at Object.getCurrentUser (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__ae7d5d50._.js:701:159)
+    at E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__ae7d5d50._.js:764:165
+    at E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__ae7d5d50._.js:221:26
+    at async AppRouteRouteModule.do (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:37866)
+--------------------------------------------------
+[2026-03-25T16:40:49.469Z] ERROR: Failure Response: Invalid or expired token
+--------------------------------------------------

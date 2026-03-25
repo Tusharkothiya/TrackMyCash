@@ -1,5 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
-import { postRequest } from "../lib/apiService";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getRequest, postRequest } from "../lib/apiService";
 import { apiList } from "../lib/apiList";
 import { TOAST } from "../lib/utils/toastMessage";
 import { setToken } from "../lib/utils/helper";
@@ -92,5 +92,12 @@ export const useChangePassword = () => {
     onError: (error: any) => {
       TOAST("error", error?.message || "Change password failed");
     },
+  });
+};
+
+export const useCurrentUser = () => {
+  return useQuery({
+    queryKey: ["currentUser"],
+    queryFn: () => getRequest(apiList.currentUser),
   });
 };

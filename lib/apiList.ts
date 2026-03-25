@@ -8,5 +8,6 @@ export const apiList = {
   resendOtp: `${BASE_API_URL}auth/resend-otp`,
   forgotPassword: `${BASE_API_URL}auth/forgot-password`,
   changePassword: `${BASE_API_URL}auth/change-password`,
+  currentUser: `${BASE_API_URL}users/me`,
   test: `${BASE_API_URL}test`,
 };

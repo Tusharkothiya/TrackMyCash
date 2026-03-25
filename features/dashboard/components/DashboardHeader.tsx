@@ -2,6 +2,8 @@
 
 import { usePathname } from "next/navigation";
 import { Bell, Menu, Search } from "lucide-react";
+import { useCurrentUser } from "@/hooks/useAuth";
+import { getUserInitials } from "@/lib/utils/helper";
 
 type DashboardHeaderProps = {
   onMenuClick: () => void;
@@ -23,6 +25,8 @@ function resolveTitle(pathname: string): string {
 
 export default function DashboardHeader({ onMenuClick }: DashboardHeaderProps) {
   const pathname = usePathname();
+  const { data, isLoading } = useCurrentUser();
+  const userInitials = getUserInitials(data?.data?.fullName);
 
   return (
     <header className="sticky top-0 z-30 border-b border-blue-900/40 bg-slate-950/85 backdrop-blur">
@@ -49,7 +53,11 @@ export default function DashboardHeader({ onMenuClick }: DashboardHeaderProps) {
           <button type="button" className="inline-flex rounded-md border border-blue-900/50 p-2 text-blue-100 hover:bg-blue-900/40" aria-label="Notifications">
             <Bell className="h-4 w-4" />
           </button>
-          <div className="hidden rounded-full bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white sm:block">TM</div>
+          {isLoading ? (
+            <div className="hidden h-8 w-8 animate-pulse rounded-full bg-blue-900/50 sm:block" />
+          ) : (
+            <div className="hidden rounded-full bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white sm:block">{userInitials || "U"}</div>
+          )}
         </div>
       </div>
     </header>
