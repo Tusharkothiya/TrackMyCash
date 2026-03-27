@@ -1,3 +1,5 @@
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import Cookies from "js-cookie";
 
 const THEME_KEY = "_next_refresh_token_tmc_";
@@ -28,5 +30,11 @@ export const logout = () => {
     window.location.href = "/login";
   }
 };
+
+
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 
