@@ -68,3 +68,31 @@
 .animate-marquee {
   animation: scroll 30s linear infinite;
 }
+
+
+/* LOGIN PAGE CSS */
+.login-gradient {
+  background: linear-gradient(135deg, #2563eb 0%, #b4c5ff 100%);
+}
+
+.glass-panel {
+  background: rgba(28, 32, 38, 0.8);
+  backdrop-filter: blur(20px);
+}
+
+/* Custom scrollbar for a premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-surface-container-lowest;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-surface-container-highest rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-outline;
+}
