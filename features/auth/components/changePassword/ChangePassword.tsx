@@ -16,7 +16,7 @@ import {
 import { useChangePassword } from "@/hooks/useAuth";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const page = () => {
+const ChangePassword = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -182,7 +182,7 @@ const page = () => {
               className="w-full login-gradient cursor-pointer! text-white font-bold py-4 rounded-xl shadow-lg shadow-primary-container/20 transition-all flex items-center justify-center gap-2 group disabled:opacity-60"
               type="submit"
             >
-              Update Password
+               {isLoading ? "Updating password..." : "Change Password"}
               <ArrowRight size={20} />
             </motion.button>
           </form>
@@ -230,4 +230,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ChangePassword;

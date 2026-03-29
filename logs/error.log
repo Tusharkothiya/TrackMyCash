@@ -236,3 +236,99 @@ Details: ValidationError: User validation failed: country: Country is required
 --------------------------------------------------
 [2026-03-29T12:17:52.874Z] ERROR: Failure Response: User validation failed: country: Country is required
 --------------------------------------------------
+[2026-03-29T13:24:12.680Z] ERROR: JWT verification failed:
+Details: TokenExpiredError: jwt expired
+    at E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:12846:29
+    at getSecret (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:12766:20)
+    at module.exports [as verify] (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:12769:12)
+    at Object.vJT (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:324:172)
+    at Object.changePassword (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:656:159)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__77426383._.js:843:20
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:221:20
+    at async AppRouteRouteModule.do (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:37866)
+    at async AppRouteRouteModule.handle (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:45156)
+    at async responseGenerator (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__af46177b._.js:30583:38)
+    at async AppRouteRouteModule.handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:191938)
+    at async handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__af46177b._.js:30646:32)
+    at async Module.handler (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__af46177b._.js:30699:13)
+    at async DevServer.renderToResponseWithComponentsImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1442:9)
+    at async DevServer.renderPageComponent (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1494:24)
+    at async DevServer.renderToResponseImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1544:32)
+    at async DevServer.pipeImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1038:25)
+    at async NextNodeServer.handleCatchallRenderRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\next-server.js:395:17)
+    at async DevServer.handleRequestImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:929:17)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:387:20
+    at async Span.traceAsyncFn (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
+    at async invokeRender (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:248:21)
+    at async handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:447:24)
+    at async requestHandlerImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:496:13)
+    at async Server.requestListener (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\start-server.js:226:13)
+--------------------------------------------------
+[2026-03-29T13:24:12.683Z] ERROR: Failure Response: Invalid or expired token
+--------------------------------------------------
+[2026-03-29T13:24:15.870Z] ERROR: JWT verification failed:
+Details: TokenExpiredError: jwt expired
+    at E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:12846:29
+    at getSecret (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:12766:20)
+    at module.exports [as verify] (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:12769:12)
+    at Object.vJT (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:324:172)
+    at Object.changePassword (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:656:159)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__77426383._.js:843:20
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:221:20
+    at async AppRouteRouteModule.do (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:37866)
+    at async AppRouteRouteModule.handle (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:45156)
+    at async responseGenerator (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__af46177b._.js:30583:38)
+    at async AppRouteRouteModule.handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:191938)
+    at async handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__af46177b._.js:30646:32)
+    at async Module.handler (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__af46177b._.js:30699:13)
+    at async DevServer.renderToResponseWithComponentsImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1442:9)
+    at async DevServer.renderPageComponent (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1494:24)
+    at async DevServer.renderToResponseImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1544:32)
+    at async DevServer.pipeImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1038:25)
+    at async NextNodeServer.handleCatchallRenderRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\next-server.js:395:17)
+    at async DevServer.handleRequestImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:929:17)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:387:20
+    at async Span.traceAsyncFn (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
+    at async invokeRender (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:248:21)
+    at async handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:447:24)
+    at async requestHandlerImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:496:13)
+    at async Server.requestListener (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\start-server.js:226:13)
+--------------------------------------------------
+[2026-03-29T13:24:15.872Z] ERROR: Failure Response: Invalid or expired token
+--------------------------------------------------
+[2026-03-29T13:24:48.509Z] ERROR: JWT verification failed:
+Details: TokenExpiredError: jwt expired
+    at E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:12846:29
+    at getSecret (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:12766:20)
+    at module.exports [as verify] (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:12769:12)
+    at Object.vJT (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:324:172)
+    at Object.changePassword (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:656:159)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__77426383._.js:843:20
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:221:20
+    at async AppRouteRouteModule.do (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:37866)
+    at async AppRouteRouteModule.handle (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:45156)
+    at async responseGenerator (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__af46177b._.js:30583:38)
+    at async AppRouteRouteModule.handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:191938)
+    at async handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__af46177b._.js:30646:32)
+    at async Module.handler (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__af46177b._.js:30699:13)
+    at async DevServer.renderToResponseWithComponentsImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1442:9)
+    at async DevServer.renderPageComponent (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1494:24)
+    at async DevServer.renderToResponseImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1544:32)
+    at async DevServer.pipeImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1038:25)
+    at async NextNodeServer.handleCatchallRenderRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\next-server.js:395:17)
+    at async DevServer.handleRequestImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:929:17)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:387:20
+    at async Span.traceAsyncFn (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
+    at async invokeRender (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:248:21)
+    at async handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:447:24)
+    at async requestHandlerImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:496:13)
+    at async Server.requestListener (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\start-server.js:226:13)
+--------------------------------------------------
+[2026-03-29T13:24:48.510Z] ERROR: Failure Response: Invalid or expired token
+--------------------------------------------------
