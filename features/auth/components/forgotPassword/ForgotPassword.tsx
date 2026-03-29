@@ -11,7 +11,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useForgotPassword } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const ForgotPassword = () => {
   const router = useRouter();
   const forgotPasswordMutation = useForgotPassword();
   const [message, setMessage] = useState<string | null>(null);
@@ -163,4 +163,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ForgotPassword;

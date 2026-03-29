@@ -34,26 +34,44 @@ export default function ForgotPasswordFormView() {
       return;
     }
 
-    router.push(`/change-password?email=${encodeURIComponent(responseEmail)}&token=${encodeURIComponent(token)}`);
+    router.push(
+      `/change-password?email=${encodeURIComponent(responseEmail)}&token=${encodeURIComponent(token)}`,
+    );
   }
 
   const isLoading = forgotPasswordMutation.isPending;
 
   return (
     <AuthShell>
-      <AuthCard title="Forgot password" subtitle="Enter your email to continue with password reset.">
+      <AuthCard
+        title="Forgot password"
+        subtitle="Enter your email to continue with password reset."
+      >
         <form onSubmit={handleSubmit} className="space-y-3">
-          <input name="email" type="email" placeholder="Email" className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm text-white placeholder:text-white" required />
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm text-white placeholder:text-white"
+            required
+          />
 
           {message ? <p className="text-sm text-red-600">{message}</p> : null}
 
-          <button type="submit" disabled={isLoading} className="w-full rounded-lg bg-blue-600 cursor-pointer px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60">
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full rounded-lg bg-blue-600 cursor-pointer px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60"
+          >
             {isLoading ? "Processing..." : "Continue"}
           </button>
         </form>
 
         <p className="mt-4 text-sm text-blue-200/80 text-center">
-          Back to <Link href="/login" className="font-medium text-white">Login</Link>
+          Back to{" "}
+          <Link href="/login" className="font-medium text-white">
+            Login
+          </Link>
         </p>
       </AuthCard>
     </AuthShell>
