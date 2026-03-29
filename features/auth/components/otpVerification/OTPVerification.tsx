@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useResendOtp, useVerifyOtp } from "@/hooks/useAuth";
 
-const page = () => {
+const OTPVerification = () => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleChange = (element: HTMLInputElement, index: number) => {
@@ -195,4 +195,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default OTPVerification;
