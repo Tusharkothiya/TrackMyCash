@@ -1,7 +1,7 @@
 "use client";
 
-import { RegisterFormView } from "@/features/auth/components";
+import Register from "@/features/auth/components/register/Register";
 
 export default function RegisterPage() {
-  return <RegisterFormView />;
+  return <Register />;
 }

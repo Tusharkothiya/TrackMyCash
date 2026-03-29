@@ -17,10 +17,6 @@ export const registerSchema = Joi.object({
     "any.required": "Password is required",
     "string.empty": "Password is required",
   }),
-  country: Joi.string().required().messages({
-    "any.required": "Country is required",
-    "string.empty": "Country is required",
-  }),
   timeZone: Joi.string().required().messages({
     "any.required": "Time Zone is required",
     "string.empty": "Time Zone is required",

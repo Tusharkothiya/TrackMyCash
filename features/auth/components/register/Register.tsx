@@ -18,7 +18,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 
-const page = () => {
+const Register = () => {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
@@ -404,4 +404,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Register;

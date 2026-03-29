@@ -46,12 +46,6 @@ const userSchema = new mongoose.Schema<IUserModal>(
             enum: [ USER_ROLES.USER, USER_ROLES.ADMIN ],
             default: USER_ROLES.USER,
         },
-        country: {
-            type: String,
-            required: [true, 'Country is required'],
-            trim: true,
-            maxlength: [100, 'Country must be less than 100 characters long'],
-        },
         otp: {
             type: String,
             trim: true,

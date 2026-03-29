@@ -46,3 +46,193 @@ Details: JsonWebTokenError: invalid token
 --------------------------------------------------
 [2026-03-25T16:40:49.469Z] ERROR: Failure Response: Invalid or expired token
 --------------------------------------------------
+[2026-03-29T12:08:53.293Z] ERROR: Failure Response: Country is required
+--------------------------------------------------
+[2026-03-29T12:13:40.797Z] ERROR: Failure Response: User already exists
+--------------------------------------------------
+[2026-03-29T12:16:32.137Z] ERROR: Error in authServices.register: 
+Details: ValidationError: User validation failed: country: Country is required
+    at model.validate (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\document.js:2864:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async model.$__save (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:389:7)
+    at async model.save (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:663:5)
+    at async Function.create (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:2750:5)
+    at async Object.register (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:500:30)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:855:20
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:221:20
+    at async AppRouteRouteModule.do (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:37866)
+    at async AppRouteRouteModule.handle (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:45156)
+    at async responseGenerator (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30583:38)
+    at async AppRouteRouteModule.handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:191938)
+    at async handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30646:32)
+    at async Module.handler (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30699:13)
+    at async DevServer.renderToResponseWithComponentsImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1442:9)
+    at async DevServer.renderPageComponent (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1494:24)
+    at async DevServer.renderToResponseImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1544:32)
+    at async DevServer.pipeImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1038:25)
+    at async NextNodeServer.handleCatchallRenderRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\next-server.js:395:17)
+    at async DevServer.handleRequestImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:929:17)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:387:20
+    at async Span.traceAsyncFn (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
+    at async invokeRender (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:248:21)
+    at async handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:447:24)
+    at async requestHandlerImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:496:13)
+    at async Server.requestListener (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\start-server.js:226:13)
+--------------------------------------------------
+[2026-03-29T12:16:32.139Z] ERROR: API Route Error
+Details: ValidationError: User validation failed: country: Country is required
+    at model.validate (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\document.js:2864:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async model.$__save (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:389:7)
+    at async model.save (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:663:5)
+    at async Function.create (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:2750:5)
+    at async Object.register (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:500:30)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:855:20
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:221:20
+    at async AppRouteRouteModule.do (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:37866)
+    at async AppRouteRouteModule.handle (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:45156)
+    at async responseGenerator (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30583:38)
+    at async AppRouteRouteModule.handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:191938)
+    at async handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30646:32)
+    at async Module.handler (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30699:13)
+    at async DevServer.renderToResponseWithComponentsImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1442:9)
+    at async DevServer.renderPageComponent (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1494:24)
+    at async DevServer.renderToResponseImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1544:32)
+    at async DevServer.pipeImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1038:25)
+    at async NextNodeServer.handleCatchallRenderRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\next-server.js:395:17)
+    at async DevServer.handleRequestImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:929:17)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:387:20
+    at async Span.traceAsyncFn (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
+    at async invokeRender (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:248:21)
+    at async handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:447:24)
+    at async requestHandlerImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:496:13)
+    at async Server.requestListener (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\start-server.js:226:13)
+--------------------------------------------------
+[2026-03-29T12:16:32.141Z] ERROR: Failure Response: User validation failed: country: Country is required
+--------------------------------------------------
+[2026-03-29T12:17:23.827Z] ERROR: Error in authServices.register: 
+Details: ValidationError: User validation failed: country: Country is required
+    at model.validate (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\document.js:2864:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async model.$__save (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:389:7)
+    at async model.save (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:663:5)
+    at async Function.create (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:2750:5)
+    at async Object.register (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:488:30)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:843:20
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:221:20
+    at async AppRouteRouteModule.do (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:37866)
+    at async AppRouteRouteModule.handle (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:45156)
+    at async responseGenerator (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30583:38)
+    at async AppRouteRouteModule.handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:191938)
+    at async handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30646:32)
+    at async Module.handler (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30699:13)
+    at async DevServer.renderToResponseWithComponentsImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1442:9)
+    at async DevServer.renderPageComponent (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1494:24)
+    at async DevServer.renderToResponseImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1544:32)
+    at async DevServer.pipeImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1038:25)
+    at async NextNodeServer.handleCatchallRenderRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\next-server.js:395:17)
+    at async DevServer.handleRequestImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:929:17)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:387:20
+    at async Span.traceAsyncFn (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
+    at async invokeRender (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:248:21)
+    at async handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:447:24)
+    at async requestHandlerImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:496:13)
+    at async Server.requestListener (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\start-server.js:226:13)
+--------------------------------------------------
+[2026-03-29T12:17:23.829Z] ERROR: API Route Error
+Details: ValidationError: User validation failed: country: Country is required
+    at model.validate (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\document.js:2864:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async model.$__save (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:389:7)
+    at async model.save (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:663:5)
+    at async Function.create (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:2750:5)
+    at async Object.register (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:488:30)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:843:20
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:221:20
+    at async AppRouteRouteModule.do (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:37866)
+    at async AppRouteRouteModule.handle (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:45156)
+    at async responseGenerator (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30583:38)
+    at async AppRouteRouteModule.handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:191938)
+    at async handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30646:32)
+    at async Module.handler (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30699:13)
+    at async DevServer.renderToResponseWithComponentsImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1442:9)
+    at async DevServer.renderPageComponent (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1494:24)
+    at async DevServer.renderToResponseImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1544:32)
+    at async DevServer.pipeImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1038:25)
+    at async NextNodeServer.handleCatchallRenderRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\next-server.js:395:17)
+    at async DevServer.handleRequestImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:929:17)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:387:20
+    at async Span.traceAsyncFn (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
+    at async invokeRender (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:248:21)
+    at async handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:447:24)
+    at async requestHandlerImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:496:13)
+    at async Server.requestListener (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\start-server.js:226:13)
+--------------------------------------------------
+[2026-03-29T12:17:23.830Z] ERROR: Failure Response: User validation failed: country: Country is required
+--------------------------------------------------
+[2026-03-29T12:17:52.870Z] ERROR: Error in authServices.register: 
+Details: ValidationError: User validation failed: country: Country is required
+    at model.validate (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\document.js:2864:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async model.$__save (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:389:7)
+    at async model.save (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:663:5)
+    at async Function.create (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:2750:5)
+    at async Object.register (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:488:30)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:843:20
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:221:20
+    at async AppRouteRouteModule.do (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:37866)
+    at async AppRouteRouteModule.handle (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:45156)
+    at async responseGenerator (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30583:38)
+    at async AppRouteRouteModule.handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:191938)
+    at async handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30646:32)
+    at async Module.handler (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30699:13)
+    at async DevServer.renderToResponseWithComponentsImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1442:9)
+    at async DevServer.renderPageComponent (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1494:24)
+    at async DevServer.renderToResponseImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1544:32)
+    at async DevServer.pipeImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1038:25)
+    at async NextNodeServer.handleCatchallRenderRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\next-server.js:395:17)
+    at async DevServer.handleRequestImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:929:17)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:387:20
+    at async Span.traceAsyncFn (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
+    at async invokeRender (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:248:21)
+    at async handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:447:24)
+    at async requestHandlerImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:496:13)
+    at async Server.requestListener (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\start-server.js:226:13)
+--------------------------------------------------
+[2026-03-29T12:17:52.872Z] ERROR: API Route Error
+Details: ValidationError: User validation failed: country: Country is required
+    at model.validate (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\document.js:2864:36)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async model.$__save (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:389:7)
+    at async model.save (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:663:5)
+    at async Function.create (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\model.js:2750:5)
+    at async Object.register (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:488:30)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:843:20
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__a9950527._.js:221:20
+    at async AppRouteRouteModule.do (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:37866)
+    at async AppRouteRouteModule.handle (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:45156)
+    at async responseGenerator (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30583:38)
+    at async AppRouteRouteModule.handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:191938)
+    at async handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30646:32)
+    at async Module.handler (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__3417c1bc._.js:30699:13)
+    at async DevServer.renderToResponseWithComponentsImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1442:9)
+    at async DevServer.renderPageComponent (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1494:24)
+    at async DevServer.renderToResponseImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1544:32)
+    at async DevServer.pipeImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1038:25)
+    at async NextNodeServer.handleCatchallRenderRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\next-server.js:395:17)
+    at async DevServer.handleRequestImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:929:17)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:387:20
+    at async Span.traceAsyncFn (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
+    at async invokeRender (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:248:21)
+    at async handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:447:24)
+    at async requestHandlerImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:496:13)
+    at async Server.requestListener (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\start-server.js:226:13)
+--------------------------------------------------
+[2026-03-29T12:17:52.874Z] ERROR: Failure Response: User validation failed: country: Country is required
+--------------------------------------------------
