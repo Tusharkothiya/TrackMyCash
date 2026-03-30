@@ -34,8 +34,8 @@ export default function DashboardSidebar({ onNavigate }: DashboardSidebarProps) 
   const pathname = usePathname();
 
   return (
-    <aside className="h-full w-72 border-r border-blue-900/40 bg-slate-950/95 backdrop-blur">
-      <div className="flex items-center gap-2 border-b border-blue-900/40 px-5 py-3">
+    <aside className="h-full w-72 bg-[#0A0E14] backdrop-blur">
+      <div className="flex items-center gap-2 border-b border-[#FFB596] px-5 py-3">
         <CircleDollarSign className="h-6 w-6 text-blue-400" />
         <div>
           <p className="text-base font-semibold text-blue-100 m-0!">TrackMyCash</p>
@@ -54,7 +54,7 @@ export default function DashboardSidebar({ onNavigate }: DashboardSidebarProps) 
               href={item.href}
               onClick={onNavigate}
               className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
-                active ? "bg-blue-600 text-white" : "text-blue-100/80 hover:bg-blue-900/40 hover:text-blue-100"
+                active ? "bg-[#FFB596] text-white" : "text-blue-100/80 hover:bg-[#FFB596]/20 hover:text-blue-100"
               }`}
             >
               <Icon className="h-4 w-4" />
