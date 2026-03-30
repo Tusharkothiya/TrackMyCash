@@ -96,3 +96,17 @@
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-outline;
 }
+
+.glass-card {
+  background: rgba(28, 32, 38, 0.8);
+  backdrop-filter: blur(20px);
+}
+
+.primary-gradient {
+  background: linear-gradient(135deg, #2563eb 0%, #b4c5ff 100%);
+}
+
+.modal-blur {
+  backdrop-filter: blur(12px);
+  background-color: rgba(10, 14, 20, 0.85);
+}
