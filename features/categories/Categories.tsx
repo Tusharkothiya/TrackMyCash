@@ -137,9 +137,9 @@ const Categories = () => {
   return (
     <div className="min-h-screen bg-background selection:bg-primary/30">
       
-      <main className="min-h-screen">
+      <main className="min-h-screen ">
         
-        <div className="pt-24 pb-12 px-8 md:px-12 max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           {/* Page Header */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
             <div>
