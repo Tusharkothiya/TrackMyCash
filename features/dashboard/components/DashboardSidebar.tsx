@@ -28,8 +28,8 @@ const navItems: NavItem[] = [
   { label: "Reports", href: "/reports", icon: PieChart },
   { label: "Budgets", href: "/budgets", icon: Wallet },
   {  label: "Categories", href: "/categories", icon: CircleDollarSign },
-  { label: "Settings", href: "/settings", icon: Settings },
   { label: "Accounts", href: "/accounts", icon: CircleDollarSign },
+  { label: "Settings", href: "/settings", icon: Settings },
 ];
 
 export default function DashboardSidebar({ onNavigate }: DashboardSidebarProps) {
