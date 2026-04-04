@@ -921,3 +921,5 @@ Details: JsonWebTokenError: jwt malformed
 --------------------------------------------------
 [2026-04-04T05:57:52.595Z] ERROR: Failure Response: Category already exists
 --------------------------------------------------
+[2026-04-04T12:29:32.292Z] ERROR: Failure Response: Invalid or expired token
+--------------------------------------------------

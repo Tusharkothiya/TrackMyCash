@@ -4,26 +4,19 @@ import {
   Landmark, 
   CreditCard, 
   Bitcoin, 
-  Banknote 
+  Banknote,
+  Edit2,
+  Trash2
 } from 'lucide-react';
-
-export interface Account {
-  id: string;
-  name: string;
-  type: 'Bank' | 'Credit Card' | 'Wallet' | 'Cash';
-  balance: number;
-  monthlyIncome: number;
-  monthlyExpense: number;
-  color: string;
-  icon: string;
-}
-
+import type { Account } from '@/features/accounts/types';
 
 interface AccountCardProps {
   account: Account;
+  onEdit?: (account: Account) => void;
+  onDelete?: (id: string) => void;
 }
 
-export const AccountCard: React.FC<AccountCardProps> = ({ account }) => {
+export const AccountCard: React.FC<AccountCardProps> = ({ account, onEdit, onDelete }) => {
   const getIcon = () => {
     switch (account.type) {
       case 'Bank': return Landmark;
@@ -37,15 +30,23 @@ export const AccountCard: React.FC<AccountCardProps> = ({ account }) => {
   const Icon = getIcon();
 
   return (
-    <div className="group relative p-8 rounded-xl bg-surface-container hover:bg-surface-bright transition-all duration-300">
-      <div className="absolute top-0 right-0 p-8">
-        <MoreVertical 
-          size={20} 
-          className="text-on-surface-variant/40 group-hover:text-primary transition-colors cursor-pointer" 
-        />
+    <div className="group relative p-8 rounded-xl bg-surface-container hover:bg-surface-bright transition-all duration-300 border border-transparent hover:border-outline-variant/10">
+      <div className="absolute top-0 right-0 p-4 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+        <button
+          onClick={() => onEdit?.(account)}
+          className="p-2 text-on-surface-variant cursor-pointer hover:text-on-surface transition-colors rounded-lg hover:bg-surface-bright"
+        >
+          <Edit2 size={16} />
+        </button>
+        <button
+          onClick={() => onDelete?.(account._id)}
+          className="p-2 text-on-surface-variant cursor-pointer hover:text-error transition-colors rounded-lg hover:bg-surface-bright"
+        >
+          <Trash2 size={16} />
+        </button>
       </div>
       
-      <div className="flex items-start gap-5  mb-8">
+      <div className="flex items-start gap-5 mb-8">
         <div 
           className="w-14 h-14 rounded-2xl flex items-center justify-center"
           style={{ backgroundColor: `${account.color}20`, color: account.color }}
@@ -63,28 +64,17 @@ export const AccountCard: React.FC<AccountCardProps> = ({ account }) => {
         </div>
       </div>
 
-      <div className="mb-8">
+      <div>
         <span className="text-[11px] uppercase tracking-[0.15em] text-on-surface-variant font-bold">
           {account.type === 'Credit Card' ? 'Outstanding Balance' : account.type === 'Wallet' ? 'Total Valuation' : account.type === 'Cash' ? 'Physical Reserve' : 'Current Balance'}
         </span>
         <div className="text-4xl font-black tracking-tight text-on-surface mt-1">
-          ${account.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+          {account.currency === 'INR' ? '₹' : '$'}
+          {Math.abs(account.balance).toLocaleString('en-US', { minimumFractionDigits: 2 })}
         </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4 pt-6 border-t border-outline-variant/10">
-        <div>
-          <span className="text-[10px] font-bold text-on-surface-variant uppercase">Month Income</span>
-          <p className="font-semibold text-[#4ade80]">
-            {account.monthlyIncome > 0 ? '+' : ''}${account.monthlyIncome.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-          </p>
-        </div>
-        <div>
-          <span className="text-[10px] font-bold text-on-surface-variant uppercase">Month Expense</span>
-          <p className={`font-semibold ${account.monthlyExpense > 2000 ? 'text-error' : 'text-on-surface'}`}>
-            ${account.monthlyExpense.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-          </p>
-        </div>
+        <p className="text-[10px] text-on-surface-variant mt-2 font-medium">
+          Currency: {account.currency}
+        </p>
       </div>
     </div>
   );
