@@ -20,7 +20,13 @@ export function _localize(key: string, req?: any): string {
     "auth.otpResent": "OTP has been resent to your email",
     "auth.passwordForgot": "Password reset instructions have been sent to your email",
     "auth.invalidToken": "Invalid or expired token",
-    "auth.passwordChanged": "Password changed successfully"
+    "auth.passwordChanged": "Password changed successfully",
+    "category.createSuccess": "Category created successfully",
+    "category.fetchSuccess": "Category fetched successfully",
+    "category.updateSuccess": "Category updated successfully",
+    "category.deleteSuccess": "Category deleted successfully",
+    "category.notFound": "Category not found",
+    "category.alreadyExists": "Category already exists"
 
   };
 

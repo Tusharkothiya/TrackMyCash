@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   X,
   ShoppingCart,
@@ -18,47 +18,12 @@ import {
 import { motion, AnimatePresence } from "motion/react";
 
 import { cn } from "@/lib/utils/helper";
-
-export type CategoryIcon =
-  | "layout-grid"
-  | "receipt"
-  | "wallet"
-  | "bar-chart"
-  | "settings"
-  | "log-out"
-  | "search"
-  | "bell"
-  | "plus-circle"
-  | "edit"
-  | "trash-2"
-  | "sparkles"
-  | "server"
-  | "megaphone"
-  | "briefcase"
-  | "plane"
-  | "banknote"
-  | "lightbulb"
-  | "more-horizontal"
-  | "shopping-cart"
-  | "home"
-  | "activity"
-  | "graduation-cap"
-  | "clapperboard"
-  | "piggy-bank"
-  | "theater"
-  | "paw-print"
-  | "layers";
-
-export interface Category {
-  id: string;
-  name: string;
-  icon: CategoryIcon;
-  color: string;
-  transactionCount: number;
-  amount: number;
-  type: "expense" | "income";
-  overline?: string;
-}
+import {
+  Category,
+  CategoryIcon,
+  CategoryPayload,
+} from "@/features/categories/types";
+import { validateCategoryPayload } from "@/features/categories/schemas/category.schema";
 
 const ICONS: { icon: CategoryIcon; label: string }[] = [
   { icon: "shopping-cart", label: "Shopping" },
@@ -99,34 +64,79 @@ const IconMap: Record<string, any> = {
 
 interface AddCategoryModalProps {
   isOpen: boolean;
+  mode: "create" | "edit";
+  isSubmitting?: boolean;
+  apiMessage?: string | null;
+  initialValues?: Category;
   onClose: () => void;
-  onAdd: (
-    category: Omit<Category, "id" | "transactionCount" | "amount">,
-  ) => void;
+  onSubmit: (category: CategoryPayload) => void | Promise<void>;
 }
 
 export function AddCategoryModal({
   isOpen,
+  mode,
+  isSubmitting,
+  apiMessage,
+  initialValues,
   onClose,
-  onAdd,
+  onSubmit,
 }: AddCategoryModalProps) {
   const [name, setName] = useState("");
   const [selectedIcon, setSelectedIcon] = useState<CategoryIcon>("home");
   const [selectedColor, setSelectedColor] = useState(COLORS[0]);
+  const [type, setType] = useState<"expense" | "income">("expense");
+  const [overline, setOverline] = useState("");
+  const [validationMessage, setValidationMessage] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!name.trim()) return;
+  useEffect(() => {
+    if (!isOpen) return;
 
-    onAdd({
-      name,
-      icon: selectedIcon,
-      color: selectedColor,
-      type: selectedIcon === "banknote" ? "income" : "expense",
-    });
+    if (initialValues) {
+      setName(initialValues.name || "");
+      setSelectedIcon(initialValues.icon || "home");
+      setSelectedColor(initialValues.color || COLORS[0]);
+      setType(initialValues.type || "expense");
+      setOverline(initialValues.overline || "");
+      return;
+    }
 
     setName("");
-    onClose();
+    setSelectedIcon("home");
+    setSelectedColor(COLORS[0]);
+    setType("expense");
+    setOverline("");
+  }, [initialValues, isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setValidationMessage(null);
+    }
+  }, [isOpen]);
+
+  const messageToShow = useMemo(
+    () => validationMessage || apiMessage || null,
+    [validationMessage, apiMessage],
+  );
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const payload: CategoryPayload = {
+      name: name.trim(),
+      icon: selectedIcon,
+      color: selectedColor,
+      type,
+      overline: overline.trim() || undefined,
+    };
+
+    const errorMessage = validateCategoryPayload(payload);
+    if (errorMessage) {
+      setValidationMessage(errorMessage);
+      return;
+    }
+
+    setValidationMessage(null);
+    await onSubmit(payload);
   };
 
   return (
@@ -154,7 +164,7 @@ export function AddCategoryModal({
                     New Asset Group
                   </p>
                   <h3 className="text-2xl font-black text-on-surface tracking-tight">
-                    Create Category
+                    {mode === "edit" ? "Edit Category" : "Create Category"}
                   </h3>
                 </div>
                 <button
@@ -209,6 +219,42 @@ export function AddCategoryModal({
 
                 <div className="space-y-4">
                   <label className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant ml-1">
+                    Category Type
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    {(["expense", "income"] as const).map((itemType) => (
+                      <button
+                        key={itemType}
+                        type="button"
+                        onClick={() => setType(itemType)}
+                        className={cn(
+                          "rounded-2xl py-3 text-xs font-bold uppercase tracking-wider cursor-pointer transition-all",
+                          type === itemType
+                            ? "bg-primary text-on-primary-fixed"
+                            : "bg-surface-container-highest text-on-surface-variant hover:text-on-surface",
+                        )}
+                      >
+                        {itemType}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant ml-1">
+                    Overline (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    value={overline}
+                    onChange={(e) => setOverline(e.target.value)}
+                    placeholder="e.g. Q2 Campaigns"
+                    className="w-full bg-surface-container-highest border-none rounded-2xl px-4 py-4 text-on-surface focus:ring-2 focus:ring-primary/50 placeholder:text-on-surface-variant/30 text-base transition-all"
+                  />
+                </div>
+
+                <div className="space-y-4">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant ml-1">
                     Brand Color
                   </label>
                   <div className="flex items-center gap-4">
@@ -240,19 +286,31 @@ export function AddCategoryModal({
                   </div>
                 </div>
 
+                {messageToShow ? (
+                  <p className="text-sm text-red-600">{messageToShow}</p>
+                ) : null}
+
                 <div className="mt-12 flex gap-4">
                   <button
                     type="button"
                     onClick={onClose}
+                    disabled={Boolean(isSubmitting)}
                     className="flex-1 px-6 py-4 cursor-pointer rounded-2xl text-on-surface-variant font-bold hover:bg-surface-bright transition-all active:scale-95"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
+                    disabled={Boolean(isSubmitting)}
                     className="flex-2 px-6 py-4 cursor-pointer rounded-2xl bg-linear-to-br from-primary-container to-primary text-on-primary-fixed font-bold shadow-xl shadow-primary/20 hover:opacity-90 active:scale-95 transition-all"
                   >
-                    Create Category
+                    {isSubmitting
+                      ? mode === "edit"
+                        ? "Updating..."
+                        : "Creating..."
+                      : mode === "edit"
+                        ? "Update Category"
+                        : "Create Category"}
                   </button>
                 </div>
               </form>

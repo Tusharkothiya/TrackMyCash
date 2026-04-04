@@ -1,5 +1,13 @@
 import React from "react";
 import {
+  ShoppingCart,
+  Home,
+  Activity,
+  GraduationCap,
+  Clapperboard,
+  PiggyBank,
+  Theater,
+  PawPrint,
   Server,
   Megaphone,
   Briefcase,
@@ -11,65 +19,36 @@ import {
   Trash2,
 } from "lucide-react";
 import { cn } from "@/lib/utils/helper";
+import type { Category } from "@/features/categories/types";
 
-export type CategoryIcon =
-  | "layout-grid"
-  | "receipt"
-  | "wallet"
-  | "bar-chart"
-  | "settings"
-  | "log-out"
-  | "search"
-  | "bell"
-  | "plus-circle"
-  | "edit"
-  | "trash-2"
-  | "sparkles"
-  | "server"
-  | "megaphone"
-  | "briefcase"
-  | "plane"
-  | "banknote"
-  | "lightbulb"
-  | "more-horizontal"
-  | "shopping-cart"
-  | "home"
-  | "activity"
-  | "graduation-cap"
-  | "clapperboard"
-  | "piggy-bank"
-  | "theater"
-  | "paw-print"
-  | "layers";
-
-export interface Category {
-  id: string;
-  name: string;
-  icon: CategoryIcon;
-  color: string;
-  transactionCount: number;
-  amount: number;
-  type: "expense" | "income";
-  overline?: string;
-}
-
-const IconMap: Record<CategoryIcon | string, any> = {
+const IconMap: Record<string, any> = {
   server: Server,
   megaphone: Megaphone,
   briefcase: Briefcase,
   plane: Plane,
   banknote: Banknote,
   lightbulb: Lightbulb,
+  "shopping-cart": ShoppingCart,
+  home: Home,
+  activity: Activity,
+  "graduation-cap": GraduationCap,
+  clapperboard: Clapperboard,
+  "piggy-bank": PiggyBank,
+  theater: Theater,
+  "paw-print": PawPrint,
   "more-horizontal": MoreHorizontal,
 };
 
 interface CategoryCardProps {
   category: Category;
+  onEdit?: (category: Category) => void;
   onDelete?: (id: string) => void;
 }
 
-export function CategoryCard({ category, onDelete }: CategoryCardProps) {
+export function CategoryCard({ category, onEdit, onDelete }: CategoryCardProps) {
   const Icon = IconMap[category.icon] || MoreHorizontal;
+  const amount = category.amount || 0;
+  const transactionCount = category.transactionCount || 0;
 
   return (
     <div className="bg-surface-container rounded-2xl p-6 transition-all hover:bg-surface-container-high group border border-transparent hover:border-outline-variant/10 shadow-sm h-full">
@@ -84,12 +63,15 @@ export function CategoryCard({ category, onDelete }: CategoryCardProps) {
           <Icon size={24} />
         </div>
         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button className="p-2 text-on-surface-variant hover:text-on-surface transition-colors rounded-lg hover:bg-surface-bright">
+          <button
+            onClick={() => onEdit?.(category)}
+            className="p-2 text-on-surface-variant cursor-pointer hover:text-on-surface transition-colors rounded-lg hover:bg-surface-bright"
+          >
             <Edit2 size={16} />
           </button>
           <button
-            onClick={() => onDelete?.(category.id)}
-            className="p-2 text-on-surface-variant hover:text-error transition-colors rounded-lg hover:bg-surface-bright"
+            onClick={() => onDelete?.(category._id)}
+            className="p-2 text-on-surface-variant cursor-pointer hover:text-error transition-colors rounded-lg hover:bg-surface-bright"
           >
             <Trash2 size={16} />
           </button>
@@ -106,7 +88,7 @@ export function CategoryCard({ category, onDelete }: CategoryCardProps) {
             style={{ backgroundColor: category.color }}
           ></span>
           <span className="text-xs text-on-surface-variant font-medium">
-            {category.transactionCount}{" "}
+            {transactionCount}{" "}
             {category.type === "income" ? "sources" : "transactions"} this month
           </span>
         </div>
@@ -124,7 +106,7 @@ export function CategoryCard({ category, onDelete }: CategoryCardProps) {
             )}
           >
             {category.type === "income" ? "+" : ""}$
-            {category.amount.toLocaleString(undefined, {
+            {amount.toLocaleString(undefined, {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}

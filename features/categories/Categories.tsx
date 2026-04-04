@@ -1,137 +1,165 @@
 "use client";
 
-import  { useState } from 'react';
-import { PlusCircle } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-import { CategoryCard } from './components/CategoryCard';
-import { InsightFooter } from './components/InsightFooter';
-import { AddCategoryModal } from './components/AddCategoryModal';
+import { useMemo, useState } from "react";
+import { PlusCircle } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { CategoryCard } from "./components/CategoryCard";
+import { InsightFooter } from "./components/InsightFooter";
+import { AddCategoryModal } from "./components/AddCategoryModal";
+import {
+  useCategories,
+  useCreateCategory,
+  useDeleteCategory,
+  useUpdateCategory,
+} from "@/hooks/useCategories";
+import { Category, CategoryPayload } from "./types";
+import { ConfirmActionModal } from "@/components/ui/ConfirmActionModal";
 
-export type CategoryIcon = 
-  | 'layout-grid' 
-  | 'receipt' 
-  | 'wallet' 
-  | 'bar-chart' 
-  | 'settings' 
-  | 'log-out' 
-  | 'search' 
-  | 'bell' 
-  | 'plus-circle' 
-  | 'edit' 
-  | 'trash-2' 
-  | 'sparkles' 
-  | 'server' 
-  | 'megaphone' 
-  | 'briefcase' 
-  | 'plane' 
-  | 'banknote' 
-  | 'lightbulb' 
-  | 'more-horizontal'
-  | 'shopping-cart'
-  | 'home'
-  | 'activity'
-  | 'graduation-cap'
-  | 'clapperboard'
-  | 'piggy-bank'
-  | 'theater'
-  | 'paw-print'
-  | 'layers';
+const CATEGORY_SKELETON_COUNT = 4;
 
+function CategoryCardSkeleton() {
+  return (
+    <div className="relative overflow-hidden rounded-2xl border border-outline-variant/10 bg-surface-container p-6 shadow-sm h-full">
+      <div className="pointer-events-none absolute inset-0 animate-pulse bg-linear-to-r from-transparent via-white/5 to-transparent" />
 
-export interface Category {
-  id: string;
-  name: string;
-  icon: CategoryIcon;
-  color: string;
-  transactionCount: number;
-  amount: number;
-  type: 'expense' | 'income';
-  overline?: string;
+      <div className="relative flex justify-between items-start mb-6">
+        <div className="h-12 w-12 rounded-2xl bg-surface-bright animate-pulse" />
+        <div className="flex gap-1">
+          <div className="h-9 w-9 rounded-lg bg-surface-bright animate-pulse" />
+          <div className="h-9 w-9 rounded-lg bg-surface-bright animate-pulse" />
+        </div>
+      </div>
+
+      <div className="relative space-y-3">
+        <div className="h-7 w-3/5 rounded-lg bg-surface-bright animate-pulse" />
+        <div className="flex items-center gap-2">
+          <div className="h-2 w-2 rounded-full bg-surface-bright animate-pulse" />
+          <div className="h-4 w-2/3 rounded-lg bg-surface-bright animate-pulse" />
+        </div>
+
+        <div className="mt-6 pt-6 border-t border-outline-variant/5 space-y-3">
+          <div className="h-3 w-28 rounded-lg bg-surface-bright animate-pulse" />
+          <div className="h-8 w-24 rounded-lg bg-surface-bright animate-pulse" />
+        </div>
+      </div>
+    </div>
+  );
 }
 
-const INITIAL_CATEGORIES: Category[] = [
-  {
-    id: '1',
-    name: 'Infrastructure',
-    icon: 'server',
-    color: '#b4c5ff',
-    transactionCount: 12,
-    amount: 4850.00,
-    type: 'expense',
-  },
-  {
-    id: '2',
-    name: 'Marketing',
-    icon: 'megaphone',
-    color: '#ffb596',
-    transactionCount: 28,
-    amount: 12300.00,
-    type: 'expense',
-  },
-  {
-    id: '3',
-    name: 'Operations',
-    icon: 'briefcase',
-    color: '#fb923c', // orange-400
-    transactionCount: 45,
-    amount: 8120.00,
-    type: 'expense',
-  },
-  {
-    id: '4',
-    name: 'Travel',
-    icon: 'plane',
-    color: '#2dd4bf', // teal-400
-    transactionCount: 6,
-    amount: 2400.50,
-    type: 'expense',
-  },
-  {
-    id: '5',
-    name: 'Income',
-    icon: 'banknote',
-    color: '#34d399', // emerald-400
-    transactionCount: 18,
-    amount: 24000.00,
-    type: 'income',
-  },
-  {
-    id: '6',
-    name: 'Consulting',
-    icon: 'lightbulb',
-    color: '#f472b6', // pink-400
-    transactionCount: 14,
-    amount: 5900.00,
-    type: 'expense',
-  },
-  {
-    id: '7',
-    name: 'Other',
-    icon: 'more-horizontal',
-    color: '#8d90a0',
-    transactionCount: 32,
-    amount: 1240.00,
-    type: 'expense',
-  }
-];
+function CreateCategorySkeleton() {
+  return (
+    <div className="relative overflow-hidden rounded-2xl border-2 border-dashed border-outline-variant/20 bg-surface-container-lowest p-6 min-h-60">
+      <div className="pointer-events-none absolute inset-0 animate-pulse bg-linear-to-r from-transparent via-white/5 to-transparent" />
+
+      <div className="relative h-full flex flex-col items-center justify-center text-center text-on-surface-variant">
+        <div className="h-14 w-14 rounded-full bg-surface-container animate-pulse mb-4" />
+        <div className="h-4 w-40 rounded-lg bg-surface-bright animate-pulse" />
+        <div className="mt-2 h-3 w-48 rounded-lg bg-surface-bright/80 animate-pulse" />
+      </div>
+    </div>
+  );
+}
 
 
 const Categories = () => {
-  const [categories, setCategories] = useState<Category[]>(INITIAL_CATEGORIES);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingCategory, setEditingCategory] = useState<Category | null>(null);
+  const [deleteCategoryId, setDeleteCategoryId] = useState<string | null>(null);
+  const [categoryType, setCategoryType] = useState<"all" | "expense" | "income">("all");
+  const [modalApiMessage, setModalApiMessage] = useState<string | null>(null);
+  const [deleteApiMessage, setDeleteApiMessage] = useState<string | null>(null);
 
-  const handleAddCategory = (newCat: Omit<Category, 'id' | 'transactionCount' | 'amount'>) => {
-    const category: Category = {
-      ...newCat,
-      id: Math.random().toString(36).substring(2, 9),
-      transactionCount: 0,
-      amount: 0,
-    };
-    setCategories(prev => [...prev, category]);
+  const createCategoryMutation = useCreateCategory();
+  const updateCategoryMutation = useUpdateCategory();
+  const deleteCategoryMutation = useDeleteCategory();
+
+  const typeFilter = categoryType === "all" ? undefined : categoryType;
+  const categoriesQuery = useCategories(typeFilter);
+
+  const categories: Category[] = useMemo(() => {
+    if (!categoriesQuery.data?.success || !Array.isArray(categoriesQuery.data?.data)) {
+      return [];
+    }
+    return categoriesQuery.data.data;
+  }, [categoriesQuery.data]);
+
+  const selectedCategory = useMemo(() => {
+    return editingCategory;
+  }, [editingCategory]);
+
+  const isSubmitting = createCategoryMutation.isPending || updateCategoryMutation.isPending;
+
+  const deleteCategoryData = useMemo(
+    () => categories.find((category) => category._id === deleteCategoryId) || null,
+    [categories, deleteCategoryId],
+  );
+
+  const handleModalOpenForCreate = () => {
+    setModalApiMessage(null);
+    setEditingCategory(null);
+    setIsModalOpen(true);
   };
 
-  const handleDeleteCategory = (id: string) => {
-    setCategories(prev => prev.filter(c => c.id !== id));
+  const handleModalOpenForEdit = (category: Category) => {
+    setModalApiMessage(null);
+    setEditingCategory(category);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalApiMessage(null);
+    setIsModalOpen(false);
+    setEditingCategory(null);
+  };
+
+  const handleCategorySave = async (payload: CategoryPayload) => {
+    setModalApiMessage(null);
+
+    if (editingCategory) {
+      const result = await updateCategoryMutation.mutateAsync({
+        categoryId: editingCategory._id,
+        payload,
+      });
+
+      if (!result?.success) {
+        setModalApiMessage(result?.message || "Unable to update category.");
+        return;
+      }
+
+      handleModalClose();
+      return;
+    }
+
+    const result = await createCategoryMutation.mutateAsync(payload);
+    if (!result?.success) {
+      setModalApiMessage(result?.message || "Unable to create category.");
+      return;
+    }
+
+    handleModalClose();
+  };
+
+  const handleDeletePromptOpen = (id: string) => {
+    setDeleteApiMessage(null);
+    setDeleteCategoryId(id);
+  };
+
+  const handleDeletePromptClose = () => {
+    if (deleteCategoryMutation.isPending) return;
+    setDeleteApiMessage(null);
+    setDeleteCategoryId(null);
+  };
+
+  const handleDeleteCategory = async () => {
+    if (!deleteCategoryId) return;
+
+    const result = await deleteCategoryMutation.mutateAsync(deleteCategoryId);
+    if (!result?.success) {
+      setDeleteApiMessage(result?.message || "Unable to delete category.");
+      return;
+    }
+
+    handleDeletePromptClose();
   };
 
   return (
@@ -152,7 +180,7 @@ const Categories = () => {
             </div>
             
             <button 
-              onClick={() => setIsModalOpen(true)}
+              onClick={handleModalOpenForCreate}
               className="px-6 py-3.5 cursor-pointer bg-linear-to-br from-primary-container to-primary text-on-primary-fixed font-bold rounded-2xl flex items-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-primary/10 active:scale-95"
             >
               <PlusCircle size={20} />
@@ -160,38 +188,72 @@ const Categories = () => {
             </button>
           </div>
 
+          <div className="flex items-center gap-3 mb-6">
+            {(["all", "expense", "income"] as const).map((type) => (
+              <button
+                key={type}
+                onClick={() => setCategoryType(type)}
+                className={`px-4 py-2 rounded-xl cursor-pointer text-xs font-bold uppercase tracking-wider transition-all ${
+                  categoryType === type
+                    ? "bg-primary text-on-primary-fixed"
+                    : "bg-surface-container-high text-on-surface-variant hover:text-on-surface"
+                }`}
+              >
+                {type}
+              </button>
+            ))}
+          </div>
+
           {/* Categories Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <AnimatePresence mode="popLayout">
-              {categories.map((category) => (
-                <motion.div
-                  key={category.id}
-                  layout
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  whileHover={{ y: -4 }}
-                >
-                  <CategoryCard 
-                    category={category} 
-                    onDelete={handleDeleteCategory}
-                  />
-                </motion.div>
-              ))}
-            </AnimatePresence>
+            {categoriesQuery.isLoading ? (
+              <>
+                {Array.from({ length: CATEGORY_SKELETON_COUNT }).map((_, index) => (
+                  <CategoryCardSkeleton key={`category-skeleton-${index}`} />
+                ))}
+                <CreateCategorySkeleton />
+              </>
+            ) : (
+              <>
+                <AnimatePresence mode="popLayout">
+                  {categories.map((category) => (
+                    <motion.div
+                      key={category._id}
+                      layout
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      whileHover={{ y: -4 }}
+                    >
+                      <CategoryCard 
+                        category={category} 
+                        onEdit={handleModalOpenForEdit}
+                        onDelete={handleDeletePromptOpen}
+                      />
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
 
-            {/* Add New Category Placeholder */}
-            <motion.button 
-              whileHover={{ y: -4 }}
-              onClick={() => setIsModalOpen(true)}
-              className="bg-surface-container-lowest cursor-pointer border-2 border-dashed border-outline-variant/20 rounded-2xl p-6 flex flex-col items-center justify-center text-on-surface-variant hover:border-primary/50 hover:text-primary transition-all group min-h-60"
-            >
-              <div className="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <PlusCircle size={32} />
-              </div>
-              <span className="font-bold text-sm tracking-wide">Create Custom Category</span>
-              <p className="text-[10px] text-on-surface-variant/60 mt-1 uppercase tracking-widest font-bold">Define a new tracking group</p>
-            </motion.button>
+                {!categoriesQuery.isLoading && categories.length === 0 && (
+                  <div className="col-span-full bg-surface-container rounded-2xl p-10 text-center text-on-surface-variant font-medium">
+                    No categories found for this filter.
+                  </div>
+                )}
+
+                {/* Add New Category Placeholder */}
+                <motion.button 
+                  whileHover={{ y: -4 }}
+                  onClick={handleModalOpenForCreate}
+                  className="bg-surface-container-lowest cursor-pointer border-2 border-dashed border-outline-variant/20 rounded-2xl p-6 flex flex-col items-center justify-center text-on-surface-variant hover:border-primary/50 hover:text-primary transition-all group min-h-60"
+                >
+                  <div className="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <PlusCircle size={32} />
+                  </div>
+                  <span className="font-bold text-sm tracking-wide">Create Custom Category</span>
+                  <p className="text-[10px] text-on-surface-variant/60 mt-1 uppercase tracking-widest font-bold">Define a new tracking group</p>
+                </motion.button>
+              </>
+            )}
           </div>
 
           {/* Footer Insight */}
@@ -201,8 +263,30 @@ const Categories = () => {
 
       <AddCategoryModal 
         isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        onAdd={handleAddCategory}
+        mode={editingCategory ? "edit" : "create"}
+        isSubmitting={isSubmitting}
+        initialValues={selectedCategory || undefined}
+        apiMessage={modalApiMessage}
+        onClose={handleModalClose}
+        onSubmit={handleCategorySave}
+      />
+
+      <ConfirmActionModal
+        isOpen={Boolean(deleteCategoryId)}
+        intent="delete"
+        variant="danger"
+        title="Delete category?"
+        description={
+          deleteCategoryData
+            ? `This will permanently delete ${deleteCategoryData.name}. This action cannot be undone.`
+            : "This action cannot be undone."
+        }
+        confirmLabel="Delete"
+        cancelLabel="Keep"
+        apiMessage={deleteApiMessage}
+        isLoading={deleteCategoryMutation.isPending}
+        onClose={handleDeletePromptClose}
+        onConfirm={handleDeleteCategory}
       />
     </div>
   );

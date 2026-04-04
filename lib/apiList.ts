@@ -9,5 +9,7 @@ export const apiList = {
   forgotPassword: `${BASE_API_URL}auth/forgot-password`,
   changePassword: `${BASE_API_URL}auth/change-password`,
   currentUser: `${BASE_API_URL}users/me`,
+  categories: `${BASE_API_URL}categories`,
+  categoryById: (id: string) => `${BASE_API_URL}categories/${id}`,
   test: `${BASE_API_URL}test`,
 };
