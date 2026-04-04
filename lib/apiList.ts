@@ -18,5 +18,8 @@ export const apiList = {
   // BUDGETS APIS
   budgets: `${BASE_API_URL}budgets`,
   budgetById: (id: string) => `${BASE_API_URL}budgets/${id}`,
+  // TRANSACTIONS APIS
+  transactions: `${BASE_API_URL}transactions`,
+  transactionById: (id: string) => `${BASE_API_URL}transactions/${id}`,
   test: `${BASE_API_URL}test`,
 };

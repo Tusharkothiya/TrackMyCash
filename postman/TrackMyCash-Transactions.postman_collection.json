@@ -1,0 +1,896 @@
+{
+  "info": {
+    "_postman_id": "1f3f5f09-5c5c-4ec4-9fdb-86ea1bbf7452",
+    "name": "TrackMyCash Transactions API",
+    "description": "Collection for testing auth, account/category seed, and transaction CRUD endpoints in TrackMyCash.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "email",
+      "value": "john.doe@example.com"
+    },
+    {
+      "key": "password",
+      "value": "Password@123"
+    },
+    {
+      "key": "timeZone",
+      "value": "Asia/Kolkata"
+    },
+    {
+      "key": "role",
+      "value": "USER"
+    },
+    {
+      "key": "authToken",
+      "value": ""
+    },
+    {
+      "key": "expenseCategoryId",
+      "value": ""
+    },
+    {
+      "key": "incomeCategoryId",
+      "value": ""
+    },
+    {
+      "key": "accountId",
+      "value": ""
+    },
+    {
+      "key": "destinationAccountId",
+      "value": ""
+    },
+    {
+      "key": "transactionId",
+      "value": ""
+    },
+    {
+      "key": "transferTransactionId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"John Doe\",\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"timeZone\": \"{{timeZone}}\",\n  \"role\": \"{{role}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const res = pm.response.json();",
+                  "if (res && res.success && res.data && res.data.token) {",
+                  "  pm.collectionVariables.set('authToken', res.data.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"timezone\": \"{{timeZone}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Seed Data",
+      "item": [
+        {
+          "name": "Create Expense Category",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const res = pm.response.json();",
+                  "if (res && res.success && res.data && res.data._id) {",
+                  "  pm.collectionVariables.set('expenseCategoryId', res.data._id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Food and Dining\",\n  \"icon\": \"utensils\",\n  \"color\": \"#ffb596\",\n  \"type\": \"expense\",\n  \"overline\": \"Monthly essentials\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Income Category",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const res = pm.response.json();",
+                  "if (res && res.success && res.data && res.data._id) {",
+                  "  pm.collectionVariables.set('incomeCategoryId', res.data._id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Salary\",\n  \"icon\": \"banknote\",\n  \"color\": \"#a4b6f5\",\n  \"type\": \"income\",\n  \"overline\": \"Primary income\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Source Account",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const res = pm.response.json();",
+                  "if (res && res.success && res.data && res.data._id) {",
+                  "  pm.collectionVariables.set('accountId', res.data._id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Main Checking\",\n  \"type\": \"Bank\",\n  \"currency\": \"USD\",\n  \"balance\": 15000,\n  \"color\": \"#2563eb\",\n  \"icon\": \"bank\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/accounts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Destination Account",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const res = pm.response.json();",
+                  "if (res && res.success && res.data && res.data._id) {",
+                  "  pm.collectionVariables.set('destinationAccountId', res.data._id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Savings Vault\",\n  \"type\": \"Bank\",\n  \"currency\": \"USD\",\n  \"balance\": 5000,\n  \"color\": \"#33467e\",\n  \"icon\": \"bank\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/accounts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "accounts"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "Create Expense Transaction",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const res = pm.response.json();",
+                  "if (res && res.success && res.data && res.data._id) {",
+                  "  pm.collectionVariables.set('transactionId', res.data._id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Blue Hill Restaurant\",\n  \"amount\": 245.50,\n  \"type\": \"Expense\",\n  \"status\": \"Completed\",\n  \"transactionDate\": \"2026-04-04\",\n  \"accountId\": \"{{accountId}}\",\n  \"categoryId\": \"{{expenseCategoryId}}\",\n  \"notes\": \"Weekend family dinner\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/transactions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "transactions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Income Transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Monthly Salary\",\n  \"amount\": 8500,\n  \"type\": \"Income\",\n  \"status\": \"Completed\",\n  \"transactionDate\": \"2026-04-01\",\n  \"accountId\": \"{{accountId}}\",\n  \"categoryId\": \"{{incomeCategoryId}}\",\n  \"notes\": \"Salary credit\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/transactions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "transactions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Transfer Transaction",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const res = pm.response.json();",
+                  "if (res && res.success && res.data && res.data._id) {",
+                  "  pm.collectionVariables.set('transferTransactionId', res.data._id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Monthly Savings Transfer\",\n  \"amount\": 1000,\n  \"type\": \"Transfer\",\n  \"status\": \"Completed\",\n  \"transactionDate\": \"2026-04-03\",\n  \"accountId\": \"{{accountId}}\",\n  \"destinationAccountId\": \"{{destinationAccountId}}\",\n  \"notes\": \"Move to savings\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/transactions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "transactions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Pending Expense Transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Electric Bill\",\n  \"amount\": 112.10,\n  \"type\": \"Expense\",\n  \"status\": \"Pending\",\n  \"transactionDate\": \"2026-04-02\",\n  \"accountId\": \"{{accountId}}\",\n  \"categoryId\": \"{{expenseCategoryId}}\",\n  \"notes\": \"Payment not settled yet\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/transactions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "transactions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Transactions (Default)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/transactions?page=1&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Transactions - Search",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/transactions?search=salary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "salary"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Transactions - Filter Type",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/transactions?type=Expense",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "Expense"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Transactions - Filter Status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/transactions?status=Completed",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "Completed"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Transactions - Filter Account",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/transactions?accountId={{accountId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "key": "accountId",
+                  "value": "{{accountId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Transactions - Filter Category",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/transactions?categoryId={{expenseCategoryId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "key": "categoryId",
+                  "value": "{{expenseCategoryId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Transactions - Date Range",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/transactions?dateFrom=2026-04-01&dateTo=2026-04-30",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "key": "dateFrom",
+                  "value": "2026-04-01"
+                },
+                {
+                  "key": "dateTo",
+                  "value": "2026-04-30"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transaction By Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/transactions/{{transactionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "transactions",
+                "{{transactionId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Transaction - Amount and Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 300.75,\n  \"status\": \"Completed\",\n  \"notes\": \"Updated after final bill\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/transactions/{{transactionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "transactions",
+                "{{transactionId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Transfer Transaction",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 1200,\n  \"notes\": \"Adjusted savings allocation\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/transactions/{{transferTransactionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "transactions",
+                "{{transferTransactionId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Transfer Transaction",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/transactions/{{transferTransactionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "transactions",
+                "{{transferTransactionId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Transaction",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/transactions/{{transactionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "transactions",
+                "{{transactionId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
