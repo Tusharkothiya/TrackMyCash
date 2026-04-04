@@ -15,5 +15,8 @@ export const apiList = {
   // ACCOUNTS APIS
   accounts: `${BASE_API_URL}accounts`,
   accountById: (id: string) => `${BASE_API_URL}accounts/${id}`,
+  // BUDGETS APIS
+  budgets: `${BASE_API_URL}budgets`,
+  budgetById: (id: string) => `${BASE_API_URL}budgets/${id}`,
   test: `${BASE_API_URL}test`,
 };

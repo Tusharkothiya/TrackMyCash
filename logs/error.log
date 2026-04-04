@@ -923,3 +923,28 @@ Details: JsonWebTokenError: jwt malformed
 --------------------------------------------------
 [2026-04-04T12:29:32.292Z] ERROR: Failure Response: Invalid or expired token
 --------------------------------------------------
+[2026-04-04T13:01:07.203Z] ERROR: Failure Response: Category ID is required
+--------------------------------------------------
+[2026-04-04T13:03:20.284Z] ERROR: Failure Response: Currency must be USD, INR, EUR, or GBP
+--------------------------------------------------
+[2026-04-04T13:03:27.122Z] ERROR: Failure Response: budget.alreadyExists
+--------------------------------------------------
+[2026-04-04T13:07:37.048Z] ERROR: JWT verification failed:
+Details: JsonWebTokenError: jwt malformed
+    at module.exports [as verify] (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__00e68339._.js:12744:21)
+    at Object.vJT (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__ae7d5d50._.js:330:172)
+    at getAuthenticatedUser (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__08c667e7._.js:702:146)
+    at Object.deleteBudget (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__08c667e7._.js:952:32)
+    at E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__5b53d522._.js:1120:169
+    at E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__ae7d5d50._.js:221:26
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async AppRouteRouteModule.do (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:37866)
+--------------------------------------------------
+[2026-04-04T13:07:37.050Z] ERROR: Failure Response: Invalid or expired token
+--------------------------------------------------
+[2026-04-04T13:08:04.928Z] ERROR: Failure Response: Currency must be USD, INR, EUR, or GBP
+--------------------------------------------------
+[2026-04-04T13:32:07.136Z] ERROR: Failure Response: budget.alreadyExists
+--------------------------------------------------
+[2026-04-04T13:33:30.489Z] ERROR: Failure Response: Budget already exists for this category and frequency
+--------------------------------------------------

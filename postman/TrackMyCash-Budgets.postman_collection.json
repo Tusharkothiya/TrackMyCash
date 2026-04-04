@@ -1,0 +1,588 @@
+{
+  "info": {
+    "_postman_id": "ah1hdj5f-8fd1-6h8d-1h84-8g3f95g1e343",
+    "name": "TrackMyCash Budgets API",
+    "description": "Collection for testing auth and budget CRUD endpoints in TrackMyCash.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "email",
+      "value": "john.doe@example.com"
+    },
+    {
+      "key": "password",
+      "value": "Password@123"
+    },
+    {
+      "key": "timeZone",
+      "value": "Asia/Kolkata"
+    },
+    {
+      "key": "role",
+      "value": "USER"
+    },
+    {
+      "key": "authToken",
+      "value": ""
+    },
+    {
+      "key": "budgetId",
+      "value": ""
+    },
+    {
+      "key": "categoryId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"John Doe\",\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"timeZone\": \"{{timeZone}}\",\n  \"role\": \"{{role}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const res = pm.response.json();",
+                  "if (res && res.success && res.data && res.data.token) {",
+                  "  pm.collectionVariables.set('authToken', res.data.token);",
+                  "}",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"timezone\": \"{{timeZone}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Create Category - Marketing",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const res = pm.response.json();",
+                  "if (res && res.success && res.data && res.data._id) {",
+                  "  pm.collectionVariables.set('categoryId', res.data._id);",
+                  "}",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Marketing\",\n  \"icon\": \"megaphone\",\n  \"color\": \"#ffb596\",\n  \"type\": \"expense\",\n  \"overline\": \"Q2 Campaigns\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Budgets",
+      "item": [
+        {
+          "name": "Create Budget - Marketing Monthly",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const res = pm.response.json();",
+                  "if (res && res.success && res.data && res.data._id) {",
+                  "  pm.collectionVariables.set('budgetId', res.data._id);",
+                  "}",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryId\": \"{{categoryId}}\",\n  \"budgetLimit\": 2200,\n  \"frequency\": \"Monthly\",\n  \"activationDate\": \"2026-04-01\",\n  \"currency\": \"USD\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/budgets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "budgets"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Budget - Infrastructure Quarterly",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryId\": \"{{categoryId}}\",\n  \"budgetLimit\": 4500,\n  \"frequency\": \"Quarterly\",\n  \"activationDate\": \"2026-01-01\",\n  \"currency\": \"USD\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/budgets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "budgets"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Budget - Operations Yearly",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryId\": \"{{categoryId}}\",\n  \"budgetLimit\": 25000,\n  \"frequency\": \"Yearly\",\n  \"activationDate\": \"2026-01-01\",\n  \"currency\": \"USD\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/budgets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "budgets"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Budget - INR Currency",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryId\": \"{{categoryId}}\",\n  \"budgetLimit\": 150000,\n  \"frequency\": \"Monthly\",\n  \"activationDate\": \"2026-04-01\",\n  \"currency\": \"INR\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/budgets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "budgets"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List All Budgets",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/budgets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "budgets"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Budget By Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/budgets/{{budgetId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "budgets",
+                "{{budgetId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Budget - Limit Only",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"budgetLimit\": 2500\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/budgets/{{budgetId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "budgets",
+                "{{budgetId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Budget - Frequency Only",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"frequency\": \"Quarterly\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/budgets/{{budgetId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "budgets",
+                "{{budgetId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Budget - Activation Date",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"activationDate\": \"2026-05-01\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/budgets/{{budgetId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "budgets",
+                "{{budgetId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Budget - Currency",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currency\": \"EUR\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/budgets/{{budgetId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "budgets",
+                "{{budgetId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Budget - All Fields",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"budgetLimit\": 3000,\n  \"frequency\": \"Monthly\",\n  \"activationDate\": \"2026-04-15\",\n  \"currency\": \"USD\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/budgets/{{budgetId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "budgets",
+                "{{budgetId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Budget",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "_next_refresh_token_tmc_={{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/client/v1/budgets/{{budgetId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "client",
+                "v1",
+                "budgets",
+                "{{budgetId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

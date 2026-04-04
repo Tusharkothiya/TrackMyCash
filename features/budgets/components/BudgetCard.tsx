@@ -1,151 +1,183 @@
 "use client"
-
-import { cn } from "@/lib/utils/helper";
-import { Cpu, Megaphone, Pencil, Plane, Trash2, Wrench } from "lucide-react";
+import {
+  Activity,
+  Banknote,
+  Briefcase,
+  Edit2,
+  GraduationCap,
+  Home,
+  Landmark,
+  LayoutGrid,
+  Lightbulb,
+  Megaphone,
+  MoreHorizontal,
+  PawPrint,
+  PiggyBank,
+  Plane,
+  ReceiptText,
+  ShoppingCart,
+  Theater,
+  Trash2,
+  Wallet,
+  Wrench,
+} from "lucide-react";
 import { motion } from "motion/react";
 
-interface Budget {
-  id: string;
-  title: string;
-  subtitle: string;
-  spent: number;
-  total: number;
-  icon: any;
-  color: string;
-  critical?: boolean;
+import { cn } from "@/lib/utils/helper";
+
+import type { Budget, BudgetCategory } from "../types";
+
+const ICON_MAP: Record<string, any> = {
+  "shopping-cart": ShoppingCart,
+  home: Home,
+  plane: Plane,
+  activity: Activity,
+  "graduation-cap": GraduationCap,
+  banknote: Banknote,
+  clapperboard: Theater,
+  "piggy-bank": PiggyBank,
+  theater: Theater,
+  "paw-print": PawPrint,
+  "more-horizontal": MoreHorizontal,
+  "layout-grid": LayoutGrid,
+  receipt: ReceiptText,
+  wallet: Wallet,
+  "bar-chart": Lightbulb,
+  settings: Wrench,
+  "log-out": MoreHorizontal,
+  search: MoreHorizontal,
+  bell: MoreHorizontal,
+  "plus-circle": LayoutGrid,
+  edit: Edit2,
+  "trash-2": Trash2,
+  sparkles: Lightbulb,
+  server: Landmark,
+  megaphone: Megaphone,
+  briefcase: Briefcase,
+  lightbulb: Lightbulb,
+};
+
+function resolveCategory(budget: Budget): BudgetCategory {
+  if (typeof budget.categoryId !== "string") {
+    return budget.categoryId;
+  }
+
+  return {
+    _id: budget.categoryId,
+    name: "Unassigned category",
+    icon: "more-horizontal",
+    color: "#64748b",
+    type: "expense",
+  };
 }
 
-const INITIAL_BUDGETS: Budget[] = [
-  {
-    id: "1",
-    title: "Infrastructure",
-    subtitle: "Cloud services & Hosting",
-    spent: 940,
-    total: 1500,
-    icon: Cpu,
-    color: "text-primary",
-  },
-  {
-    id: "2",
-    title: "Marketing",
-    subtitle: "Paid Ads & Social Media",
-    spent: 1460,
-    total: 2200,
-    icon: Megaphone,
-    color: "text-primary",
-  },
-  {
-    id: "3",
-    title: "Operations",
-    subtitle: "Office supplies & Rent",
-    spent: 1240,
-    total: 1800,
-    icon: Wrench,
-    color: "text-primary",
-  },
-  {
-    id: "4",
-    title: "Travel",
-    subtitle: "Flights & Accommodations",
-    spent: 720,
-    total: 900,
-    icon: Plane,
-    color: "text-tertiary",
-    critical: true,
-  },
-];
+function formatMoney(amount: number, currency: string) {
+  try {
+    return new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency,
+      maximumFractionDigits: 2,
+    }).format(amount);
+  } catch {
+    return `${currency} ${amount.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  }
+}
 
+interface BudgetCardProps {
+  budget: Budget;
+  onEdit?: (budget: Budget) => void;
+  onDelete?: (id: string) => void;
+}
 
-
-const BudgetCard = ({ budget }: { budget: Budget; key?: string }) => {
-    const percentage = Math.round((budget.spent / budget.total) * 100);
-
+const BudgetCard = ({ budget, onEdit, onDelete }: BudgetCardProps) => {
+  const category = resolveCategory(budget);
+  const CategoryIcon = ICON_MAP[category.icon] || MoreHorizontal;
+  const spentAmount = Math.max(0, budget.spentAmount || 0);
+  const totalAmount = Math.max(0, budget.budgetLimit || 0);
+  const percentage = totalAmount > 0 ? Math.min(100, Math.round((spentAmount / totalAmount) * 100)) : 0;
+  const isCritical = percentage >= 80;
 
   return (
     <motion.div
       whileHover={{ x: 4 }}
       className={cn(
-        "bg-surface-container hover:bg-surface-container-high transition-all p-6 rounded-xl flex items-center gap-8 group border-l-4 border-transparent",
-        budget.critical && "border-tertiary",
+        "group flex items-center gap-8 rounded-xl border-l-4 border-transparent bg-surface-container p-6 transition-all hover:bg-surface-container-high",
+        isCritical && "border-tertiary",
       )}
     >
       <div
-        className={cn(
-          "w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center",
-          budget.color,
-        )}
+        className="flex h-14 w-14 items-center justify-center rounded-full bg-surface-container-highest"
+        style={{ color: category.color }}
       >
-        <budget.icon size={32} />
+        <CategoryIcon size={30} />
       </div>
 
       <div className="flex-1">
-        <div className="flex justify-between items-end mb-4">
+        <div className="mb-4 flex justify-between items-end">
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-xl font-bold text-on-surface">
-                {budget.title}
-              </h3>
-              {budget.critical && (
-                <span className="bg-tertiary/20 text-tertiary text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-tighter">
+              <h3 className="text-xl font-bold text-on-surface">{category.name}</h3>
+              <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-tighter text-primary">
+                {budget.frequency}
+              </span>
+              {isCritical && (
+                <span className="rounded-full bg-tertiary/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-tighter text-tertiary">
                   Critical
                 </span>
               )}
             </div>
-            <p className="text-sm text-on-surface-variant">{budget.subtitle}</p>
+            <p className="text-sm text-on-surface-variant">
+              {category.type} budget in {budget.currency}
+            </p>
           </div>
           <div className="text-right">
-            <span
-              className={cn(
-                "text-2xl font-bold",
-                budget.critical ? "text-tertiary" : "text-on-surface",
-              )}
-            >
-              ${budget.spent.toLocaleString()}
+            <span className={cn("text-2xl font-bold", isCritical ? "text-tertiary" : "text-on-surface")}>
+              {formatMoney(spentAmount, budget.currency)}
             </span>
-            <span className="text-on-surface-variant font-medium">
-              {" "}
-              / ${budget.total.toLocaleString()}
+            <span className="font-medium text-on-surface-variant">
+              {" "}/ {formatMoney(totalAmount, budget.currency)}
             </span>
           </div>
         </div>
 
-        <div className="h-2.5 w-full bg-surface-container-lowest rounded-full overflow-hidden">
+        <div className="h-2.5 w-full overflow-hidden rounded-full bg-surface-container-lowest">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${percentage}%` }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className={cn(
-              "h-full rounded-full",
-              budget.critical ? "bg-tertiary" : "bg-primary",
-            )}
+            className={cn("h-full rounded-full", isCritical ? "bg-tertiary" : "bg-primary")}
           />
         </div>
       </div>
 
-      <div className="flex flex-col items-center gap-1 w-24">
-        <span
-          className={cn(
-            "font-black text-xl",
-            budget.critical ? "text-tertiary" : "text-primary",
-          )}
-        >
+      <div className="w-24 flex flex-col items-center gap-1">
+        <span className={cn("text-xl font-black", isCritical ? "text-tertiary" : "text-primary")}>
           {percentage}%
         </span>
-        <span className="text-[10px] uppercase font-bold text-on-surface-variant">
-          Used
-        </span>
+        <span className="text-[10px] font-bold uppercase text-on-surface-variant">Used</span>
       </div>
 
-      <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-        <button className="p-2 hover:bg-surface-bright rounded-lg text-on-surface-variant transition-colors cursor-pointer">
-          <Pencil size={18} />
+      <div className="flex gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+        <button
+          type="button"
+          onClick={() => onEdit?.(budget)}
+          className="cursor-pointer rounded-lg p-2 text-on-surface-variant transition-colors hover:bg-surface-bright"
+        >
+          <Edit2 size={18} />
         </button>
-        <button className="p-2 hover:bg-error/10 rounded-lg text-error transition-colors cursor-pointer">
+        <button
+          type="button"
+          onClick={() => onDelete?.(budget._id)}
+          className="cursor-pointer rounded-lg p-2 text-error transition-colors hover:bg-error/10"
+        >
           <Trash2 size={18} />
         </button>
       </div>
     </motion.div>
-  )
-}
+  );
+};
 
-export default BudgetCard
+export default BudgetCard;

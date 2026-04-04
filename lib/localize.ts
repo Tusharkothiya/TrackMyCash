@@ -26,7 +26,20 @@ export function _localize(key: string, req?: any): string {
     "category.updateSuccess": "Category updated successfully",
     "category.deleteSuccess": "Category deleted successfully",
     "category.notFound": "Category not found",
-    "category.alreadyExists": "Category already exists"
+    "category.alreadyExists": "Category already exists",
+    "budget.createSuccess": "Budget created successfully",
+    "budget.fetchSuccess": "Budget fetched successfully",
+    "budget.updateSuccess": "Budget updated successfully",
+    "budget.deleteSuccess": "Budget deleted successfully",
+    "budget.notFound": "Budget not found",
+    "budget.invalidId": "Invalid budget ID",
+    "budget.invalidCategoryId": "Invalid category ID",
+    "budget.categoryNotFound": "Category not found",
+    "budget.alreadyExists": "Budget already exists for this category and frequency",
+    "budget.fetchError": "Failed to fetch budget data",
+    "budget.createError": "Failed to create budget",
+    "budget.updateError": "Failed to update budget",
+    "budget.deleteError": "Failed to delete budget"
 
   };
 
