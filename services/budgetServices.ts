@@ -2,6 +2,7 @@ import { jwtUtils } from "@/configs/jwt";
 import { logger } from "@/lib/logger";
 import Budget from "@/models/Budgets.model";
 import Category from "@/models/Categories.model";
+import Transaction from "@/models/Transactions.model";
 import User from "@/models/Users.model";
 import { Types } from "mongoose";
 
@@ -17,6 +18,23 @@ type BudgetPayload = {
   frequency: "Monthly" | "Quarterly" | "Yearly";
   activationDate: Date | string;
   currency?: "USD" | "INR" | "EUR" | "GBP";
+};
+
+type BudgetWithCategory = {
+  _id: Types.ObjectId;
+  userId?: Types.ObjectId;
+  categoryId:
+    | Types.ObjectId
+    | {
+        _id: Types.ObjectId;
+        type?: "expense" | "income";
+      };
+  budgetLimit: number;
+  frequency: "Monthly" | "Quarterly" | "Yearly";
+  activationDate: Date;
+  currency: "USD" | "INR" | "EUR" | "GBP";
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 function getCookieValue(request: Request, key: string): string | null {
@@ -85,6 +103,92 @@ async function getAuthenticatedUser(request: Request): Promise<ServiceResult> {
   };
 }
 
+function getBudgetWindow(
+  frequency: "Monthly" | "Quarterly" | "Yearly",
+  activationDate: Date,
+): { from: Date; to: Date } {
+  const now = new Date();
+  const to = new Date(now.getTime());
+
+  let from: Date;
+  if (frequency === "Monthly") {
+    from = new Date(now.getFullYear(), now.getMonth(), 1);
+  } else if (frequency === "Quarterly") {
+    const quarterStartMonth = Math.floor(now.getMonth() / 3) * 3;
+    from = new Date(now.getFullYear(), quarterStartMonth, 1);
+  } else {
+    from = new Date(now.getFullYear(), 0, 1);
+  }
+
+  const normalizedActivationDate = new Date(activationDate);
+  if (!Number.isNaN(normalizedActivationDate.getTime()) && normalizedActivationDate > from) {
+    from = normalizedActivationDate;
+  }
+
+  return { from, to };
+}
+
+function resolveCategoryObject(
+  category: BudgetWithCategory["categoryId"],
+): { _id: Types.ObjectId; type?: "expense" | "income" } | null {
+  if (!category) return null;
+
+  if (category instanceof Types.ObjectId) {
+    return { _id: category };
+  }
+
+  if (typeof category === "object" && "_id" in category) {
+    return {
+      _id: category._id,
+      type: category.type,
+    };
+  }
+
+  return null;
+}
+
+async function attachSpentAmount(
+  userId: Types.ObjectId,
+  budget: BudgetWithCategory,
+): Promise<BudgetWithCategory & { spentAmount: number }> {
+  const category = resolveCategoryObject(budget.categoryId);
+  if (!category?._id) {
+    return {
+      ...budget,
+      spentAmount: 0,
+    };
+  }
+
+  const transactionType = category.type === "income" ? "Income" : "Expense";
+  const window = getBudgetWindow(budget.frequency, new Date(budget.activationDate));
+
+  const [summary] = await Transaction.aggregate([
+    {
+      $match: {
+        userId,
+        categoryId: category._id,
+        type: transactionType,
+        status: "Completed",
+        transactionDate: {
+          $gte: window.from,
+          $lte: window.to,
+        },
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        total: { $sum: "$amount" },
+      },
+    },
+  ]);
+
+  return {
+    ...budget,
+    spentAmount: Number(summary?.total || 0),
+  };
+}
+
 export const budgetServices = {
   getBudgets: async (request: Request): Promise<ServiceResult> => {
     try {
@@ -95,18 +199,22 @@ export const budgetServices = {
 
       const user = auth.data as { _id: Types.ObjectId };
 
-      const budgets = await Budget.find({ userId: user._id })
+      const budgets = (await Budget.find({ userId: user._id })
         .populate({
           path: "categoryId",
           select: "name icon color type",
         })
         .select("-userId")
         .sort({ activationDate: -1 })
-        .lean();
+        .lean()) as BudgetWithCategory[];
+
+      const budgetsWithSpentAmount = await Promise.all(
+        budgets.map((budget) => attachSpentAmount(user._id, budget)),
+      );
 
       return {
         flag: true,
-        data: budgets,
+        data: budgetsWithSpentAmount,
       };
     } catch (error) {
       logger.error("Error fetching budgets:", error);
@@ -135,7 +243,7 @@ export const budgetServices = {
         };
       }
 
-      const budget = await Budget.findOne({
+      const budget = (await Budget.findOne({
         _id: new Types.ObjectId(budgetId),
         userId: user._id,
       })
@@ -143,7 +251,8 @@ export const budgetServices = {
           path: "categoryId",
           select: "name icon color type",
         })
-        .select("-userId");
+        .select("-userId")
+        .lean()) as BudgetWithCategory | null;
 
       if (!budget) {
         return {
@@ -153,9 +262,11 @@ export const budgetServices = {
         };
       }
 
+      const budgetWithSpentAmount = await attachSpentAmount(user._id, budget);
+
       return {
         flag: true,
-        data: budget,
+        data: budgetWithSpentAmount,
       };
     } catch (error) {
       logger.error("Error fetching budget:", error);

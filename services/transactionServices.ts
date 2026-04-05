@@ -146,6 +146,14 @@ function applyBalanceEffect(
   }
 
   if (type === "Expense") {
+    if (direction === 1 && account.balance < amount) {
+      return {
+        flag: false,
+        data: "transaction.insufficientBalance",
+        status: 400,
+      };
+    }
+
     account.balance -= direction * amount;
     return assertBalanceInRange(account.balance);
   }
@@ -154,6 +162,14 @@ function applyBalanceEffect(
     return {
       flag: false,
       data: "transaction.destinationAccountRequired",
+      status: 400,
+    };
+  }
+
+  if (direction === 1 && account.balance < amount) {
+    return {
+      flag: false,
+      data: "transaction.insufficientBalance",
       status: 400,
     };
   }
@@ -246,6 +262,29 @@ function toPositiveNumber(value: number): number {
   return Math.abs(Number(value || 0));
 }
 
+function ensureSufficientBalance(
+  balance: number,
+  amount: number,
+): ServiceResult | null {
+  if (!Number.isFinite(balance)) {
+    return {
+      flag: false,
+      data: "transaction.insufficientBalance",
+      status: 400,
+    };
+  }
+
+  if (amount > balance) {
+    return {
+      flag: false,
+      data: "transaction.insufficientBalance",
+      status: 400,
+    };
+  }
+
+  return null;
+}
+
 export const transactionServices = {
   getTransactions: async (request: Request): Promise<ServiceResult> => {
     try {
@@ -321,6 +360,7 @@ export const transactionServices = {
               status: 400,
             };
           }
+          fromDate.setHours(0, 0, 0, 0);
           query.transactionDate.$gte = fromDate;
         }
 
@@ -333,6 +373,7 @@ export const transactionServices = {
               status: 400,
             };
           }
+          toDate.setHours(23, 59, 59, 999);
           query.transactionDate.$lte = toDate;
         }
       }
@@ -533,6 +574,14 @@ export const transactionServices = {
         }
 
         const amount = toPositiveNumber(nextPayload.amount);
+
+        if (nextPayload.type === "Expense" || nextPayload.type === "Transfer") {
+          const balanceError = ensureSufficientBalance(Number(account.balance), amount);
+          if (balanceError) {
+            return balanceError;
+          }
+        }
+
         if (nextPayload.status === "Completed") {
           const balanceResult = applyBalanceEffect(
             account,
@@ -760,6 +809,13 @@ export const transactionServices = {
           }
         }
 
+        if (nextType === "Expense" || nextType === "Transfer") {
+          const balanceError = ensureSufficientBalance(Number(sourceAccount.balance), nextAmount);
+          if (balanceError) {
+            return balanceError;
+          }
+        }
+
         if (nextStatus === "Completed") {
           const applyResult = applyBalanceEffect(
             sourceAccount,
@@ -920,9 +976,23 @@ export const transactionServices = {
 
         await Transaction.deleteOne({ _id: transaction._id, userId: user._id }).session(session);
 
+        const updatedAccounts = await Account.find({
+          _id: {
+            $in: [transaction.accountId, transaction.destinationAccountId].filter(Boolean),
+          },
+          userId: user._id,
+        })
+          .select("-userId")
+          .session(session)
+          .lean();
+
         return {
           flag: true,
-          data: { _id: transaction._id },
+          data: {
+            _id: transaction._id,
+            updatedAccounts,
+            affectedCategoryId: transaction.categoryId || null,
+          },
         } as ServiceResult;
       });
 

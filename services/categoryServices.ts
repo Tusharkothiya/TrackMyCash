@@ -1,6 +1,7 @@
 import { jwtUtils } from "@/configs/jwt";
 import { logger } from "@/lib/logger";
 import Category from "@/models/Categories.model";
+import Transaction from "@/models/Transactions.model";
 import User from "@/models/Users.model";
 import { Types } from "mongoose";
 
@@ -84,6 +85,55 @@ async function getAuthenticatedUser(request: Request): Promise<ServiceResult> {
   };
 }
 
+type CategoryTxnSummary = {
+  _id: Types.ObjectId;
+  transactionCount: number;
+  amount: number;
+};
+
+function getCurrentMonthWindow() {
+  const now = new Date();
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const endOfRange = new Date(now.getTime());
+
+  return { startOfMonth, endOfRange };
+}
+
+async function getCategorySummaries(
+  userId: Types.ObjectId,
+  categoryIds: Types.ObjectId[],
+) {
+  if (categoryIds.length === 0) {
+    return new Map<string, CategoryTxnSummary>();
+  }
+
+  const { startOfMonth, endOfRange } = getCurrentMonthWindow();
+
+  const rows = await Transaction.aggregate<CategoryTxnSummary>([
+    {
+      $match: {
+        userId,
+        categoryId: { $in: categoryIds },
+        status: "Completed",
+        type: { $in: ["Expense", "Income"] },
+        transactionDate: {
+          $gte: startOfMonth,
+          $lte: endOfRange,
+        },
+      },
+    },
+    {
+      $group: {
+        _id: "$categoryId",
+        transactionCount: { $sum: 1 },
+        amount: { $sum: "$amount" },
+      },
+    },
+  ]);
+
+  return new Map(rows.map((row) => [String(row._id), row]));
+}
+
 export const categoryServices = {
   createCategory: async (request: Request, payload: CategoryPayload): Promise<ServiceResult> => {
     try {
@@ -154,9 +204,22 @@ export const categoryServices = {
         .sort({ createdAt: -1 })
         .lean();
 
+      const categoryIds = categories.map((category) => new Types.ObjectId(String(category._id)));
+      const summaryMap = await getCategorySummaries(user._id, categoryIds);
+
+      const categoriesWithStats = categories.map((category) => {
+        const summary = summaryMap.get(String(category._id));
+
+        return {
+          ...category,
+          transactionCount: Number(summary?.transactionCount || 0),
+          amount: Number(summary?.amount || 0),
+        };
+      });
+
       return {
         flag: true,
-        data: categories,
+        data: categoriesWithStats,
       };
     } catch (error) {
       await logger.error("Error in categoryServices.getCategories:", error);
@@ -175,7 +238,7 @@ export const categoryServices = {
       const category = await Category.findOne({
         _id: id,
         userId: user._id,
-      });
+      }).lean();
 
       if (!category) {
         return {
@@ -185,9 +248,16 @@ export const categoryServices = {
         };
       }
 
+      const summaryMap = await getCategorySummaries(user._id, [new Types.ObjectId(String(category._id))]);
+      const summary = summaryMap.get(String(category._id));
+
       return {
         flag: true,
-        data: category,
+        data: {
+          ...category,
+          transactionCount: Number(summary?.transactionCount || 0),
+          amount: Number(summary?.amount || 0),
+        },
       };
     } catch (error) {
       await logger.error("Error in categoryServices.getCategoryById:", error);

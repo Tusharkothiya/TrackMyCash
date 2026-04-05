@@ -50,6 +50,7 @@ export const useCreateTransaction = () => {
         queryClient.invalidateQueries({ queryKey: [TRANSACTION_QUERY_KEY] });
         queryClient.invalidateQueries({ queryKey: ["accounts"] });
         queryClient.invalidateQueries({ queryKey: ["budgets"] });
+        queryClient.invalidateQueries({ queryKey: ["categories"] });
       }
     },
   });
@@ -75,6 +76,7 @@ export const useUpdateTransaction = () => {
         });
         queryClient.invalidateQueries({ queryKey: ["accounts"] });
         queryClient.invalidateQueries({ queryKey: ["budgets"] });
+        queryClient.invalidateQueries({ queryKey: ["categories"] });
       }
     },
   });
@@ -88,9 +90,24 @@ export const useDeleteTransaction = () => {
     onSuccess: (response) => {
       if (response?.success) {
         TOAST("success", response.message || "Transaction deleted successfully!");
+        const updatedAccounts = response?.data?.updatedAccounts;
+        if (Array.isArray(updatedAccounts)) {
+          queryClient.setQueryData(["accounts"], (current: any) => {
+            if (!current || typeof current !== "object") {
+              return current;
+            }
+
+            return {
+              ...current,
+              data: updatedAccounts,
+            };
+          });
+        }
+
         queryClient.invalidateQueries({ queryKey: [TRANSACTION_QUERY_KEY] });
         queryClient.invalidateQueries({ queryKey: ["accounts"] });
         queryClient.invalidateQueries({ queryKey: ["budgets"] });
+        queryClient.invalidateQueries({ queryKey: ["categories"] });
       }
     },
   });

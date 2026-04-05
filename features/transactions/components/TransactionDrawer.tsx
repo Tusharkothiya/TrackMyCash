@@ -14,6 +14,7 @@ import { motion, AnimatePresence } from "motion/react";
 
 import type { Account } from "@/features/accounts/types";
 import type { Category } from "@/features/categories/types";
+import { TOAST } from "@/lib/utils/toastMessage";
 
 import { validateTransactionPayload } from "../schemas/transaction.schema";
 import type {
@@ -138,9 +139,21 @@ const TransactionDrawer = ({
   );
 
   const handleSubmit = async () => {
+    const parsedAmount = Number(amount);
+
+    if (type === "Expense" || type === "Transfer") {
+      const sourceAccount = accounts.find((account) => account._id === accountId);
+      if (sourceAccount && parsedAmount > sourceAccount.balance) {
+        const errorMessage = "Amount cannot be greater than available account balance.";
+        setValidationMessage(errorMessage);
+        TOAST("error", errorMessage);
+        return;
+      }
+    }
+
     const payload: TransactionPayload = {
       title: title.trim(),
-      amount: Number(amount),
+      amount: parsedAmount,
       type,
       status,
       transactionDate,
@@ -154,6 +167,7 @@ const TransactionDrawer = ({
     const errorMessage = validateTransactionPayload(payload);
     if (errorMessage) {
       setValidationMessage(errorMessage);
+      TOAST("error", errorMessage);
       return;
     }
 

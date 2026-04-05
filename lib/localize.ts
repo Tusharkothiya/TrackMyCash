@@ -60,6 +60,7 @@ export function _localize(key: string, req?: any): string {
     "transaction.categoryTypeMismatch": "Category type does not match transaction type",
     "transaction.sameTransferAccount": "Source and destination account cannot be the same",
     "transaction.currencyMismatch": "Source and destination account currencies must match",
+    "transaction.insufficientBalance": "Insufficient account balance for this transaction",
     "transaction.balanceOutOfRange": "Resulting account balance is out of allowed range",
     "transaction.fetchError": "Failed to fetch transaction data",
     "transaction.createError": "Failed to create transaction",
