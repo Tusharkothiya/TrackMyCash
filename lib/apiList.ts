@@ -21,5 +21,7 @@ export const apiList = {
   // TRANSACTIONS APIS
   transactions: `${BASE_API_URL}transactions`,
   transactionById: (id: string) => `${BASE_API_URL}transactions/${id}`,
+  // DASHBOARD APIS
+  dashboard: `${BASE_API_URL}dashboard`,
   test: `${BASE_API_URL}test`,
 };

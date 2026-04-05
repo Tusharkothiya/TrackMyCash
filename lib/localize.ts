@@ -41,6 +41,9 @@ export function _localize(key: string, req?: any): string {
     "budget.updateError": "Failed to update budget",
     "budget.deleteError": "Failed to delete budget",
 
+    "dashboard.fetchSuccess": "Dashboard overview fetched successfully",
+    "dashboard.fetchError": "Failed to fetch dashboard overview",
+
     "transaction.createSuccess": "Transaction created successfully",
     "transaction.fetchSuccess": "Transaction fetched successfully",
     "transaction.updateSuccess": "Transaction updated successfully",

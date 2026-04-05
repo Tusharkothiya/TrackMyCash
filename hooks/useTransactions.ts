@@ -6,6 +6,7 @@ import { TOAST } from "@/lib/utils/toastMessage";
 import type { TransactionFilters, TransactionPayload } from "@/features/transactions/types";
 
 const TRANSACTION_QUERY_KEY = "transactions";
+const DASHBOARD_QUERY_KEY = "dashboard-overview";
 
 function buildTransactionQuery(filters?: TransactionFilters) {
   if (!filters) return "";
@@ -51,6 +52,7 @@ export const useCreateTransaction = () => {
         queryClient.invalidateQueries({ queryKey: ["accounts"] });
         queryClient.invalidateQueries({ queryKey: ["budgets"] });
         queryClient.invalidateQueries({ queryKey: ["categories"] });
+        queryClient.invalidateQueries({ queryKey: [DASHBOARD_QUERY_KEY] });
       }
     },
   });
@@ -77,6 +79,7 @@ export const useUpdateTransaction = () => {
         queryClient.invalidateQueries({ queryKey: ["accounts"] });
         queryClient.invalidateQueries({ queryKey: ["budgets"] });
         queryClient.invalidateQueries({ queryKey: ["categories"] });
+        queryClient.invalidateQueries({ queryKey: [DASHBOARD_QUERY_KEY] });
       }
     },
   });
@@ -108,6 +111,7 @@ export const useDeleteTransaction = () => {
         queryClient.invalidateQueries({ queryKey: ["accounts"] });
         queryClient.invalidateQueries({ queryKey: ["budgets"] });
         queryClient.invalidateQueries({ queryKey: ["categories"] });
+        queryClient.invalidateQueries({ queryKey: [DASHBOARD_QUERY_KEY] });
       }
     },
   });
