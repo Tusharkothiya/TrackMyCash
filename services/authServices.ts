@@ -1,17 +1,18 @@
 import { jwtUtils } from "@/configs/jwt";
 import { logger } from "@/lib/logger";
 import User from "@/models/Users.model";
+import { mailServices } from "@/services/mailServices";
 import bcrypt from "bcryptjs";
 
 export const authServices = {
   //USER REGISTRATION
   register: async (userData: any) => {
     try {
-      const { email } = userData;
+      const normalizedEmail = userData?.email?.trim()?.toLowerCase();
 
       //Find Existing User
       const eu = await User.findOne({
-        email,
+        email: normalizedEmail,
       });
 
       if (eu) {
@@ -25,11 +26,18 @@ export const authServices = {
       const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
       //Generate JWT Token
-      const token = jwtUtils.gJT({ email });
+      const token = jwtUtils.gJT({ email: normalizedEmail });
 
       //Create New User
       const response = await User.create({
         ...userData,
+        email: normalizedEmail,
+        otp,
+      });
+
+      void mailServices.sendOtpVerificationEmail({
+        email: normalizedEmail,
+        fullName: response.fullName,
         otp,
       });
 
@@ -83,8 +91,9 @@ export const authServices = {
   verifyOtp: async (otpData: any) => {
     try {
       const { email, otp } = otpData;
+      const normalizedEmail = email?.trim()?.toLowerCase();
       const user = await User.findOne({
-        email: email?.trim()?.toLowerCase(),
+        email: normalizedEmail,
       });
 
       if (!user) {
@@ -109,10 +118,46 @@ export const authServices = {
         };
       }
 
-      // Clear OTP after successful verification and set isVerified to true
-      user.otp = "";
-      user.isVerified = true;
-      await user.save();
+      const verifiedUser = await User.findOneAndUpdate(
+        {
+          email: normalizedEmail,
+          otp,
+          isVerified: false,
+        },
+        {
+          $set: {
+            otp: "",
+            isVerified: true,
+          },
+        },
+        { new: true },
+      );
+
+      if (!verifiedUser) {
+        return {
+          flag: false,
+          data: "auth.accountAlreadyVerified",
+        };
+      }
+
+      void (async () => {
+        const isWelcomeEmailSent = await mailServices.sendWelcomeEmail({
+          email: verifiedUser.email,
+          fullName: verifiedUser.fullName,
+        });
+
+        if (isWelcomeEmailSent) {
+          await User.updateOne(
+            { _id: verifiedUser._id, welcomeEmailSent: false },
+            {
+              $set: {
+                welcomeEmailSent: true,
+                welcomeEmailSentAt: new Date(),
+              },
+            },
+          );
+        }
+      })();
 
       return {
         flag: true,
@@ -151,6 +196,12 @@ export const authServices = {
       const otp = Math.floor(100000 + Math.random() * 900000).toString();
       eu.otp = otp;
       await eu.save();
+
+      void mailServices.sendOtpVerificationEmail({
+        email: eu.email,
+        fullName: eu.fullName,
+        otp,
+      });
 
       return {
         flag: true,

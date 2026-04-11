@@ -1,4 +1,5 @@
 export { authServices } from "./authServices";
+export { mailServices } from "./mailServices";
 export { categoryServices } from "./categoryServices";
 export { accountServices } from "./accountServices";
 export { budgetServices } from "./budgetServices";

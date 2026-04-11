@@ -18,6 +18,7 @@ export function _localize(key: string, req?: any): string {
     "auth.otpWrong": "Incorrect OTP",
     "auth.otpVerified": "OTP verified successfully",
     "auth.otpResent": "OTP has been resent to your email",
+    "auth.otpSendFailed": "Unable to send OTP email right now. Please try again.",
     "auth.passwordForgot": "Password reset instructions have been sent to your email",
     "auth.invalidToken": "Invalid or expired token",
     "auth.passwordChanged": "Password changed successfully",

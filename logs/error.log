@@ -948,3 +948,15 @@ Details: JsonWebTokenError: jwt malformed
 --------------------------------------------------
 [2026-04-04T13:33:30.489Z] ERROR: Failure Response: Budget already exists for this category and frequency
 --------------------------------------------------
+[2026-04-11T05:09:51.416Z] ERROR: Failure Response: User already exists
+--------------------------------------------------
+[2026-04-11T05:10:42.808Z] ERROR: Failure Response: Account is already verified
+--------------------------------------------------
+[2026-04-11T05:10:54.121Z] ERROR: Failure Response: Account is already verified
+--------------------------------------------------
+[2026-04-11T05:12:08.142Z] ERROR: Failure Response: Account is already verified
+--------------------------------------------------
+[2026-04-11T05:51:36.756Z] ERROR: Failure Response: Incorrect OTP
+--------------------------------------------------
+[2026-04-11T05:51:43.457Z] ERROR: Failure Response: Incorrect OTP
+--------------------------------------------------

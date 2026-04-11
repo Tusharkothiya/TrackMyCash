@@ -10,6 +10,8 @@ export interface IUserModal extends Document {
     role: string;
     otp: string;
     isVerified: boolean;
+    welcomeEmailSent: boolean;
+    welcomeEmailSentAt: Date;
     timeZone: string;
     passwordResetToken: string;
     createdAt: Date;
@@ -53,6 +55,13 @@ const userSchema = new mongoose.Schema<IUserModal>(
         isVerified: {
             type: Boolean,
             default: false,
+        },
+        welcomeEmailSent: {
+            type: Boolean,
+            default: false,
+        },
+        welcomeEmailSentAt: {
+            type: Date,
         },
         timeZone: {
             type: String,   
