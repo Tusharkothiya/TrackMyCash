@@ -13,6 +13,9 @@ export interface ITransactionModal extends Document {
   currency: "USD" | "INR" | "EUR" | "GBP";
   notes?: string;
   receiptUrl?: string;
+  emailTaskId?: Types.ObjectId;
+  emailStatus?: "PENDING" | "SENT" | "CANCELLED";
+  emailScheduledAt?: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -97,6 +100,26 @@ const transactionSchema = new mongoose.Schema<ITransactionModal>(
       type: String,
       trim: true,
       maxlength: [500, "Receipt URL must be less than 500 characters long"],
+    },
+    emailTaskId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "EmailTask",
+      required: false,
+      index: true,
+    },
+    emailStatus: {
+      type: String,
+      enum: {
+        values: ["PENDING", "SENT", "CANCELLED"],
+        message: "Email status must be PENDING, SENT, or CANCELLED",
+      },
+      default: "PENDING",
+      index: true,
+    },
+    emailScheduledAt: {
+      type: Date,
+      required: false,
+      index: true,
     },
   },
   {

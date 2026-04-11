@@ -1,0 +1,88 @@
+[2026-04-11T11:28:45.576Z] ERROR: API Route Error
+Details: MongoNetworkTimeoutError: Socket 'secureConnect' timed out after 30585ms (connectTimeoutMS: 30000)
+    at TLSSocket.<anonymous> (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\cmap\connect.js:299:20)
+    at Object.onceWrapper (node:events:632:28)
+    at TLSSocket.emit (node:events:518:28)
+    at Socket._onTimeout (node:net:609:8)
+    at listOnTimeout (node:internal/timers:594:17)
+    at process.processTimers (node:internal/timers:529:7)
+--------------------------------------------------
+[2026-04-11T11:28:45.579Z] ERROR: Failure Response: Socket 'secureConnect' timed out after 30585ms (connectTimeoutMS: 30000)
+--------------------------------------------------
+[2026-04-11T11:29:27.965Z] ERROR: API Route Error
+Details: MongoNetworkTimeoutError: Socket 'secureConnect' timed out after 30192ms (connectTimeoutMS: 30000)
+    at TLSSocket.<anonymous> (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\cmap\connect.js:299:20)
+    at Object.onceWrapper (node:events:632:28)
+    at TLSSocket.emit (node:events:518:28)
+    at Socket._onTimeout (node:net:609:8)
+    at listOnTimeout (node:internal/timers:594:17)
+    at process.processTimers (node:internal/timers:529:7)
+--------------------------------------------------
+[2026-04-11T11:29:27.968Z] ERROR: API Route Error
+Details: MongoNetworkTimeoutError: Socket 'secureConnect' timed out after 30192ms (connectTimeoutMS: 30000)
+    at TLSSocket.<anonymous> (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\cmap\connect.js:299:20)
+    at Object.onceWrapper (node:events:632:28)
+    at TLSSocket.emit (node:events:518:28)
+    at Socket._onTimeout (node:net:609:8)
+    at listOnTimeout (node:internal/timers:594:17)
+    at process.processTimers (node:internal/timers:529:7)
+--------------------------------------------------
+[2026-04-11T11:29:27.979Z] ERROR: API Route Error
+Details: MongoNetworkTimeoutError: Socket 'secureConnect' timed out after 30192ms (connectTimeoutMS: 30000)
+    at TLSSocket.<anonymous> (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\cmap\connect.js:299:20)
+    at Object.onceWrapper (node:events:632:28)
+    at TLSSocket.emit (node:events:518:28)
+    at Socket._onTimeout (node:net:609:8)
+    at listOnTimeout (node:internal/timers:594:17)
+    at process.processTimers (node:internal/timers:529:7)
+--------------------------------------------------
+[2026-04-11T11:29:27.988Z] ERROR: API Route Error
+Details: MongoNetworkTimeoutError: Socket 'secureConnect' timed out after 30192ms (connectTimeoutMS: 30000)
+    at TLSSocket.<anonymous> (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\cmap\connect.js:299:20)
+    at Object.onceWrapper (node:events:632:28)
+    at TLSSocket.emit (node:events:518:28)
+    at Socket._onTimeout (node:net:609:8)
+    at listOnTimeout (node:internal/timers:594:17)
+    at process.processTimers (node:internal/timers:529:7)
+--------------------------------------------------
+[2026-04-11T11:29:27.995Z] ERROR: API Route Error
+Details: MongoNetworkTimeoutError: Socket 'secureConnect' timed out after 30192ms (connectTimeoutMS: 30000)
+    at TLSSocket.<anonymous> (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\cmap\connect.js:299:20)
+    at Object.onceWrapper (node:events:632:28)
+    at TLSSocket.emit (node:events:518:28)
+    at Socket._onTimeout (node:net:609:8)
+    at listOnTimeout (node:internal/timers:594:17)
+    at process.processTimers (node:internal/timers:529:7)
+--------------------------------------------------
+[2026-04-11T11:29:27.999Z] ERROR: API Route Error
+Details: MongoNetworkTimeoutError: Socket 'secureConnect' timed out after 30192ms (connectTimeoutMS: 30000)
+    at TLSSocket.<anonymous> (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\cmap\connect.js:299:20)
+    at Object.onceWrapper (node:events:632:28)
+    at TLSSocket.emit (node:events:518:28)
+    at Socket._onTimeout (node:net:609:8)
+    at listOnTimeout (node:internal/timers:594:17)
+    at process.processTimers (node:internal/timers:529:7)
+--------------------------------------------------
+[2026-04-11T11:29:28.000Z] ERROR: API Route Error
+Details: MongoNetworkTimeoutError: Socket 'secureConnect' timed out after 30192ms (connectTimeoutMS: 30000)
+    at TLSSocket.<anonymous> (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\cmap\connect.js:299:20)
+    at Object.onceWrapper (node:events:632:28)
+    at TLSSocket.emit (node:events:518:28)
+    at Socket._onTimeout (node:net:609:8)
+    at listOnTimeout (node:internal/timers:594:17)
+    at process.processTimers (node:internal/timers:529:7)
+--------------------------------------------------
+[2026-04-11T11:29:28.001Z] ERROR: Failure Response: Socket 'secureConnect' timed out after 30192ms (connectTimeoutMS: 30000)
+--------------------------------------------------
+[2026-04-11T11:29:28.003Z] ERROR: Failure Response: Socket 'secureConnect' timed out after 30192ms (connectTimeoutMS: 30000)
+--------------------------------------------------
+[2026-04-11T11:29:28.004Z] ERROR: Failure Response: Socket 'secureConnect' timed out after 30192ms (connectTimeoutMS: 30000)
+--------------------------------------------------
+[2026-04-11T11:29:28.006Z] ERROR: Failure Response: Socket 'secureConnect' timed out after 30192ms (connectTimeoutMS: 30000)
+--------------------------------------------------
+[2026-04-11T11:29:28.009Z] ERROR: Failure Response: Socket 'secureConnect' timed out after 30192ms (connectTimeoutMS: 30000)
+--------------------------------------------------
+[2026-04-11T11:29:28.010Z] ERROR: Failure Response: Socket 'secureConnect' timed out after 30192ms (connectTimeoutMS: 30000)
+--------------------------------------------------
+[2026-04-11T11:29:28.012Z] ERROR: Failure Response: Socket 'secureConnect' timed out after 30192ms (connectTimeoutMS: 30000)
+--------------------------------------------------

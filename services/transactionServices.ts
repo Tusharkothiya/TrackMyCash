@@ -6,6 +6,7 @@ import Account from "@/models/Accounts.model";
 import Category from "@/models/Categories.model";
 import Transaction from "@/models/Transactions.model";
 import User from "@/models/Users.model";
+import { transactionEmailService } from "@/services/transactionEmailService";
 
 type ServiceResult = {
   flag: boolean;
@@ -641,6 +642,46 @@ export const transactionServices = {
         } as ServiceResult;
       });
 
+      if (operation?.flag) {
+        // Queue email task after successful transaction creation
+        const userDoc = await User.findById(user._id).select("email fullName");
+        if (userDoc?.email) {
+          const transactionData = operation.data as any;
+          const populatedAccount = transactionData.accountId;
+          const category = transactionData.categoryId;
+
+          await transactionEmailService.createEmailTask({
+            userId: user._id,
+            transactionId: new Types.ObjectId(transactionData._id),
+            recipientEmail: userDoc.email,
+            type: "TRANSACTION_CREATED",
+            data: {
+              type: "CREATED",
+              fullName: userDoc.fullName || "User",
+              transaction: {
+                id: transactionData._id,
+                title: transactionData.title,
+                amount: transactionData.amount,
+                currency: transactionData.currency,
+                transactionType: transactionData.type,
+                status: transactionData.status,
+                date: new Intl.DateTimeFormat(undefined, {
+                  month: "short",
+                  day: "2-digit",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                }).format(new Date(transactionData.transactionDate)),
+                account: populatedAccount?.name,
+                category: category?.name,
+                notes: transactionData.notes,
+              },
+            },
+            delayMinutes: 1,
+          });
+        }
+      }
+
       return operation || {
         flag: false,
         data: "transaction.createError",
@@ -880,6 +921,55 @@ export const transactionServices = {
         } as ServiceResult;
       });
 
+      if (operation?.flag) {
+        // Queue email task after successful transaction update
+        const userDoc = await User.findById(user._id).select("email fullName");
+        if (userDoc?.email) {
+          const transactionData = operation.data as any;
+          const populatedAccount = transactionData.accountId;
+          const category = transactionData.categoryId;
+          const previousValues = {
+            amount: payload.amount !== undefined ? payload.amount : undefined,
+            title: payload.title !== undefined ? payload.title : undefined,
+            category: payload.categoryId,
+            notes: payload.notes !== undefined ? payload.notes : undefined,
+          };
+
+          await transactionEmailService.createEmailTask({
+            userId: user._id,
+            transactionId: new Types.ObjectId(transactionData._id),
+            recipientEmail: userDoc.email,
+            type: "TRANSACTION_UPDATED",
+            data: {
+              type: "UPDATED",
+              fullName: userDoc.fullName || "User",
+              transaction: {
+                id: transactionData._id,
+                title: transactionData.title,
+                amount: transactionData.amount,
+                currency: transactionData.currency,
+                transactionType: transactionData.type,
+                status: transactionData.status,
+                date: new Intl.DateTimeFormat(undefined, {
+                  month: "short",
+                  day: "2-digit",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                }).format(new Date(transactionData.transactionDate)),
+                account: populatedAccount?.name,
+                category: category?.name,
+                notes: transactionData.notes,
+              },
+              previousValues: Object.fromEntries(
+                Object.entries(previousValues).filter(([_, v]) => v !== undefined)
+              ),
+            },
+            delayMinutes: 1,
+          });
+        }
+      }
+
       return operation || {
         flag: false,
         data: "transaction.updateError",
@@ -916,7 +1006,9 @@ export const transactionServices = {
         const transaction = await Transaction.findOne({
           _id: new Types.ObjectId(transactionId),
           userId: user._id,
-        }).session(session);
+        })
+          .populate({ path: "accountId", select: "name" })
+          .session(session);
 
         if (!transaction) {
           return {
@@ -925,6 +1017,18 @@ export const transactionServices = {
             status: 404,
           } as ServiceResult;
         }
+
+        // Store transaction data for email before deletion
+        const deletedTransactionData = {
+          _id: transaction._id,
+          title: transaction.title,
+          amount: transaction.amount,
+          currency: transaction.currency,
+          type: transaction.type,
+          status: transaction.status,
+          transactionDate: transaction.transactionDate,
+          account: (transaction.accountId as any)?.name,
+        };
 
         if (transaction.status === "Completed") {
           const sourceAccount = await Account.findOne({
@@ -990,11 +1094,57 @@ export const transactionServices = {
           flag: true,
           data: {
             _id: transaction._id,
+            deletedTransactionData,
             updatedAccounts,
             affectedCategoryId: transaction.categoryId || null,
           },
         } as ServiceResult;
       });
+
+      if (operation?.flag) {
+        const operationData = operation.data as any;
+        const transactionId = operationData?._id;
+        const deletedTransactionData = operationData?.deletedTransactionData;
+
+        if (transactionId) {
+          // Cancel any pending email tasks for this transaction
+          await transactionEmailService.cancelEmailTask(
+            new Types.ObjectId(transactionId)
+          );
+
+          // Queue deletion email
+          const userDoc = await User.findById(user._id).select("email fullName");
+          if (userDoc?.email && deletedTransactionData) {
+            await transactionEmailService.createEmailTask({
+              userId: user._id,
+              transactionId: new Types.ObjectId(transactionId),
+              recipientEmail: userDoc.email,
+              type: "TRANSACTION_DELETED",
+              data: {
+                type: "DELETED",
+                fullName: userDoc.fullName || "User",
+                transaction: {
+                  id: deletedTransactionData._id.toString(),
+                  title: deletedTransactionData.title,
+                  amount: deletedTransactionData.amount,
+                  currency: deletedTransactionData.currency,
+                  transactionType: deletedTransactionData.type,
+                  status: deletedTransactionData.status,
+                  date: new Intl.DateTimeFormat(undefined, {
+                    month: "short",
+                    day: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  }).format(new Date(deletedTransactionData.transactionDate)),
+                  account: deletedTransactionData.account,
+                },
+              },
+              delayMinutes: 0, // Send immediately for deletion
+            });
+          }
+        }
+      }
 
       return operation || {
         flag: false,
