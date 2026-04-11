@@ -1,7 +1,6 @@
 import { jwtUtils } from "@/configs/jwt";
 import { logger } from "@/lib/logger";
 import User from "@/models/Users.model";
-import { mailServices } from "@/services/mailServices";
 import bcrypt from "bcryptjs";
 
 export const authServices = {
@@ -35,15 +34,16 @@ export const authServices = {
         otp,
       });
 
-      void mailServices.sendOtpVerificationEmail({
-        email: normalizedEmail,
-        fullName: response.fullName,
-        otp,
-      });
-
       return {
         flag: true,
         data: { ...response._doc, token },
+        meta: {
+          otpEmail: {
+            email: normalizedEmail,
+            fullName: response.fullName,
+            otp,
+          },
+        },
       };
     } catch (error) {
       await logger.error("Error in authServices.register: ", error);
@@ -140,27 +140,17 @@ export const authServices = {
         };
       }
 
-      void (async () => {
-        const isWelcomeEmailSent = await mailServices.sendWelcomeEmail({
-          email: verifiedUser.email,
-          fullName: verifiedUser.fullName,
-        });
-
-        if (isWelcomeEmailSent) {
-          await User.updateOne(
-            { _id: verifiedUser._id, welcomeEmailSent: false },
-            {
-              $set: {
-                welcomeEmailSent: true,
-                welcomeEmailSentAt: new Date(),
-              },
-            },
-          );
-        }
-      })();
-
       return {
         flag: true,
+        data: null,
+        meta: {
+          welcomeEmail: {
+            userId: String(verifiedUser._id),
+            email: verifiedUser.email,
+            fullName: verifiedUser.fullName,
+            alreadySent: Boolean(verifiedUser.welcomeEmailSent),
+          },
+        },
       };
     } catch (error) {
       await logger.error("Error in authServices.verifyOtp: ", error);
@@ -197,14 +187,16 @@ export const authServices = {
       eu.otp = otp;
       await eu.save();
 
-      void mailServices.sendOtpVerificationEmail({
-        email: eu.email,
-        fullName: eu.fullName,
-        otp,
-      });
-
       return {
         flag: true,
+        data: null,
+        meta: {
+          otpEmail: {
+            email: eu.email,
+            fullName: eu.fullName,
+            otp,
+          },
+        },
       };
     } catch (error) {
       await logger.error("Error: Resend OTP Services. ", error);
