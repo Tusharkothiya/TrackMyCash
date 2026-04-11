@@ -69,8 +69,8 @@ export const AccountCard: React.FC<AccountCardProps> = ({ account, onEdit, onDel
           {account.type === 'Credit Card' ? 'Outstanding Balance' : account.type === 'Wallet' ? 'Total Valuation' : account.type === 'Cash' ? 'Physical Reserve' : 'Current Balance'}
         </span>
         <div className="text-4xl font-black tracking-tight text-on-surface mt-1">
-          {account.currency === 'INR' ? '₹' : '$'}
-          {Math.abs(account.balance).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+          ₹
+          {Math.abs(account.balance).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
         </div>
         <p className="text-[10px] text-on-surface-variant mt-2 font-medium">
           Currency: {account.currency}

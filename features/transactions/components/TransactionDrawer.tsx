@@ -260,7 +260,7 @@ const TransactionDrawer = ({
                   </label>
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-lg font-bold text-on-surface-variant">
-                      $
+                      ₹
                     </span>
                     <input
                       type="number"

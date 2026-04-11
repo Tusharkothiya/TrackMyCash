@@ -165,8 +165,8 @@ const TransactionDetail = ({
               transaction.type === "Income" ? "text-primary" : "text-error",
             )}
           >
-            {transaction.type === "Income" ? "+" : "-"}$
-            {transaction.amount.toLocaleString(undefined, {
+            {transaction.type === "Income" ? "+" : "-"}₹
+            {transaction.amount.toLocaleString("en-IN", {
               minimumFractionDigits: 2,
             })}
           </h2>
@@ -299,8 +299,8 @@ const TransactionDetail = ({
                     {row.title}
                   </td>
                   <td className="px-6 py-4 text-sm font-bold text-primary text-right">
-                    +$
-                    {row.amount.toLocaleString(undefined, {
+                    +₹
+                    {row.amount.toLocaleString("en-IN", {
                       minimumFractionDigits: 2,
                     })}
                   </td>

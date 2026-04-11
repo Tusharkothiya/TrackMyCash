@@ -584,7 +584,7 @@ const Transactions = () => {
                                 : transaction.type === "Expense"
                                   ? "-"
                                   : ""}
-                              ${transaction.amount.toLocaleString(undefined, {
+                              ₹{transaction.amount.toLocaleString("en-IN", {
                                 minimumFractionDigits: 2,
                                 maximumFractionDigits: 2,
                               })}
@@ -665,7 +665,7 @@ const Transactions = () => {
                   </p>
                   <div className="flex items-end gap-3">
                     <h3 className="text-2xl font-bold">
-                      ${transactionData.summary.totalOutflow.toLocaleString(undefined, {
+                      ₹{transactionData.summary.totalOutflow.toLocaleString("en-IN", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -682,7 +682,7 @@ const Transactions = () => {
                   </p>
                   <div className="flex items-end gap-3">
                     <h3 className="text-2xl font-bold">
-                      ${transactionData.summary.totalInflow.toLocaleString(undefined, {
+                      ₹{transactionData.summary.totalInflow.toLocaleString("en-IN", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -699,8 +699,8 @@ const Transactions = () => {
                   </p>
                   <div className="flex items-end gap-3">
                     <h3 className="text-2xl font-bold text-on-surface">
-                      {transactionData.summary.netCashflow >= 0 ? "+" : "-"}$
-                      {Math.abs(transactionData.summary.netCashflow).toLocaleString(undefined, {
+                      {transactionData.summary.netCashflow >= 0 ? "+" : "-"}₹
+                      {Math.abs(transactionData.summary.netCashflow).toLocaleString("en-IN", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}

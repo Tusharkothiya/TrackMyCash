@@ -105,8 +105,8 @@ export function CategoryCard({ category, onEdit, onDelete }: CategoryCardProps) 
                 : "text-on-surface",
             )}
           >
-            {category.type === "income" ? "+" : ""}$
-            {amount.toLocaleString(undefined, {
+            {category.type === "income" ? "+" : ""}₹
+            {amount.toLocaleString("en-IN", {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}

@@ -35,7 +35,7 @@ export default function AddAccountModal({
 }: AddAccountModalProps) {
   const [name, setName] = useState("");
   const [type, setType] = useState<AccountType>("Bank");
-  const [currency, setCurrency] = useState<Currency>("USD");
+  const [currency, setCurrency] = useState<Currency>("INR");
   const [balance, setBalance] = useState("");
   const [selectedColor, setSelectedColor] = useState("#2563eb");
   const [selectedIcon, setSelectedIcon] = useState<AccountIcon>("bank");
@@ -58,7 +58,7 @@ export default function AddAccountModal({
   ];
 
   const accountTypes: AccountType[] = ["Bank", "Credit Card", "Wallet", "Cash"];
-  const currencies: Currency[] = ["USD", "INR", "EUR", "GBP"];
+  const currencies: Currency[] = ["INR"];
 
   useEffect(() => {
     if (!isOpen) return;
@@ -66,7 +66,7 @@ export default function AddAccountModal({
     if (initialValues && mode === "edit") {
       setName(initialValues.name || "");
       setType(initialValues.type || "Bank");
-      setCurrency(initialValues.currency || "USD");
+      setCurrency(initialValues.currency || "INR");
       setBalance(initialValues.balance.toString());
       setSelectedColor(initialValues.color || "#2563eb");
       setSelectedIcon(initialValues.icon || "bank");
@@ -75,7 +75,7 @@ export default function AddAccountModal({
 
     setName("");
     setType("Bank");
-    setCurrency("USD");
+    setCurrency("INR");
     setBalance("");
     setSelectedColor("#2563eb");
     setSelectedIcon("bank");
@@ -220,7 +220,7 @@ export default function AddAccountModal({
                   </label>
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-primary font-bold">
-                      {currency === "INR" ? "₹" : "$"}
+                      ₹
                     </span>
                     <input
                       type="number"

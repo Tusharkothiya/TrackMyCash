@@ -180,8 +180,8 @@ const Accounts = () => {
                   Total Combined Balance
                 </span>
                 <div className="text-3xl font-black text-on-surface mt-1">
-                  $
-                  {totalBalance.toLocaleString("en-US", {
+                  ₹
+                  {totalBalance.toLocaleString("en-IN", {
                     minimumFractionDigits: 2,
                   })}
                 </div>

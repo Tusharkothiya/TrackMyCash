@@ -42,9 +42,9 @@ const RANGE_OPTIONS = [
 ] as const;
 
 function toCurrency(value: number): string {
-  return value.toLocaleString(undefined, {
+  return value.toLocaleString("en-IN", {
     style: "currency",
-    currency: "USD",
+    currency: "INR",
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });

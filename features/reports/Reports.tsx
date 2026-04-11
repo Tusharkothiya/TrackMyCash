@@ -203,8 +203,8 @@ const Reports = () => {
                     </p>
                     <p className="text-lg font-bold text-primary">
                       {report.revenue > 0
-                        ? `+$${report.revenue.toLocaleString()}`
-                        : `$${report.revenue.toFixed(2)}`}
+                        ? `+₹${report.revenue.toLocaleString("en-IN")}`
+                        : `₹${report.revenue.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                     </p>
                   </div>
                   <div className="space-y-1">
@@ -212,7 +212,7 @@ const Reports = () => {
                       Expense
                     </p>
                     <p className="text-lg font-bold text-error">
-                      -${Math.abs(report.expense).toLocaleString()}
+                      -₹{Math.abs(report.expense).toLocaleString("en-IN")}
                     </p>
                   </div>
                   <div className="space-y-1">
@@ -222,8 +222,8 @@ const Reports = () => {
                     <p
                       className={`text-lg font-bold ${report.revenue - report.expense >= 0 ? "text-on-surface" : "text-error"}`}
                     >
-                      {report.revenue - report.expense >= 0 ? "+" : ""}$
-                      {(report.revenue - report.expense).toLocaleString()}
+                      {report.revenue - report.expense >= 0 ? "+" : ""}₹
+                      {(report.revenue - report.expense).toLocaleString("en-IN")}
                     </p>
                   </div>
                 </div>

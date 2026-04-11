@@ -103,19 +103,19 @@ const BillingSettings: React.FC = () => {
                 {
                   id: "INV-2026-001",
                   date: "Apr 12, 2026",
-                  amount: "$29.00",
+                  amount: "₹29.00",
                   status: "Paid",
                 },
                 {
                   id: "INV-2026-002",
                   date: "Mar 12, 2026",
-                  amount: "$29.00",
+                  amount: "₹29.00",
                   status: "Paid",
                 },
                 {
                   id: "INV-2026-003",
                   date: "Feb 12, 2026",
-                  amount: "$29.00",
+                  amount: "₹29.00",
                   status: "Paid",
                 },
               ].map((invoice) => (
