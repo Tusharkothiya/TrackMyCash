@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
 
     // Check authorization header format: Bearer <token>
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      logger.warn('Missing or invalid authorization header in cron request');
+      console.warn('Missing or invalid authorization header in cron request');
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
 
     const token = authHeader.substring(7); // Remove 'Bearer ' prefix
     if (token !== cronSecret) {
-      logger.warn('Invalid CRON_SECRET token provided');
+      console.warn('Invalid CRON_SECRET token provided');
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
