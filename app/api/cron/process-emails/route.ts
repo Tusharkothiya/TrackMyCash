@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
 
     // Process pending email tasks
     logger.info('Processing pending email tasks via Vercel Cron');
-    const result = await transactionEmailService.processPendingEmailTasks();
+    const result = await transactionEmailService.processPendingEmailTasks(); 
 
     logger.info(`Email processing completed: ${result.processed} emails sent, ${result.failed} failed`);
 
