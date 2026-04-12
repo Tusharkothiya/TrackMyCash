@@ -39,16 +39,27 @@ export async function POST(request: NextRequest) {
 
     // Process pending email tasks
     logger.info('Processing pending email tasks via Vercel Cron');
-    const result = await transactionEmailService.processPendingEmailTasks(); 
+    const result = await transactionEmailService.processPendingEmailTasks();
 
-    logger.info(`Email processing completed: ${result.processed} emails sent, ${result.failed} failed`);
+    if (!result.flag || !result.data) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Failed to process email tasks',
+          timestamp: new Date().toISOString(),
+        },
+        { status: 500 }
+      );
+    }
+
+    logger.info(`Email processing completed: ${result.data.processed} emails sent, ${result.data.failed} failed`);
 
     return NextResponse.json(
       {
         success: true,
         message: 'Email tasks processed successfully',
-        processed: result.processed,
-        failed: result.failed,
+        processed: result.data.processed,
+        failed: result.data.failed,
         timestamp: new Date().toISOString(),
       },
       { status: 200 }
