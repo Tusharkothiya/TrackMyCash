@@ -180,7 +180,7 @@ const Dashboard = () => {
         <div className="mb-10 flex justify-between items-end">
           <div>
             <p className="text-xs font-bold text-primary tracking-[0.2em] mb-1 uppercase">
-              Financial Summary
+              Financial Summary.
             </p>
             <h3 className="text-3xl font-extrabold text-on-surface tracking-tight">
               {summary.periodLabel}
