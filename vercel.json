@@ -1,1 +1,8 @@
-{}
+{
+  "crons": [
+    {
+      "path": "/api/cron/monthly-statement",
+      "schedule": "0 0 1 * *"
+    }
+  ]
+}

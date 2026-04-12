@@ -86,3 +86,41 @@ Details: MongoNetworkTimeoutError: Socket 'secureConnect' timed out after 30192m
 --------------------------------------------------
 [2026-04-11T11:29:28.012Z] ERROR: Failure Response: Socket 'secureConnect' timed out after 30192ms (connectTimeoutMS: 30000)
 --------------------------------------------------
+[2026-04-12T12:10:30.983Z] ERROR: Error fetching dashboard overview:
+Details: MongoServerSelectionError: connection <monitor> to [64:ff9b::9f29:aa8e]:27017 closed
+    at Topology.selectServer (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\sdam\topology.js:347:38)
+    at async tryOperation (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\operations\execute_operation.js:199:22)
+    at async executeOperation (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\operations\execute_operation.js:80:16)
+    at async AggregationCursor._initialize (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\cursor\aggregation_cursor.js:57:26)
+    at async AggregationCursor.cursorInit (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\cursor\abstract_cursor.js:620:27)
+    at async AggregationCursor.fetchBatch (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\cursor\abstract_cursor.js:654:13)
+    at async AggregationCursor.next (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\cursor\abstract_cursor.js:326:17)
+    at async [Symbol.asyncIterator] (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\cursor\abstract_cursor.js:254:34)
+    at async AggregationCursor.toArray (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongodb\lib\cursor\abstract_cursor.js:406:26)
+    at async Aggregate.exec (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\mongoose\lib\aggregate.js:1112:14)
+    at async Promise.all (index 1)
+    at async Object.getOverview (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__c5ca25a3._.js:1163:137)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__c5ca25a3._.js:1524:20
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__ae7d5d50._.js:221:20
+    at async AppRouteRouteModule.do (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:37866)
+    at async AppRouteRouteModule.handle (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:45156)
+    at async responseGenerator (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__1ec21e4f._.js:16761:38)
+    at async AppRouteRouteModule.handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:191938)
+    at async handleResponse (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__1ec21e4f._.js:16824:32)
+    at async Module.handler (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\.next\dev\server\chunks\[root-of-the-server]__1ec21e4f._.js:16877:13)
+    at async DevServer.renderToResponseWithComponentsImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1442:9)
+    at async DevServer.renderPageComponent (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1494:24)
+    at async DevServer.renderToResponseImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1544:32)
+    at async DevServer.pipeImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:1038:25)
+    at async NextNodeServer.handleCatchallRenderRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\next-server.js:395:17)
+    at async DevServer.handleRequestImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\base-server.js:929:17)
+    at async E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:387:20
+    at async Span.traceAsyncFn (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
+    at async invokeRender (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:248:21)
+    at async handleRequest (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:447:24)
+    at async requestHandlerImpl (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\router-server.js:496:13)
+    at async Server.requestListener (E:\Documents\Tools and Technologies\Mongo DB\TrackMyCash\TrackMyCash\node_modules\next\dist\server\lib\start-server.js:226:13)
+--------------------------------------------------
+[2026-04-12T12:10:31.002Z] ERROR: Failure Response: Failed to fetch dashboard overview
+--------------------------------------------------
