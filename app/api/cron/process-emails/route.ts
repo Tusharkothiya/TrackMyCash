@@ -3,7 +3,7 @@ import { transactionEmailService } from '@/services/transactionEmailService';
 import { logger } from '@/lib/logger';
 
 // Set maxDuration to 60 seconds for Vercel Pro (10 seconds for Hobby)
-export const maxDuration = 60;
+export const maxDuration = 60; 
 
 export async function POST(request: NextRequest) {
   try {
