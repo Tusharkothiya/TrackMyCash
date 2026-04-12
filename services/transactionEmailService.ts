@@ -281,7 +281,6 @@ Please visit ${appUrl} to manage your transactions.
       await logger.error("Error processing email tasks:", error);
       return {
         flag: false,
-        data: "email.processingFailed",
         status: 500,
       };
     } finally {
