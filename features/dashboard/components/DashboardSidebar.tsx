@@ -10,6 +10,7 @@ import {
   PieChart,
   Wallet,
   Settings,
+  ChevronLeft,
   type LucideIcon,
 } from "lucide-react";
 import { getRequest } from "@/lib/apiService";
@@ -18,6 +19,9 @@ import { getUserInitials } from "@/lib/utils/helper";
 
 type DashboardSidebarProps = {
   onNavigate?: () => void;
+  isCollapsed?: boolean;
+  onToggleCollapse?: () => void;
+  isMobileOverlay?: boolean;
 };
 
 type NavItem = {
@@ -42,7 +46,12 @@ const navItems: NavItem[] = [
   { label: "Settings", href: "/settings", icon: Settings },
 ];
 
-export default function DashboardSidebar({ onNavigate }: DashboardSidebarProps) {
+export default function DashboardSidebar({ 
+  onNavigate, 
+  isCollapsed = false, 
+  onToggleCollapse,
+  isMobileOverlay = false 
+}: DashboardSidebarProps) {
   const pathname = usePathname();
   const { data: userData } = useQuery({
     queryKey: ["currentUser"],
@@ -52,23 +61,44 @@ export default function DashboardSidebar({ onNavigate }: DashboardSidebarProps) 
   const user: UserData | undefined = userData?.data;
   const userInitials = getUserInitials(user?.fullName);
   const roleDisplay = user?.role === "ADMIN" ? "Admin" : "Pro Member";
+  const sidebarWidth = isCollapsed ? "w-20" : "w-72";
 
   return (
-    <aside className="flex flex-col h-full w-72 bg-[#0A0E14] backdrop-blur">
-      <div className="flex items-center gap-2 border-b border-[#FFB596] px-5 py-3">
-        <CircleDollarSign className="h-6 w-6 text-blue-400" />
-        <div>
-          <p className="text-base font-semibold text-blue-100 m-0!">TrackMyCash</p>
-          <p className="text-xs text-blue-300/70 m-0!">Finance Dashboard</p>
+    <aside className={`flex flex-col h-full bg-[#0A0E14] backdrop-blur transition-all duration-300 ease-in-out ${sidebarWidth}`}>
+      <div className={`flex items-center justify-between gap-2 border-b border-[#FFB596] px-4 sm:px-5 py-3 ${isCollapsed ? "flex-col" : ""}`}>
+        <div className={`flex items-center gap-2 ${isCollapsed ? "flex-col" : ""}`}>
+          <CircleDollarSign className="h-6 w-6 text-blue-400 shrink-0" />
+          {!isCollapsed && (
+            <div>
+              <p className="text-sm sm:text-base font-semibold text-blue-100 m-0!">TrackMyCash</p>
+              <p className="text-xs text-blue-300/70 m-0!">Finance Dashboard</p>
+            </div>
+          )}
         </div>
       </div>
 
-      <nav className="flex-1 space-y-1 p-3 overflow-y-auto">
+      <nav className={`flex-1 space-y-1 p-2 sm:p-3 overflow-y-auto ${isCollapsed ? "flex flex-col items-center" : ""}`}>
         {navItems.map((item) => {
           const Icon = item.icon;
           const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
 
-          return (
+          return isCollapsed ? (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={onNavigate}
+              className={`relative flex items-center justify-center w-10 h-10 rounded-md transition-colors group ${
+                active ? "bg-blue-400/20 text-blue-100" : "text-blue-100/80 hover:bg-blue-400/10 hover:text-blue-100"
+              }`}
+              title={item.label}
+            >
+              <Icon className="h-5 w-5" />
+              {/* Tooltip for collapsed state */}
+              <div className="absolute left-full ml-2 px-2 py-1 bg-blue-900 text-blue-100 text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                {item.label}
+              </div>
+            </Link>
+          ) : (
             <Link
               key={item.href}
               href={item.href}
@@ -77,7 +107,7 @@ export default function DashboardSidebar({ onNavigate }: DashboardSidebarProps) 
                 active ? "border-l-blue-400 text-blue-100 bg-blue-400/10" : "border-l-transparent text-blue-100/80 hover:bg-blue-400/5 hover:text-blue-100"
               }`}
             >
-              <Icon className="h-4 w-4" />
+              <Icon className="h-4 w-4 shrink-0" />
               <span>{item.label}</span>
             </Link>
           );
@@ -85,20 +115,26 @@ export default function DashboardSidebar({ onNavigate }: DashboardSidebarProps) 
       </nav>
 
       {/* User Profile Section */}
-      <div className="border-t border-blue-400/20 p-3">
-        <div className="flex items-center gap-3 rounded-lg bg-blue-400/10 p-3">
-          <div className="shrink-0">
-            <div className="h-10 w-10 rounded-full bg-blue-400 flex items-center justify-center text-xs font-bold text-[#0A0E14]">
-              {userInitials}
+      <div className="border-t border-blue-400/20 p-2 sm:p-3">
+        {isCollapsed ? (
+          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-400 shrink-0 mx-auto">
+            <span className="text-xs font-bold text-[#0A0E14]">{userInitials}</span>
+          </div>
+        ) : (
+          <div className="flex items-center gap-3 rounded-lg bg-blue-400/10 p-3">
+            <div className="shrink-0">
+              <div className="h-10 w-10 rounded-full bg-blue-400 flex items-center justify-center text-xs font-bold text-[#0A0E14]">
+                {userInitials}
+              </div>
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-semibold text-blue-100 truncate">
+                {user?.fullName || "User"}
+              </p>
+              <p className="text-xs text-blue-300/70">{roleDisplay}</p>
             </div>
           </div>
-          <div className="min-w-0 flex-1">
-            <p className="text-sm font-semibold text-blue-100 truncate">
-              {user?.fullName || "User"}
-            </p>
-            <p className="text-xs text-blue-300/70">{roleDisplay}</p>
-          </div>
-        </div>
+        )}
       </div>
     </aside>
   );

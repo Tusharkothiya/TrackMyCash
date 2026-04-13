@@ -144,42 +144,43 @@ const Accounts = () => {
 
   return (
     <div>
-      <main className="min-h-screen relative overflow-hidden flex flex-col max-w-7xl mx-auto">
+      <main className="min-h-screen relative overflow-hidden flex flex-col w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10">
         {/* Background Decoration */}
         <div className="fixed top-0 right-0 -z-10 w-150 h-150 bg-primary/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
         <div className="fixed bottom-0 left-65 -z-10 w-100 h-100 bg-tertiary/5 blur-[100px] rounded-full -translate-x-1/2 translate-y-1/2" />
 
         {/* Action Header */}
-        <div className="flex justify-between items-end mb-10">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-8 sm:mb-10">
           <div>
             <span className="text-[10px] uppercase tracking-[0.2em] text-primary font-bold mb-1 block">
               Global Overview
             </span>
-            <h2 className="text-4xl font-extrabold tracking-tight text-on-surface">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-on-surface">
               Financial Assets
             </h2>
           </div>
           <button
             onClick={handleModalOpenForCreate}
-            className="bg-linear-to-br cursor-pointer from-primary-container to-primary text-on-primary-fixed px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary-container/20"
+            className="bg-linear-to-br cursor-pointer from-primary-container to-primary text-on-primary-fixed px-4 sm:px-6 py-3 rounded-xl font-bold flex items-center justify-center sm:justify-start gap-2 hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary-container/20 w-full sm:w-auto"
           >
             <Plus size={20} />
-            Add Account
+            <span className="hidden sm:inline">Add Account</span>
+            <span className="sm:hidden">Add</span>
           </button>
         </div>
 
         {/* Summary Bar */}
         {!accountsQuery.isLoading && (
-          <section className="mb-10 p-8 rounded-xl bg-surface-container-low flex items-center justify-between">
-            <div className="flex items-center gap-6">
-              <div className="p-4 rounded-full bg-primary-container/10 text-primary">
-                <WalletIcon size={32} />
+          <section className="mb-8 sm:mb-10 p-4 sm:p-8 rounded-xl bg-surface-container-low flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex items-center gap-4 sm:gap-6">
+              <div className="p-3 sm:p-4 rounded-full bg-primary-container/10 text-primary shrink-0">
+                <WalletIcon size={28} className="sm:w-8 sm:h-8" />
               </div>
-              <div>
-                <span className="text-[11px] uppercase tracking-widest text-on-surface-variant font-bold">
+              <div className="min-w-0">
+                <span className="text-[10px] sm:text-[11px] uppercase tracking-widest text-on-surface-variant font-bold block">
                   Total Combined Balance
                 </span>
-                <div className="text-3xl font-black text-on-surface mt-1">
+                <div className="text-2xl sm:text-3xl font-black text-on-surface mt-1 truncate">
                   ₹
                   {totalBalance.toLocaleString("en-IN", {
                     minimumFractionDigits: 2,
@@ -191,7 +192,7 @@ const Accounts = () => {
         )}
 
         {/* Account Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {accountsQuery.isLoading ? (
             <>
               {Array.from({ length: ACCOUNT_SKELETON_COUNT }).map((_, index) => (

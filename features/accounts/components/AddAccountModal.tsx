@@ -117,7 +117,7 @@ export default function AddAccountModal({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center bg-surface-container-lowest/80 backdrop-blur-sm p-6">
+        <div className="fixed inset-0 z-100 flex items-center justify-center bg-surface-container-lowest/80 backdrop-blur-sm p-4 sm:p-6">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -130,28 +130,28 @@ export default function AddAccountModal({
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="relative w-full max-w-lg bg-surface-container-high rounded-3xl shadow-2xl overflow-hidden border border-outline-variant/10"
+            className="relative w-full max-w-lg bg-surface-container-high rounded-3xl shadow-2xl overflow-hidden border border-outline-variant/10 max-h-[90vh] overflow-y-auto"
           >
-            <div className="p-8">
-              <div className="flex justify-between items-center mb-8">
-                <div>
+            <div className="p-4 sm:p-6 lg:p-8">
+              <div className="flex justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8">
+                <div className="flex-1 min-w-0">
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-1">
                     Financial Account
                   </p>
-                  <h3 className="text-2xl font-black text-on-surface tracking-tight">
+                  <h3 className="text-xl sm:text-2xl font-black text-on-surface tracking-tight">
                     {mode === "edit" ? "Edit Account" : "Add New Account"}
                   </h3>
                 </div>
                 <button
                   onClick={onClose}
                   disabled={isSubmitting}
-                  className="w-10 h-10 cursor-pointer flex items-center justify-center rounded-full hover:bg-surface-bright transition-colors text-on-surface-variant disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-10 h-10 shrink-0 cursor-pointer flex items-center justify-center rounded-full hover:bg-surface-bright transition-colors text-on-surface-variant disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <X size={20} />
                 </button>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                 <div className="space-y-2">
                   <label className="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant ml-1">
                     Account Name
@@ -162,12 +162,12 @@ export default function AddAccountModal({
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Personal Checking"
-                    className="w-full bg-surface-container-highest border-none rounded-2xl px-4 py-3.5 text-on-surface placeholder:text-on-surface-variant/40 focus:ring-2 focus:ring-primary/30 transition-all outline-none"
+                    className="w-full bg-surface-container-highest border-none rounded-2xl px-3 sm:px-4 py-3 sm:py-3.5 text-base sm:text-sm text-on-surface placeholder:text-on-surface-variant/40 focus:ring-2 focus:ring-primary/30 transition-all outline-none"
                     required
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-2 sm:gap-4">
                   <div className="space-y-2">
                     <label className="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant ml-1">
                       Account Type
@@ -176,7 +176,7 @@ export default function AddAccountModal({
                       <select
                         value={type}
                         onChange={(e) => setType(e.target.value as AccountType)}
-                        className="w-full bg-surface-container-highest border-none rounded-2xl px-4 py-3.5 text-on-surface appearance-none focus:ring-2 focus:ring-primary/30 outline-none cursor-pointer"
+                        className="w-full bg-surface-container-highest border-none rounded-2xl px-3 sm:px-4 py-3 sm:py-3.5 text-sm text-on-surface appearance-none focus:ring-2 focus:ring-primary/30 outline-none cursor-pointer"
                       >
                         {accountTypes.map((t) => (
                           <option key={t} value={t}>
@@ -186,7 +186,7 @@ export default function AddAccountModal({
                       </select>
                       <ChevronDown
                         size={20}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant"
+                        className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant"
                       />
                     </div>
                   </div>
@@ -198,7 +198,7 @@ export default function AddAccountModal({
                       <select
                         value={currency}
                         onChange={(e) => setCurrency(e.target.value as Currency)}
-                        className="w-full bg-surface-container-highest border-none rounded-2xl px-4 py-3.5 text-on-surface appearance-none focus:ring-2 focus:ring-primary/30 outline-none cursor-pointer"
+                        className="w-full bg-surface-container-highest border-none rounded-2xl px-3 sm:px-4 py-3 sm:py-3.5 text-sm text-on-surface appearance-none focus:ring-2 focus:ring-primary/30 outline-none cursor-pointer"
                       >
                         {currencies.map((c) => (
                           <option key={c} value={c}>
@@ -208,7 +208,7 @@ export default function AddAccountModal({
                       </select>
                       <ChevronDown
                         size={20}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant"
+                        className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant"
                       />
                     </div>
                   </div>
@@ -219,7 +219,7 @@ export default function AddAccountModal({
                     Initial Balance
                   </label>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-primary font-bold">
+                    <span className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-primary font-bold text-base">
                       ₹
                     </span>
                     <input
@@ -227,14 +227,14 @@ export default function AddAccountModal({
                       value={balance}
                       onChange={(e) => setBalance(e.target.value)}
                       step="0.01"
-                      className="w-full bg-surface-container-highest border-none rounded-2xl pl-8 pr-4 py-3.5 text-on-surface placeholder:text-on-surface-variant/40 focus:ring-2 focus:ring-primary/30 transition-all outline-none"
+                      className="w-full bg-surface-container-highest border-none rounded-2xl pl-7 sm:pl-8 pr-3 sm:pr-4 py-3 sm:py-3.5 text-base sm:text-sm text-on-surface placeholder:text-on-surface-variant/40 focus:ring-2 focus:ring-primary/30 transition-all outline-none"
                       placeholder="0.00"
                       required
                     />
                   </div>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   <label className="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant ml-1">
                     Account Style
                   </label>
@@ -244,13 +244,13 @@ export default function AddAccountModal({
                     <p className="text-[9px] font-semibold uppercase tracking-wider text-on-surface-variant">
                       Brand Color
                     </p>
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
                       {colors.map((color) => (
                         <button
                           key={color}
                           type="button"
                           onClick={() => setSelectedColor(color)}
-                          className={`h-11 w-11 cursor-pointer rounded-full transition-all hover:scale-110 active:scale-95 flex items-center justify-center shrink-0 ${
+                          className={`h-10 w-10 sm:h-11 sm:w-11 cursor-pointer rounded-full transition-all hover:scale-110 active:scale-95 flex items-center justify-center shrink-0 ${
                             selectedColor === color
                               ? "ring-2 ring-primary/30 ring-offset-2 ring-offset-surface-container-high"
                               : "opacity-60 hover:opacity-100"
@@ -258,7 +258,7 @@ export default function AddAccountModal({
                           style={{ backgroundColor: color }}
                         >
                           {selectedColor === color && (
-                            <Check size={16} className="text-white" />
+                            <Check size={14} className="sm:w-4 sm:h-4 text-white" />
                           )}
                         </button>
                       ))}
@@ -266,11 +266,11 @@ export default function AddAccountModal({
                   </div>
 
                   {/* Icons Section */}
-                  <div className="space-y-2 border-t border-outline-variant/10 pt-4">
+                  <div className="space-y-2 border-t border-outline-variant/10 pt-3 sm:pt-4">
                     <p className="text-[9px] font-semibold uppercase tracking-wider text-on-surface-variant">
                       Account Icon
                     </p>
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
                       {icons.map((item) => {
                         const Icon = item.icon;
                         return (
@@ -278,13 +278,13 @@ export default function AddAccountModal({
                             key={item.id}
                             type="button"
                             onClick={() => setSelectedIcon(item.id)}
-                            className={`h-11 w-11 rounded-xl transition-all cursor-pointer shrink-0 flex items-center justify-center ${
+                            className={`h-10 w-10 sm:h-11 sm:w-11 rounded-xl transition-all cursor-pointer shrink-0 flex items-center justify-center ${
                               selectedIcon === item.id
                                 ? "bg-primary text-on-primary-fixed ring-2 ring-primary/30"
                                 : "bg-surface-container-highest text-on-surface-variant hover:text-on-surface hover:bg-surface-bright"
                             }`}
                           >
-                            <Icon size={22} />
+                            <Icon size={20} className="sm:w-5.5 sm:h-5.5" />
                           </button>
                         );
                       })}
@@ -293,22 +293,22 @@ export default function AddAccountModal({
                 </div>
 
                 {messageToShow && (
-                  <p className="text-sm text-error bg-error/10 px-3 py-2 rounded-lg">{messageToShow}</p>
+                  <p className="text-xs sm:text-sm text-error bg-error/10 px-3 py-2 rounded-lg">{messageToShow}</p>
                 )}
 
-                <div className="mt-8 flex items-center justify-end gap-4 border-t border-outline-variant/20 pt-8">
+                <div className="mt-6 sm:mt-8 flex flex-col-reverse sm:flex-row sm:items-center sm:justify-end gap-3 sm:gap-4 border-t border-outline-variant/20 pt-6 sm:pt-8">
                   <button
                     type="button"
                     onClick={onClose}
                     disabled={isSubmitting}
-                    className="px-6 py-3 text-sm font-semibold text-on-surface-variant hover:text-on-surface transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full sm:w-auto px-4 sm:px-6 py-3 text-sm font-semibold text-on-surface-variant hover:text-on-surface transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed rounded-xl sm:rounded-2xl hover:bg-surface-bright"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="bg-linear-to-br cursor-pointer from-primary-container to-primary text-on-primary-fixed px-6 py-3 rounded-2xl font-bold flex items-center gap-2 hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-primary/20 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="w-full sm:w-auto bg-linear-to-br cursor-pointer from-primary-container to-primary text-on-primary-fixed px-4 sm:px-6 py-3 rounded-xl sm:rounded-2xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-primary/20 disabled:opacity-70 disabled:cursor-not-allowed text-sm sm:text-base"
                   >
                     {isSubmitting
                       ? mode === "edit"
@@ -323,7 +323,7 @@ export default function AddAccountModal({
             </div>
 
             {/* Decorative Gradients */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-[60px] pointer-events-none rounded-full" />
+            <div className="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 bg-primary/10 blur-[60px] pointer-events-none rounded-full" />
           </motion.div>
         </div>
       )}

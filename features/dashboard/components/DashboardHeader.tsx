@@ -1,12 +1,14 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Bell, Menu, Search } from "lucide-react";
+import { Bell, Menu, Search, ChevronLeft } from "lucide-react";
 import { useCurrentUser } from "@/hooks/useAuth";
 import { getUserInitials } from "@/lib/utils/helper";
 
 type DashboardHeaderProps = {
   onMenuClick: () => void;
+  sidebarCollapsed?: boolean;
+  onToggleSidebar?: () => void;
 };
 
 const titleMap: Record<string, string> = {
@@ -23,7 +25,7 @@ function resolveTitle(pathname: string): string {
   return titleMap[pathname] ?? "Dashboard";
 }
 
-export default function DashboardHeader({ onMenuClick }: DashboardHeaderProps) {
+export default function DashboardHeader({ onMenuClick, sidebarCollapsed = false, onToggleSidebar }: DashboardHeaderProps) {
   const pathname = usePathname();
   const { data, isLoading } = useCurrentUser();
   const userInitials = getUserInitials(data?.data?.fullName);
@@ -35,11 +37,23 @@ export default function DashboardHeader({ onMenuClick }: DashboardHeaderProps) {
           <button
             type="button"
             onClick={onMenuClick}
-            className="inline-flex rounded-md border border-blue-900/50 p-2 text-blue-100 hover:bg-blue-900/40 md:hidden"
+            className="inline-flex rounded-md border border-blue-900/50 p-2 text-blue-100 hover:bg-blue-900/40 lg:hidden"
             aria-label="Open menu"
           >
             <Menu className="h-4 w-4" />
           </button>
+          {/* Desktop sidebar collapse toggle - only on lg screens */}
+          {onToggleSidebar && (
+            <button
+              type="button"
+              onClick={onToggleSidebar}
+              className="hidden rounded-md border border-blue-900/50 p-2 text-blue-100 hover:bg-blue-900/40 lg:inline-flex"
+              aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+              title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            >
+              <ChevronLeft className={`h-4 w-4 transition-transform duration-300 ${sidebarCollapsed ? "rotate-180" : ""}`} />
+            </button>
+          )}
           <div>
             <h1 className="text-lg font-semibold text-blue-100">{resolveTitle(pathname)}</h1>
             <p className="text-xs text-blue-300/70">Welcome back, here is your latest financial snapshot.</p>
