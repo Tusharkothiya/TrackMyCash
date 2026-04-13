@@ -94,25 +94,25 @@ const StatCard = ({
   trendUp?: boolean;
 }) => {
   return (
-    <div className="bg-surface-container p-6 rounded-lg relative overflow-hidden group">
+    <div className="bg-surface-container p-4 sm:p-6 rounded-lg relative overflow-hidden group">
       <div className="absolute -right-4 -bottom-4 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity">
-        <Icon size={120} />
+        <Icon size={100} className="sm:w-30 sm:h-30" />
       </div>
       <div className="flex justify-between items-start mb-4">
-        <span className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">
+        <span className="text-[10px] sm:text-xs font-bold text-on-surface-variant uppercase tracking-wider">
           {title}
         </span>
         <span
           className={cn(
-            "px-2 py-1 rounded-full text-[10px] font-bold",
+            "px-2 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-bold",
             trendUp ? "bg-primary/10 text-primary" : "bg-error/10 text-error",
           )}
         >
           {trend}
         </span>
       </div>
-      <div className="text-3xl font-extrabold text-on-surface mb-1">{value}</div>
-      <p className="text-[10px] text-on-surface-variant">{subtext}</p>
+      <div className="text-2xl sm:text-3xl font-extrabold text-on-surface mb-1">{value}</div>
+      <p className="text-[9px] sm:text-[10px] text-on-surface-variant">{subtext}</p>
     </div>
   );
 };
@@ -176,23 +176,23 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-background text-on-surface selection:bg-primary selection:text-on-primary">
-      <main className="max-w-7xl mx-auto">
-        <div className="mb-10 flex justify-between items-end">
+      <main className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div className="mb-6 sm:mb-10 flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 sm:gap-0">
           <div>
             <p className="text-xs font-bold text-primary tracking-[0.2em] mb-1 uppercase">
               Financial Summary
             </p>
-            <h3 className="text-3xl font-extrabold text-on-surface tracking-tight">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight">
               {summary.periodLabel}
             </h3>
           </div>
-          <div className="flex gap-3 items-center">
-            <div className="px-4 py-2.5 rounded-lg bg-surface-container-high text-on-surface text-sm font-semibold flex items-center gap-2">
-              <CalendarIcon size={18} />
+          <div className="flex gap-2 sm:gap-3 items-center">
+            <div className="flex-1 px-3 sm:px-4 py-2.5 rounded-lg bg-surface-container-high text-on-surface text-xs sm:text-sm font-semibold flex items-center gap-2">
+              <CalendarIcon size={16} className="sm:w-4.5 sm:h-4.5" />
               <select
                 value={selectedRange}
                 onChange={(event) => setSelectedRange(Number(event.target.value))}
-                className="bg-transparent outline-none cursor-pointer"
+                className="bg-transparent outline-none cursor-pointer text-xs sm:text-sm flex-1"
               >
                 {RANGE_OPTIONS.map((option) => (
                   <option key={option.value} value={option.value} className="text-black">
@@ -203,15 +203,16 @@ const Dashboard = () => {
             </div>
             <Link
               href="/transactions"
-              className="px-5 py-2.5 bg-linear-to-br from-primary-container to-primary text-on-primary-fixed font-bold rounded-lg flex items-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-primary/10 active:scale-95"
+              className="flex-1 px-3 sm:px-5 py-2.5 bg-linear-to-br from-primary-container to-primary text-on-primary-fixed font-bold rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-primary/10 active:scale-95 text-xs sm:text-sm"
             >
-              <Plus size={18} />
-              New Entry
+              <Plus size={16} className="sm:w-4.5 sm:h-4.5" />
+              <span className="hidden sm:inline">New Entry</span>
+              <span className="sm:hidden">Add</span>
             </Link>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <StatCard
             title="Total Balance"
             value={toCurrency(summary.totalBalance)}
@@ -262,11 +263,11 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-          <div className="lg:col-span-2 bg-surface-container p-8 rounded-lg">
-            <div className="flex justify-between items-center mb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 mb-6 sm:mb-8">
+          <div className="lg:col-span-2 bg-surface-container p-4 sm:p-8 rounded-lg">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0 mb-6 sm:mb-10">
               <div>
-                <h4 className="text-lg font-bold text-on-surface mb-1">Cashflow Trend</h4>
+                <h4 className="text-base sm:text-lg font-bold text-on-surface mb-1">Cashflow Trend</h4>
                 <p className="text-xs text-on-surface-variant">Income vs expenses over the last 6 months</p>
               </div>
               <div className="flex gap-4">
@@ -320,8 +321,8 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="bg-surface-container p-8 rounded-lg flex flex-col">
-            <h4 className="text-lg font-bold text-on-surface mb-6">Expense Breakdown</h4>
+          <div className="bg-surface-container p-4 sm:p-8 rounded-lg flex flex-col">
+            <h4 className="text-base sm:text-lg font-bold text-on-surface mb-6">Expense Breakdown</h4>
             <div className="flex-1 flex flex-col justify-center">
               <div className="relative w-48 h-48 mx-auto mb-8">
                 <ResponsiveContainer width="100%" height="100%">
@@ -369,9 +370,9 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="bg-surface-container p-8 rounded-lg mb-8">
-          <div className="flex justify-between items-center mb-8">
-            <h4 className="text-lg font-bold text-on-surface">Weekly Net Movement</h4>
+        <div className="bg-surface-container p-4 sm:p-8 rounded-lg mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 mb-6 sm:mb-8">
+            <h4 className="text-base sm:text-lg font-bold text-on-surface">Weekly Net Movement</h4>
             <div className="flex items-center gap-2 bg-surface-container-low px-3 py-1 rounded-full">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-[10px] font-bold text-on-surface uppercase">Live Sync</span>
@@ -404,44 +405,49 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-          <div className="bg-surface-container p-8 rounded-lg overflow-hidden">
-            <div className="flex justify-between items-center mb-8">
-              <h4 className="text-lg font-bold text-on-surface">Recent Transactions</h4>
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8">
+          <div className="bg-surface-container p-4 sm:p-8 rounded-lg overflow-hidden">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0 mb-6 sm:mb-8">
+              <h4 className="text-base sm:text-lg font-bold text-on-surface">Recent Transactions</h4>
               <Link href="/transactions" className="text-xs font-bold text-primary hover:underline cursor-pointer">
                 View All History
               </Link>
             </div>
 
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto -mx-4 sm:-mx-8 px-4 sm:px-8">
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="text-left border-b border-outline-variant/10">
-                    <th className="pb-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Title</th>
-                    <th className="pb-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Category</th>
-                    <th className="pb-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Date</th>
-                    <th className="pb-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest text-right">Amount</th>
+                    <th className="pb-3 sm:pb-4 text-[9px] sm:text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Title</th>
+                    <th className="pb-3 sm:pb-4 text-[9px] sm:text-[10px] font-bold text-on-surface-variant uppercase tracking-widest hidden sm:table-cell">Category</th>
+                    <th className="pb-3 sm:pb-4 text-[9px] sm:text-[10px] font-bold text-on-surface-variant uppercase tracking-widest hidden sm:table-cell">Date</th>
+                    <th className="pb-3 sm:pb-4 text-[9px] sm:text-[10px] font-bold text-on-surface-variant uppercase tracking-widest text-right">Amount</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-outline-variant/5">
                   {dashboardData.recentTransactions.map((tx) => (
                     <tr key={tx.id} className="group hover:bg-surface-container-low transition-colors">
-                      <td className="py-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center">
-                            <ReceiptText size={16} />
+                      <td className="py-3 sm:py-4">
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-surface-container-highest flex items-center justify-center shrink-0">
+                            <ReceiptText size={14} className="sm:w-4 sm:h-4" />
                           </div>
-                          <span className="text-sm font-semibold text-on-surface">{tx.title}</span>
+                          <div className="flex-1 min-w-0">
+                            <span className="text-xs sm:text-sm font-semibold text-on-surface truncate">{tx.title}</span>
+                            <span className={cn("text-[8px] sm:hidden font-bold rounded-full inline-block mt-1 px-1.5 py-0.5", getTransactionBadgeClass(tx))}>
+                              {tx.category}
+                            </span>
+                          </div>
                         </div>
                       </td>
-                      <td className="py-4">
-                        <span className={cn("px-2 py-1 rounded-full text-[10px] font-bold", getTransactionBadgeClass(tx))}>
+                      <td className="py-3 sm:py-4 hidden sm:table-cell">
+                        <span className={cn("px-2 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-bold", getTransactionBadgeClass(tx))}>
                           {tx.category}
                         </span>
                       </td>
-                      <td className="py-4 text-xs text-on-surface-variant">{tx.date}</td>
-                      <td className={cn("py-4 text-right text-sm font-bold", tx.type === "Income" ? "text-primary" : "text-on-surface")}>
-                        {tx.type === "Income" ? "+" : "-"}
+                      <td className="py-3 sm:py-4 text-[8px] sm:text-xs text-on-surface-variant hidden sm:table-cell">{tx.date}</td>
+                      <td className={cn("py-3 sm:py-4 text-right text-xs sm:text-sm font-bold", tx.type === "Income" ? "text-primary" : "text-on-surface")}>
+                        <span className="hidden sm:inline">{tx.type === "Income" ? "+" : "-"}</span>
                         {toCurrency(tx.amount)}
                       </td>
                     </tr>
@@ -451,21 +457,21 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="bg-surface-container p-8 rounded-lg">
-            <div className="flex justify-between items-center mb-10">
-              <h4 className="text-lg font-bold text-on-surface">Top Spending Categories</h4>
-              <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Monthly Limit</span>
+          <div className="bg-surface-container p-4 sm:p-8 rounded-lg">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 mb-8 sm:mb-10">
+              <h4 className="text-base sm:text-lg font-bold text-on-surface">Top Spending Categories</h4>
+              <span className="text-[9px] sm:text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Monthly Limit</span>
             </div>
 
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {dashboardData.topSpendingCategories.map((cat: DashboardTopSpendingCategory) => {
                 const percentage = cat.limit > 0 ? Math.min(100, (cat.spent / cat.limit) * 100) : 0;
 
                 return (
                   <div key={cat.id}>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-bold text-on-surface">{cat.name}</span>
-                      <span className="text-sm font-bold text-on-surface">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 mb-2">
+                      <span className="text-xs sm:text-sm font-bold text-on-surface">{cat.name}</span>
+                      <span className="text-xs sm:text-sm font-bold text-on-surface text-right sm:text-left">
                         {toCurrency(cat.spent)} / {toCurrency(cat.limit)}
                       </span>
                     </div>
@@ -482,13 +488,13 @@ const Dashboard = () => {
               })}
             </div>
 
-            <div className="mt-12 p-6 rounded-xl bg-primary-container/10 border border-primary-container/20 flex gap-5 items-center">
-              <div className="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center shrink-0">
-                <Lightbulb className="text-white fill-current" size={24} />
+            <div className="mt-8 sm:mt-12 p-4 sm:p-6 rounded-xl bg-primary-container/10 border border-primary-container/20 flex gap-3 sm:gap-5 items-start sm:items-center">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary-container flex items-center justify-center shrink-0">
+                <Lightbulb className="text-white fill-current w-5 h-5 sm:w-6 sm:h-6" />
               </div>
               <div>
-                <h5 className="text-sm font-bold text-on-surface mb-1">Financial Insight</h5>
-                <p className="text-xs text-on-surface-variant leading-relaxed">{dashboardData.insight}</p>
+                <h5 className="text-xs sm:text-sm font-bold text-on-surface mb-1">Financial Insight</h5>
+                <p className="text-[11px] sm:text-xs text-on-surface-variant leading-relaxed">{dashboardData.insight}</p>
               </div>
             </div>
           </div>
