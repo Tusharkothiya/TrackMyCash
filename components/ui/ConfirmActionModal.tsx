@@ -70,7 +70,7 @@ export function ConfirmActionModal({
   return (
     <AnimatePresence>
       {isOpen ? (
-        <div className="fixed inset-0 z-120 flex items-center justify-center p-6">
+        <div className="fixed inset-0 z-120 flex items-center justify-center p-4 sm:p-6">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -83,46 +83,46 @@ export function ConfirmActionModal({
             initial={{ opacity: 0, scale: 0.92, y: 14 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 14 }}
-            className="relative w-full max-w-md rounded-3xl border border-outline-variant/15 bg-surface-container-high p-7 shadow-2xl"
+            className="relative w-full max-w-md rounded-3xl border border-outline-variant/15 bg-surface-container-high p-4 sm:p-6 lg:p-7 shadow-2xl"
           >
             <button
               type="button"
               onClick={onClose}
               disabled={Boolean(isLoading)}
-              className="absolute cursor-pointer right-5 top-5 h-8 w-8 rounded-full text-on-surface-variant hover:bg-surface-bright disabled:cursor-not-allowed"
+              className="absolute cursor-pointer right-4 sm:right-5 top-4 sm:top-5 h-8 w-8 rounded-full text-on-surface-variant hover:bg-surface-bright disabled:cursor-not-allowed shrink-0"
             >
               <X size={16} className="mx-auto" />
             </button>
 
-            <div className="mb-5 flex items-center gap-3">
+            <div className="mb-4 sm:mb-5 flex items-start sm:items-center gap-3 pr-8">
               <div
                 className={cn(
-                  "flex h-11 w-11 items-center justify-center rounded-2xl",
+                  "flex h-10 sm:h-11 w-10 sm:w-11 items-center justify-center rounded-2xl shrink-0",
                   variantClasses.iconWrap,
                 )}
               >
-                <Icon size={20} className={variantClasses.iconColor} />
+                <Icon size={18} className={variantClasses.iconColor} />
               </div>
-              <div>
-                <h3 className="text-lg font-black tracking-tight text-on-surface">{title}</h3>
+              <div className="flex-1">
+                <h3 className="text-base sm:text-lg font-black tracking-tight text-on-surface">{title}</h3>
                 {description ? (
-                  <p className="mt-1 text-sm leading-relaxed text-on-surface-variant">{description}</p>
+                  <p className="mt-1 text-xs sm:text-sm leading-relaxed text-on-surface-variant">{description}</p>
                 ) : null}
               </div>
             </div>
 
             {apiMessage ? (
-              <p className="mb-4 rounded-xl bg-error/10 px-3 py-2 text-sm font-medium text-error">
+              <p className="mb-4 rounded-xl bg-error/10 px-3 py-2 text-xs sm:text-sm font-medium text-error">
                 {apiMessage}
               </p>
             ) : null}
 
-            <div className="mt-6 flex items-center gap-3">
+            <div className="mt-4 sm:mt-6 flex flex-col-reverse sm:flex-row gap-2 sm:gap-3">
               <button
                 type="button"
                 onClick={onClose}
                 disabled={Boolean(isLoading)}
-                className="flex-1 cursor-pointer rounded-2xl px-4 py-3 text-sm font-bold text-on-surface-variant transition-all hover:bg-surface-bright disabled:cursor-not-allowed disabled:opacity-70"
+                className="flex-1 cursor-pointer rounded-2xl px-4 py-3 sm:py-3 text-sm font-bold text-on-surface-variant transition-all hover:bg-surface-bright disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {cancelLabel}
               </button>
@@ -131,7 +131,7 @@ export function ConfirmActionModal({
                 onClick={onConfirm}
                 disabled={Boolean(isLoading)}
                 className={cn(
-                  "flex-1 cursor-pointer rounded-2xl px-4 py-3 text-sm font-bold transition-all disabled:cursor-not-allowed disabled:opacity-70",
+                  "flex-1 cursor-pointer rounded-2xl px-4 py-3 sm:py-3 text-sm font-bold transition-all disabled:cursor-not-allowed disabled:opacity-70",
                   variantClasses.confirmBtn,
                 )}
               >

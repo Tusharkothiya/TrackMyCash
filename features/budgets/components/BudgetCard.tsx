@@ -104,22 +104,22 @@ const BudgetCard = ({ budget, onEdit, onDelete }: BudgetCardProps) => {
     <motion.div
       whileHover={{ x: 4 }}
       className={cn(
-        "group flex items-center gap-8 rounded-xl border-l-4 border-transparent bg-surface-container p-6 transition-all hover:bg-surface-container-high",
+        "group flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 lg:gap-8 rounded-xl border-l-4 border-transparent bg-surface-container p-4 sm:p-6 transition-all hover:bg-surface-container-high",
         isCritical && "border-tertiary",
       )}
     >
       <div
-        className="flex h-14 w-14 items-center justify-center rounded-full bg-surface-container-highest"
+        className="flex h-12 sm:h-14 w-12 sm:w-14 items-center justify-center rounded-full bg-surface-container-highest shrink-0"
         style={{ color: category.color }}
       >
-        <CategoryIcon size={30} />
+        <CategoryIcon size={28} />
       </div>
 
-      <div className="flex-1">
-        <div className="mb-4 flex justify-between items-end">
+      <div className="flex-1 w-full sm:w-auto">
+        <div className="mb-3 sm:mb-4 flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2 sm:gap-4">
           <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-xl font-bold text-on-surface">{category.name}</h3>
+            <div className="flex flex-wrap items-center gap-2">
+              <h3 className="text-lg sm:text-xl font-bold text-on-surface">{category.name}</h3>
               <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-tighter text-primary">
                 {budget.frequency}
               </span>
@@ -129,21 +129,21 @@ const BudgetCard = ({ budget, onEdit, onDelete }: BudgetCardProps) => {
                 </span>
               )}
             </div>
-            <p className="text-sm text-on-surface-variant">
+            <p className="text-xs sm:text-sm text-on-surface-variant mt-1">
               {category.type} budget in {budget.currency}
             </p>
           </div>
-          <div className="text-right">
-            <span className={cn("text-2xl font-bold", isCritical ? "text-tertiary" : "text-on-surface")}>
+          <div className="text-right sm:text-right">
+            <span className={cn("text-xl sm:text-2xl font-bold block", isCritical ? "text-tertiary" : "text-on-surface")}>
               {formatMoney(spentAmount, budget.currency)}
             </span>
-            <span className="font-medium text-on-surface-variant">
-              {" "}/ {formatMoney(totalAmount, budget.currency)}
+            <span className="text-xs sm:text-sm font-medium text-on-surface-variant">
+              / {formatMoney(totalAmount, budget.currency)}
             </span>
           </div>
         </div>
 
-        <div className="h-2.5 w-full overflow-hidden rounded-full bg-surface-container-lowest">
+        <div className="h-2 sm:h-2.5 w-full overflow-hidden rounded-full bg-surface-container-lowest">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${percentage}%` }}
@@ -153,14 +153,14 @@ const BudgetCard = ({ budget, onEdit, onDelete }: BudgetCardProps) => {
         </div>
       </div>
 
-      <div className="w-24 flex flex-col items-center gap-1">
-        <span className={cn("text-xl font-black", isCritical ? "text-tertiary" : "text-primary")}>
+      <div className="w-full sm:w-24 flex sm:flex-col items-center sm:items-center gap-4 sm:gap-1 mt-2 sm:mt-0">
+        <span className={cn("text-lg sm:text-xl font-black", isCritical ? "text-tertiary" : "text-primary")}>
           {percentage}%
         </span>
         <span className="text-[10px] font-bold uppercase text-on-surface-variant">Used</span>
       </div>
 
-      <div className="flex gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+      <div className="flex gap-2 ml-auto sm:ml-0 opacity-100 sm:opacity-0 transition-opacity group-hover:opacity-100">
         <button
           type="button"
           onClick={() => onEdit?.(budget)}

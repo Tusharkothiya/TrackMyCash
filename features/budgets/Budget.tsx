@@ -171,20 +171,20 @@ const Budget = () => {
 
   return (
     <div className="flex min-h-screen bg-background text-on-surface">
-      <main className="max-w-7xl w-full mx-auto flex-1 flex flex-col min-h-screen">
-        <div className="w-full mx-auto space-y-8">
-          <div className="flex justify-between items-end">
+      <main className="max-w-7xl w-full mx-auto flex-1 flex flex-col min-h-screen px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10">
+        <div className="w-full space-y-6 sm:space-y-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 sm:gap-6">
             <div>
               <span className="text-primary text-xs uppercase font-bold tracking-widest">
                 Financial Planning
               </span>
-              <h2 className="text-4xl font-extrabold text-on-surface tracking-tight mt-1">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-on-surface tracking-tight mt-1">
                 Budget Overview
               </h2>
             </div>
             <button
               onClick={handleModalOpenForCreate}
-              className="bg-linear-to-br cursor-pointer from-primary-container to-primary text-on-primary-fixed px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary-container/20"
+              className="w-full sm:w-auto bg-linear-to-br cursor-pointer from-primary-container to-primary text-on-primary-fixed px-4 sm:px-6 py-3 sm:py-3 rounded-xl font-bold flex items-center justify-center sm:justify-start gap-2 hover:opacity-90 transition-all active:scale-[0.98] shadow-lg shadow-primary-container/20"
             >
               <Plus size={20} />
               <span>Create Budget</span>
@@ -195,16 +195,16 @@ const Budget = () => {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-tertiary-container/10 border-l-4 border-tertiary p-5 rounded-xl flex items-center gap-4"
+              className="bg-tertiary-container/10 border-l-4 border-tertiary p-4 sm:p-5 rounded-xl flex items-start sm:items-center gap-4"
             >
-              <AlertTriangle className="text-tertiary" size={28} />
-              <p className="text-on-surface font-medium">
+              <AlertTriangle className="text-tertiary shrink-0" size={28} />
+              <p className="text-on-surface font-medium text-sm sm:text-base">
                 Warning: {atRiskBudgets.length} budget{atRiskBudgets.length > 1 ? "s are" : " is"} above 80% usage.
               </p>
             </motion.div>
           ) : null}
 
-          <section className="space-y-6">
+          <section className="space-y-4 sm:space-y-6">
           {budgetsQuery.isLoading ? (
             <div className="grid gap-4">
               {Array.from({ length: BUDGET_SKELETON_COUNT }).map((_, index) => (
@@ -248,13 +248,13 @@ const Budget = () => {
           </section>
 
           {!budgetsQuery.isLoading && budgets.length > 0 ? (
-            <div className="mt-12 grid grid-cols-12 gap-8">
-              <div className="col-span-12 lg:col-span-4 bg-surface-container-low p-8 rounded-xl border border-outline-variant/10">
+            <div className="mt-8 sm:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+              <div className="lg:col-span-4 bg-surface-container-low p-6 sm:p-8 rounded-xl border border-outline-variant/10">
                 <span className="text-xs uppercase font-bold text-primary tracking-widest block mb-4">
                   Total Allocation
                 </span>
                 <div className="space-y-2">
-                  <span className="text-5xl font-extrabold text-on-surface">
+                  <span className="text-4xl sm:text-5xl font-extrabold text-on-surface">
                     {totalAllocation.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
@@ -264,7 +264,7 @@ const Budget = () => {
                     Across all active budget categories for the current period.
                   </p>
                 </div>
-                <div className="mt-8 pt-8 border-t border-outline-variant/20">
+                <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-outline-variant/20">
                   <div className="flex justify-between text-sm mb-2">
                     <span className="text-on-surface-variant">Budget Usage</span>
                     <span className="text-on-surface font-bold">{overallUsage}%</span>
@@ -275,7 +275,7 @@ const Budget = () => {
                 </div>
               </div>
 
-              <div className="col-span-12 lg:col-span-8 flex flex-col md:flex-row gap-6">
+              <div className="lg:col-span-8 flex flex-col gap-6">
                 <InsightCard
                   icon={TrendingUp}
                   title="Budget Tracking"

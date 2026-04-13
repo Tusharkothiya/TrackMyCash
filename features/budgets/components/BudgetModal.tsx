@@ -133,15 +133,15 @@ const BudgetModal: React.FC<BudgetModalProps> = ({
             initial={{ opacity: 0, scale: 0.95, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 16 }}
-            className="relative w-full max-w-2xl overflow-hidden rounded-3xl border border-outline-variant/10 bg-surface-container-high shadow-2xl"
+            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border border-outline-variant/10 bg-surface-container-high shadow-2xl"
           >
-            <div className="border-b border-outline-variant/10 px-6 pb-5 pt-6 sm:px-8 sm:pt-8">
+            <div className="border-b border-outline-variant/10 px-4 sm:px-6 lg:px-8 pb-4 sm:pb-5 pt-6 sm:pt-8">
               <div className="flex items-start justify-between gap-4">
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="mb-2 text-[10px] font-black uppercase tracking-[0.3em] text-primary">
                     Budget Planning
                   </p>
-                  <h2 className="text-2xl font-black tracking-tight text-on-surface sm:text-3xl">
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-black tracking-tight text-on-surface">
                     {mode === "edit" ? "Edit Budget" : "Create Budget"}
                   </h2>
                   <p className="mt-2 max-w-xl text-sm leading-relaxed text-on-surface-variant">
@@ -153,14 +153,14 @@ const BudgetModal: React.FC<BudgetModalProps> = ({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-surface-bright hover:text-on-surface"
+                  className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-surface-bright hover:text-on-surface shrink-0"
                 >
                   <X size={18} />
                 </button>
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6 px-6 py-6 sm:px-8">
+            <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6 px-4 sm:px-6 lg:px-8 py-6">
               <div className="space-y-2">
                 <label className="ml-1 text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                   Category
@@ -171,7 +171,7 @@ const BudgetModal: React.FC<BudgetModalProps> = ({
                     onChange={(event) => setCategoryId(event.target.value)}
                     disabled={!hasCategories}
                     className={cn(
-                      "w-full appearance-none rounded-2xl border-none bg-surface-container-highest px-4 py-4 pr-11 text-on-surface outline-none transition-all focus:ring-2 focus:ring-primary/50",
+                      "w-full appearance-none rounded-2xl border-none bg-surface-container-highest px-4 py-3 sm:py-4 pr-11 text-on-surface outline-none transition-all focus:ring-2 focus:ring-primary/50",
                       !hasCategories && "cursor-not-allowed opacity-70",
                     )}
                   >
@@ -194,7 +194,7 @@ const BudgetModal: React.FC<BudgetModalProps> = ({
                 ) : null}
               </div>
 
-              <div className="grid gap-5 md:grid-cols-2">
+              <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="ml-1 text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                     Budget Limit
@@ -211,7 +211,7 @@ const BudgetModal: React.FC<BudgetModalProps> = ({
                       value={budgetLimit}
                       onChange={(event) => setBudgetLimit(event.target.value)}
                       placeholder="0.00"
-                      className="w-full rounded-2xl border-none bg-surface-container-highest py-4 pl-11 pr-4 text-lg font-semibold text-on-surface outline-none transition-all placeholder:text-on-surface-variant/30 focus:ring-2 focus:ring-primary/50"
+                      className="w-full rounded-2xl border-none bg-surface-container-highest py-3 sm:py-4 pl-11 pr-4 text-lg font-semibold text-on-surface outline-none transition-all placeholder:text-on-surface-variant/30 focus:ring-2 focus:ring-primary/50"
                     />
                   </div>
                 </div>
@@ -224,7 +224,7 @@ const BudgetModal: React.FC<BudgetModalProps> = ({
                     <select
                       value={currency}
                       onChange={(event) => setCurrency(event.target.value as Currency)}
-                      className="w-full appearance-none rounded-2xl border-none bg-surface-container-highest px-4 py-4 pr-11 text-on-surface outline-none transition-all focus:ring-2 focus:ring-primary/50"
+                      className="w-full appearance-none rounded-2xl border-none bg-surface-container-highest px-4 py-3 sm:py-4 pr-11 text-on-surface outline-none transition-all focus:ring-2 focus:ring-primary/50"
                     >
                       {CURRENCIES.map((item) => (
                         <option key={item} value={item}>
@@ -240,7 +240,7 @@ const BudgetModal: React.FC<BudgetModalProps> = ({
                 </div>
               </div>
 
-              <div className="grid gap-5 md:grid-cols-2">
+              <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="ml-1 text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                     Frequency
@@ -253,7 +253,7 @@ const BudgetModal: React.FC<BudgetModalProps> = ({
                     <select
                       value={frequency}
                       onChange={(event) => setFrequency(event.target.value as BudgetFrequency)}
-                      className="w-full appearance-none rounded-2xl border-none bg-surface-container-highest px-4 py-4 pl-11 pr-11 text-on-surface outline-none transition-all focus:ring-2 focus:ring-primary/50"
+                      className="w-full appearance-none rounded-2xl border-none bg-surface-container-highest px-4 py-3 sm:py-4 pl-11 pr-11 text-on-surface outline-none transition-all focus:ring-2 focus:ring-primary/50"
                     >
                       {FREQUENCIES.map((item) => (
                         <option key={item} value={item}>
@@ -281,15 +281,15 @@ const BudgetModal: React.FC<BudgetModalProps> = ({
                       type="date"
                       value={activationDate}
                       onChange={(event) => setActivationDate(event.target.value)}
-                      className="w-full rounded-2xl border-none bg-surface-container-highest py-4 pl-11 pr-4 text-on-surface outline-none transition-all focus:ring-2 focus:ring-primary/50"
+                      className="w-full rounded-2xl border-none bg-surface-container-highest py-3 sm:py-4 pl-11 pr-4 text-on-surface outline-none transition-all focus:ring-2 focus:ring-primary/50"
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-primary/10 bg-primary-container/10 p-4">
+              <div className="rounded-2xl border border-primary/10 bg-primary-container/10 p-3 sm:p-4">
                 <div className="flex items-start gap-3">
-                  <Sparkles className="mt-0.5 text-primary" size={18} />
+                  <Sparkles className="mt-0.5 text-primary shrink-0" size={18} />
                   <div className="space-y-1">
                     <p className="text-sm font-semibold text-on-surface">Budget rules stay simple</p>
                     <p className="text-xs leading-relaxed text-on-surface-variant">
@@ -306,19 +306,19 @@ const BudgetModal: React.FC<BudgetModalProps> = ({
                 </p>
               ) : null}
 
-              <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+              <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4">
                 <button
                   type="button"
                   onClick={onClose}
                   disabled={Boolean(isSubmitting)}
-                  className="cursor-pointer rounded-2xl bg-surface-container-high px-5 py-3.5 text-sm font-bold text-on-surface-variant transition-all hover:bg-surface-bright disabled:cursor-not-allowed disabled:opacity-70"
+                  className="cursor-pointer rounded-2xl bg-surface-container-high px-5 py-3 sm:py-3.5 text-sm font-bold text-on-surface-variant transition-all hover:bg-surface-bright disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={Boolean(isSubmitting) || !hasCategories}
-                  className="cursor-pointer rounded-2xl bg-linear-to-br from-primary-container to-primary px-5 py-3.5 text-sm font-bold text-on-primary-fixed shadow-lg shadow-primary-container/20 transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
+                  className="cursor-pointer rounded-2xl bg-linear-to-br from-primary-container to-primary px-5 py-3 sm:py-3.5 text-sm font-bold text-on-primary-fixed shadow-lg shadow-primary-container/20 transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {isSubmitting
                     ? mode === "edit"
