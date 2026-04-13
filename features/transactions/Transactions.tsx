@@ -319,7 +319,7 @@ const Transactions = () => {
   return (
     <div className="min-h-screen bg-background">
       <main className="min-h-screen flex flex-col">
-        <div className="p-8 space-y-8 max-w-350 mx-auto w-full">
+        <div className="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl mx-auto w-full">
           {selectedTransaction ? (
             <TransactionDetail
               transaction={selectedTransaction}
@@ -327,26 +327,26 @@ const Transactions = () => {
             />
           ) : (
             <>
-              <div className="flex justify-between items-end">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 sm:gap-6">
                 <div>
                   <span className="text-[10px] font-bold tracking-[0.2em] text-primary uppercase mb-2 block">
                     Management
                   </span>
-                  <h2 className="text-3xl font-bold tracking-tight text-on-surface">
+                  <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-on-surface">
                     Transactions
                   </h2>
                 </div>
                 <button
                   onClick={handleDrawerOpenCreate}
-                  className="primary-gradient cursor-pointer text-white px-6 py-2.5 rounded-xl font-semibold flex items-center gap-2 shadow-xl shadow-primary/10 hover:opacity-90 active:scale-[0.98] transition-all"
+                  className="w-full sm:w-auto primary-gradient cursor-pointer text-white px-4 sm:px-6 py-2.5 rounded-xl font-semibold flex items-center justify-center sm:justify-start gap-2 shadow-xl shadow-primary/10 hover:opacity-90 active:scale-[0.98] transition-all"
                 >
                   <Plus className="w-5 h-5" />
                   Add Transaction
                 </button>
               </div>
 
-              <section className="bg-surface-container p-6 rounded-xl space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+              <section className="bg-surface-container p-4 sm:p-6 rounded-xl space-y-4 sm:space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
                   <div className="space-y-2">
                     <label className="block text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                       Search Keywords
@@ -358,7 +358,7 @@ const Transactions = () => {
                         setSearch(event.target.value);
                         setPage(1);
                       }}
-                      className="w-full bg-surface-container-low border-none rounded-md py-2.5 px-3 text-sm focus:ring-1 focus:ring-primary/30 outline-none"
+                      className="w-full bg-surface-container-low border-none rounded-md py-2 sm:py-2.5 px-3 text-xs sm:text-sm focus:ring-1 focus:ring-primary/30 outline-none"
                       placeholder="Filter by title..."
                     />
                   </div>
@@ -374,7 +374,7 @@ const Transactions = () => {
                           setDateRange(event.target.value as DateRangeOption);
                           setPage(1);
                         }}
-                        className="w-full bg-surface-container-low border-none rounded-md py-2.5 px-3 text-sm focus:ring-1 focus:ring-primary/30 appearance-none outline-none cursor-pointer"
+                        className="w-full bg-surface-container-low border-none rounded-md py-2 sm:py-2.5 px-3 text-xs sm:text-sm focus:ring-1 focus:ring-primary/30 appearance-none outline-none cursor-pointer"
                       >
                         {DATE_RANGE_OPTIONS.map((option) => (
                           <option key={option} value={option}>
@@ -397,7 +397,7 @@ const Transactions = () => {
                           setCategoryFilter(event.target.value);
                           setPage(1);
                         }}
-                        className="w-full bg-surface-container-low border-none rounded-md py-2.5 px-3 text-sm focus:ring-1 focus:ring-primary/30 appearance-none outline-none cursor-pointer"
+                        className="w-full bg-surface-container-low border-none rounded-md py-2 sm:py-2.5 px-3 text-xs sm:text-sm focus:ring-1 focus:ring-primary/30 appearance-none outline-none cursor-pointer"
                       >
                         <option value="all">All Categories</option>
                         {categories.map((category) => (
@@ -421,7 +421,7 @@ const Transactions = () => {
                           setStatusFilter(event.target.value as "all" | TransactionStatus);
                           setPage(1);
                         }}
-                        className="w-full bg-surface-container-low border-none rounded-md py-2.5 px-3 text-sm focus:ring-1 focus:ring-primary/30 appearance-none outline-none cursor-pointer"
+                        className="w-full bg-surface-container-low border-none rounded-md py-2 sm:py-2.5 px-3 text-xs sm:text-sm focus:ring-1 focus:ring-primary/30 appearance-none outline-none cursor-pointer"
                       >
                         <option value="all">All Status</option>
                         <option value="Completed">Completed</option>
@@ -443,7 +443,7 @@ const Transactions = () => {
                           setTypeFilter(event.target.value as "all" | TransactionType);
                           setPage(1);
                         }}
-                        className="w-full bg-surface-container-low border-none rounded-md py-2.5 px-3 text-sm focus:ring-1 focus:ring-primary/30 appearance-none outline-none cursor-pointer"
+                        className="w-full bg-surface-container-low border-none rounded-md py-2 sm:py-2.5 px-3 text-xs sm:text-sm focus:ring-1 focus:ring-primary/30 appearance-none outline-none cursor-pointer"
                       >
                         <option value="all">All Types</option>
                         <option value="Expense">Expense</option>
@@ -461,43 +461,43 @@ const Transactions = () => {
                   <table className="w-full text-left border-separate border-spacing-0">
                     <thead>
                       <tr className="bg-surface-container-low">
-                        <th className="py-4 px-6 w-10">
+                        <th className="py-3 sm:py-4 px-3 sm:px-6 w-10">
                           <input
                             type="checkbox"
                             className="rounded-sm bg-surface-container-highest border-none focus:ring-primary text-primary-container"
                           />
                         </th>
-                        <th className="py-4 px-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">
+                        <th className="py-3 sm:py-4 px-2 sm:px-4 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">
                           Title
                         </th>
-                        <th className="py-4 px-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">
+                        <th className="py-3 sm:py-4 px-2 sm:px-4 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">
                           Category
                         </th>
-                        <th className="py-4 px-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">
+                        <th className="py-3 sm:py-4 px-2 sm:px-4 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">
                           Date
                         </th>
-                        <th className="py-4 px-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">
+                        <th className="py-3 sm:py-4 px-2 sm:px-4 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-on-surface-variant hidden sm:table-cell">
                           Account
                         </th>
-                        <th className="py-4 px-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">
+                        <th className="py-3 sm:py-4 px-2 sm:px-4 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">
                           Status
                         </th>
-                        <th className="py-4 px-4 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant text-right pr-6">
+                        <th className="py-3 sm:py-4 px-2 sm:px-4 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-on-surface-variant text-right sm:pr-6">
                           Amount
                         </th>
-                        <th className="py-4 px-4 w-20"></th>
+                        <th className="py-3 sm:py-4 px-2 sm:px-4 w-16 sm:w-20"></th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-outline-variant/10">
                       {transactionsQuery.isLoading ? (
                         <tr>
-                          <td colSpan={8} className="py-10 text-center text-on-surface-variant">
+                          <td colSpan={8} className="py-8 sm:py-10 text-center text-xs sm:text-base text-on-surface-variant">
                             Loading transactions...
                           </td>
                         </tr>
                       ) : uiTransactions.length === 0 ? (
                         <tr>
-                          <td colSpan={8} className="py-10 text-center text-on-surface-variant">
+                          <td colSpan={8} className="py-8 sm:py-10 text-center text-xs sm:text-base text-on-surface-variant">
                             No transactions found.
                           </td>
                         </tr>
@@ -509,7 +509,7 @@ const Transactions = () => {
                             onClick={() => setSelectedTransaction(transaction)}
                           >
                             <td
-                              className="py-4 px-6"
+                              className="py-3 sm:py-4 px-3 sm:px-6"
                               onClick={(event) => event.stopPropagation()}
                             >
                               <input
@@ -517,18 +517,18 @@ const Transactions = () => {
                                 className="rounded-sm bg-surface-container-highest border-none focus:ring-primary text-primary-container"
                               />
                             </td>
-                            <td className="py-4 px-4">
-                              <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center">
+                            <td className="py-3 sm:py-4 px-2 sm:px-4">
+                              <div className="flex items-center gap-2 sm:gap-3">
+                                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
                                   {getIcon(transaction.icon || "")}
                                 </div>
-                                <span className="font-semibold text-sm">{transaction.title}</span>
+                                <span className="font-semibold text-xs sm:text-sm truncate">{transaction.title}</span>
                               </div>
                             </td>
-                            <td className="py-4 px-4">
+                            <td className="py-3 sm:py-4 px-2 sm:px-4">
                               <span
                                 className={cn(
-                                  "px-3 py-1 text-[10px] font-bold rounded-full border",
+                                  "px-2 sm:px-3 py-0.5 sm:py-1 text-[8px] sm:text-[10px] font-bold rounded-full border inline-block",
                                   transaction.type === "Income"
                                     ? "bg-tertiary-container/10 text-tertiary border-tertiary/20"
                                     : transaction.type === "Transfer"
@@ -539,16 +539,16 @@ const Transactions = () => {
                                 {transaction.category}
                               </span>
                             </td>
-                            <td className="py-4 px-4 text-sm text-on-surface-variant">
+                            <td className="py-3 sm:py-4 px-2 sm:px-4 text-xs sm:text-sm text-on-surface-variant">
                               {transaction.date}
                             </td>
-                            <td className="py-4 px-4 text-sm text-on-surface-variant">
+                            <td className="py-3 sm:py-4 px-2 sm:px-4 text-xs sm:text-sm text-on-surface-variant hidden sm:table-cell">
                               {transaction.account}
                             </td>
-                            <td className="py-4 px-4">
+                            <td className="py-3 sm:py-4 px-2 sm:px-4">
                               <div
                                 className={cn(
-                                  "flex items-center gap-1.5 text-[11px] font-medium",
+                                  "flex items-center gap-1 text-[10px] sm:text-[11px] font-medium",
                                   transaction.status === "Completed"
                                     ? "text-secondary"
                                     : transaction.status === "Pending"
@@ -566,12 +566,12 @@ const Transactions = () => {
                                         : "bg-error",
                                   )}
                                 ></span>
-                                {transaction.status}
+                                <span className="hidden sm:inline">{transaction.status}</span>
                               </div>
                             </td>
                             <td
                               className={cn(
-                                "py-4 px-4 text-right pr-6 font-bold text-sm",
+                                "py-3 sm:py-4 px-2 sm:px-4 text-right sm:pr-6 font-bold text-xs sm:text-sm",
                                 transaction.type === "Income"
                                   ? "text-primary"
                                   : transaction.type === "Transfer"
@@ -579,32 +579,27 @@ const Transactions = () => {
                                     : "text-error",
                               )}
                             >
-                              {transaction.type === "Income"
-                                ? "+"
-                                : transaction.type === "Expense"
-                                  ? "-"
-                                  : ""}
                               ₹{transaction.amount.toLocaleString("en-IN", {
                                 minimumFractionDigits: 2,
                                 maximumFractionDigits: 2,
                               })}
                             </td>
                             <td
-                              className="py-4 px-4 opacity-0 group-hover:opacity-100 transition-opacity"
+                              className="py-3 sm:py-4 px-2 sm:px-4 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
                               onClick={(event) => event.stopPropagation()}
                             >
-                              <div className="flex items-center gap-2">
+                              <div className="flex items-center gap-1 sm:gap-2">
                                 <button
-                                  className="p-1 hover:bg-surface-container-highest rounded text-on-surface-variant"
+                                  className="p-1 hover:bg-surface-container-highest rounded text-on-surface-variant transition-colors"
                                   onClick={() => handleDrawerOpenEdit(transaction.id)}
                                 >
-                                  <Edit2 className="w-4 h-4" />
+                                  <Edit2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                 </button>
                                 <button
-                                  className="p-1 hover:bg-error-container/20 rounded text-error"
+                                  className="p-1 hover:bg-error-container/20 rounded text-error transition-colors"
                                   onClick={() => handleDeletePromptOpen(transaction.id)}
                                 >
-                                  <Trash2 className="w-4 h-4" />
+                                  <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                 </button>
                               </div>
                             </td>
@@ -615,22 +610,22 @@ const Transactions = () => {
                   </table>
                 </div>
 
-                <div className="px-6 py-6 bg-surface-container-low flex justify-between items-center">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
+                <div className="px-3 sm:px-6 py-4 sm:py-6 bg-surface-container-low flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6">
+                  <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                     Showing {uiTransactions.length === 0 ? 0 : (currentPage - 1) * transactionData.pagination.limit + 1}
                     -
                     {(currentPage - 1) * transactionData.pagination.limit + uiTransactions.length} of {transactionData.pagination.total} results
                   </p>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 w-full sm:w-auto">
                     <button
                       onClick={() => setPage((prev) => Math.max(1, prev - 1))}
                       disabled={currentPage <= 1}
-                      className="px-3 py-1.5 rounded-md text-sm font-medium text-on-surface-variant hover:bg-surface-container-highest transition-colors flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-2 sm:px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium text-on-surface-variant hover:bg-surface-container-highest transition-colors flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <ChevronLeft className="w-4 h-4" />
-                      Previous
+                      <span className="hidden sm:inline">Previous</span>
                     </button>
-                    <div className="flex gap-1">
+                    <div className="flex gap-1 flex-wrap">
                       {pageNumbers.map((pageNumber) => (
                         <button
                           key={pageNumber}
@@ -649,9 +644,9 @@ const Transactions = () => {
                     <button
                       onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
                       disabled={currentPage >= totalPages}
-                      className="px-3 py-1.5 rounded-md text-sm font-medium text-on-surface-variant hover:bg-surface-container-highest transition-colors flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-2 sm:px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium text-on-surface-variant hover:bg-surface-container-highest transition-colors flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Next
+                      <span className="hidden sm:inline">Next</span>
                       <ChevronRight className="w-4 h-4" />
                     </button>
                   </div>
