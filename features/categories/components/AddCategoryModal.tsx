@@ -142,7 +142,7 @@ export function AddCategoryModal({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center p-6">
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -155,27 +155,27 @@ export function AddCategoryModal({
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="relative w-full max-w-lg bg-surface-container-high rounded-3xl shadow-2xl overflow-hidden border border-outline-variant/10"
+            className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-surface-container-high rounded-3xl shadow-2xl border border-outline-variant/10"
           >
-            <div className="p-8">
-              <div className="flex justify-between items-center mb-8">
-                <div>
+            <div className="p-4 sm:p-6 lg:p-8">
+              <div className="flex justify-between items-start gap-4 mb-6 sm:mb-8">
+                <div className="flex-1">
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-1">
                     New Asset Group
                   </p>
-                  <h3 className="text-2xl font-black text-on-surface tracking-tight">
+                  <h3 className="text-xl sm:text-2xl font-black text-on-surface tracking-tight">
                     {mode === "edit" ? "Edit Category" : "Create Category"}
                   </h3>
                 </div>
                 <button
                   onClick={onClose}
-                  className="w-10 h-10 cursor-pointer flex items-center justify-center rounded-full hover:bg-surface-bright transition-colors text-on-surface-variant"
+                  className="w-10 h-10 cursor-pointer flex items-center justify-center rounded-full hover:bg-surface-bright transition-colors text-on-surface-variant shrink-0"
                 >
                   <X size={20} />
                 </button>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-8">
+              <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant ml-1">
                     Category Name
@@ -186,7 +186,7 @@ export function AddCategoryModal({
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Monthly Subscriptions"
-                    className="w-full bg-surface-container-highest border-none rounded-2xl px-4 py-4 text-on-surface focus:ring-2 focus:ring-primary/50 placeholder:text-on-surface-variant/30 text-base transition-all"
+                    className="w-full bg-surface-container-highest border-none rounded-2xl px-3 sm:px-4 py-3 sm:py-4 text-on-surface focus:ring-2 focus:ring-primary/50 placeholder:text-on-surface-variant/30 text-base transition-all"
                   />
                 </div>
 
@@ -194,7 +194,7 @@ export function AddCategoryModal({
                   <label className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant ml-1">
                     Select Icon
                   </label>
-                  <div className="grid grid-cols-6 gap-3">
+                  <div className="grid grid-cols-5 sm:grid-cols-6 gap-2 sm:gap-3">
                     {ICONS.map(({ icon }) => {
                       const Icon = IconMap[icon];
                       const isActive = selectedIcon === icon;
@@ -249,7 +249,7 @@ export function AddCategoryModal({
                     value={overline}
                     onChange={(e) => setOverline(e.target.value)}
                     placeholder="e.g. Q2 Campaigns"
-                    className="w-full bg-surface-container-highest border-none rounded-2xl px-4 py-4 text-on-surface focus:ring-2 focus:ring-primary/50 placeholder:text-on-surface-variant/30 text-base transition-all"
+                    className="w-full bg-surface-container-highest border-none rounded-2xl px-3 sm:px-4 py-3 sm:py-4 text-on-surface focus:ring-2 focus:ring-primary/50 placeholder:text-on-surface-variant/30 text-base transition-all"
                   />
                 </div>
 
@@ -257,7 +257,7 @@ export function AddCategoryModal({
                   <label className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant ml-1">
                     Brand Color
                   </label>
-                  <div className="flex items-center gap-4">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-4">
                     {COLORS.map((color) => (
                       <button
                         key={color}
@@ -276,7 +276,7 @@ export function AddCategoryModal({
                         )}
                       </button>
                     ))}
-                    <div className="w-px h-6 bg-outline-variant/20 mx-1"></div>
+                    <div className="w-px h-6 bg-outline-variant/20 mx-1" />
                     <button
                       type="button"
                       className="w-8 h-8 cursor-pointer rounded-full bg-surface-container-highest border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"
@@ -290,19 +290,19 @@ export function AddCategoryModal({
                   <p className="text-sm text-red-600">{messageToShow}</p>
                 ) : null}
 
-                <div className="mt-12 flex gap-4">
+                <div className="mt-8 sm:mt-12 flex flex-col-reverse sm:flex-row gap-3 sm:gap-4">
                   <button
                     type="button"
                     onClick={onClose}
                     disabled={Boolean(isSubmitting)}
-                    className="flex-1 px-6 py-4 cursor-pointer rounded-2xl text-on-surface-variant font-bold hover:bg-surface-bright transition-all active:scale-95"
+                    className="flex-1 px-4 sm:px-6 py-3 sm:py-4 cursor-pointer rounded-2xl text-on-surface-variant font-bold hover:bg-surface-bright transition-all active:scale-95"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={Boolean(isSubmitting)}
-                    className="flex-2 px-6 py-4 cursor-pointer rounded-2xl bg-linear-to-br from-primary-container to-primary text-on-primary-fixed font-bold shadow-xl shadow-primary/20 hover:opacity-90 active:scale-95 transition-all"
+                    className="flex-1 px-4 sm:px-6 py-3 sm:py-4 cursor-pointer rounded-2xl bg-linear-to-br from-primary-container to-primary text-on-primary-fixed font-bold shadow-xl shadow-primary/20 hover:opacity-90 active:scale-95 transition-all"
                   >
                     {isSubmitting
                       ? mode === "edit"

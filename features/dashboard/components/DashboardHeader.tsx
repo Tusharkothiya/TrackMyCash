@@ -47,7 +47,7 @@ export default function DashboardHeader({ onMenuClick, sidebarCollapsed = false,
             <button
               type="button"
               onClick={onToggleSidebar}
-              className="hidden rounded-md border border-blue-900/50 p-2 text-blue-100 hover:bg-blue-900/40 lg:inline-flex"
+              className="hidden cursor-pointer rounded-md border border-blue-900/50 p-2 text-blue-100 hover:bg-blue-900/40 lg:inline-flex"
               aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
               title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >

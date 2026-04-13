@@ -167,33 +167,33 @@ const Categories = () => {
       
       <main className="min-h-screen ">
         
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10">
           {/* Page Header */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 sm:mb-12 gap-4 sm:gap-6">
             <div>
               <span className="text-[0.7rem] font-bold tracking-[0.2em] text-primary uppercase block mb-2">
                 Portfolio Management
               </span>
-              <h2 className="text-4xl md:text-5xl font-black tracking-tight text-on-surface">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-on-surface">
                 Categories
               </h2>
             </div>
             
             <button 
               onClick={handleModalOpenForCreate}
-              className="px-6 py-3.5 cursor-pointer bg-linear-to-br from-primary-container to-primary text-on-primary-fixed font-bold rounded-2xl flex items-center gap-2 hover:opacity-90 transition-all shadow-xl shadow-primary/10 active:scale-95"
+              className="w-full sm:w-auto px-4 sm:px-6 py-3 sm:py-3.5 cursor-pointer bg-linear-to-br from-primary-container to-primary text-on-primary-fixed font-bold rounded-2xl flex items-center justify-center sm:justify-start gap-2 hover:opacity-90 transition-all shadow-xl shadow-primary/10 active:scale-95"
             >
               <PlusCircle size={20} />
               Add Category
             </button>
           </div>
 
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
             {(["all", "expense", "income"] as const).map((type) => (
               <button
                 key={type}
                 onClick={() => setCategoryType(type)}
-                className={`px-4 py-2 rounded-xl cursor-pointer text-xs font-bold uppercase tracking-wider transition-all ${
+                className={`px-3 sm:px-4 py-2 rounded-xl cursor-pointer text-xs font-bold uppercase tracking-wider transition-all ${
                   categoryType === type
                     ? "bg-primary text-on-primary-fixed"
                     : "bg-surface-container-high text-on-surface-variant hover:text-on-surface"
@@ -205,7 +205,7 @@ const Categories = () => {
           </div>
 
           {/* Categories Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {categoriesQuery.isLoading ? (
               <>
                 {Array.from({ length: CATEGORY_SKELETON_COUNT }).map((_, index) => (
