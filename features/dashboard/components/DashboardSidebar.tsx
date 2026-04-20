@@ -39,7 +39,6 @@ type UserData = {
 const navItems: NavItem[] = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { label: "Transactions", href: "/transactions", icon: ReceiptText },
-  { label: "Reports", href: "/reports", icon: PieChart },
   { label: "Budgets", href: "/budgets", icon: Wallet },
   {  label: "Categories", href: "/categories", icon: CircleDollarSign },
   { label: "Accounts", href: "/accounts", icon: CircleDollarSign },

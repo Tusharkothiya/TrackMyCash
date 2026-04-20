@@ -70,20 +70,20 @@ export function ConfirmActionModal({
   return (
     <AnimatePresence>
       {isOpen ? (
-        <div className="fixed inset-0 z-120 flex items-center justify-center p-4 sm:p-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={isLoading ? undefined : onClose}
-            className="absolute inset-0 bg-surface-container-lowest/75 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
           />
 
           <motion.div
             initial={{ opacity: 0, scale: 0.92, y: 14 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 14 }}
-            className="relative w-full max-w-md rounded-3xl border border-outline-variant/15 bg-surface-container-high p-4 sm:p-6 lg:p-7 shadow-2xl"
+            className="relative z-10 w-full max-w-md rounded-3xl border border-outline-variant/15 bg-surface-container-high p-4 sm:p-6 lg:p-7 shadow-2xl"
           >
             <button
               type="button"
