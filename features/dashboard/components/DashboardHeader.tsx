@@ -101,12 +101,7 @@ export default function DashboardHeader({ onMenuClick, sidebarCollapsed = false,
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            <button type="button" className="hidden items-center gap-2 rounded-md border border-blue-900/50 px-3 py-2 text-sm text-blue-100/80 hover:bg-blue-900/40 sm:flex">
-              <Search className="h-4 w-4" /> Search
-            </button>
-            <button type="button" className="inline-flex rounded-md border border-blue-900/50 p-2 text-blue-100 hover:bg-blue-900/40" aria-label="Notifications">
-              <Bell className="h-4 w-4" />
-            </button>
+           
             
             {/* User Profile Dropdown */}
             <div className="relative" ref={dropdownRef}>

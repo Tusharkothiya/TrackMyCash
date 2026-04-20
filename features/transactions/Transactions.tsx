@@ -103,6 +103,7 @@ const Transactions = () => {
   const [search, setSearch] = useState("");
   const [dateRange, setDateRange] = useState<DateRangeOption>("Last 30 Days");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const [accountFilter, setAccountFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState<"all" | TransactionStatus>("all");
   const [typeFilter, setTypeFilter] = useState<"all" | TransactionType>("all");
   const [page, setPage] = useState(1);
@@ -127,10 +128,11 @@ const Transactions = () => {
       type: typeFilter === "all" ? undefined : typeFilter,
       status: statusFilter === "all" ? undefined : statusFilter,
       categoryId: categoryFilter === "all" ? undefined : categoryFilter,
+      accountId: accountFilter === "all" ? undefined : accountFilter,
       dateFrom: dateFilter.dateFrom,
       dateTo: dateFilter.dateTo,
     };
-  }, [categoryFilter, dateFilter.dateFrom, dateFilter.dateTo, page, search, statusFilter, typeFilter]);
+  }, [categoryFilter, accountFilter, dateFilter.dateFrom, dateFilter.dateTo, page, search, statusFilter, typeFilter]);
 
   const transactionsQuery = useTransactions(filters);
   const createTransactionMutation = useCreateTransaction();
@@ -346,7 +348,7 @@ const Transactions = () => {
               </div>
 
               <section className="bg-surface-container p-4 sm:p-6 rounded-xl space-y-4 sm:space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 sm:gap-4">
                   <div className="space-y-2">
                     <label className="block text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                       Search Keywords
@@ -403,6 +405,30 @@ const Transactions = () => {
                         {categories.map((category) => (
                           <option key={category._id} value={category._id}>
                             {category.name}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none w-4 h-4" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
+                      Account
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={accountFilter}
+                        onChange={(event) => {
+                          setAccountFilter(event.target.value);
+                          setPage(1);
+                        }}
+                        className="w-full bg-surface-container-low border-none rounded-md py-2 sm:py-2.5 px-3 text-xs sm:text-sm focus:ring-1 focus:ring-primary/30 appearance-none outline-none cursor-pointer"
+                      >
+                        <option value="all">All Accounts</option>
+                        {accounts.map((account) => (
+                          <option key={account._id} value={account._id}>
+                            {account.name} ({account.type})
                           </option>
                         ))}
                       </select>
