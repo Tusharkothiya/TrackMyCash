@@ -4,759 +4,483 @@ import { cn } from "@/lib/utils/helper";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
-  BellDot,
   Brain,
-  CableCar,
   Check,
   ChevronDown,
   CirclePlay,
-  Drum,
-  EyeOff,
   FingerprintPattern,
-  GlobeX,
-  HatGlasses,
-  House,
-  Infinity,
   LayoutDashboard,
-  Moon,
-  Play,
-  Podcast,
-  Quote,
-  Radar,
   RefreshCw,
   Rocket,
-  Share2,
-  Shredder,
+  ShieldCheck,
   SquareTerminal,
   Star,
   UserPlus,
   VectorSquare,
-  X,
 } from "lucide-react";
 import Link from "next/link";
 
 const LandingPage = () => {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
+  const coreFeatures = [
+    {
+      icon: <LayoutDashboard className="text-4xl text-primary" />,
+      title: "Unified dashboard",
+      desc: "See balances, recent transactions, goals, and budget progress in one calm view.",
+    },
+    {
+      icon: <FingerprintPattern className="text-4xl text-secondary" />,
+      title: "Smart categorization",
+      desc: "Keep spending organized automatically so your reports stay clean without manual work.",
+    },
+    {
+      icon: <Brain className="text-4xl text-tertiary" />,
+      title: "Budget alerts",
+      desc: "Get early warnings before spending crosses your limit, not after the month is over.",
+    },
+    {
+      icon: <VectorSquare className="text-4xl text-primary" />,
+      title: "Clear reports",
+      desc: "Turn raw transactions into simple summaries you can actually use to decide faster.",
+    },
+  ];
+
+  const benefits = [
+    "Track accounts and transactions in one place",
+    "Build budgets that match real spending habits",
+    "Review reports without spreadsheet cleanup",
+  ];
+
+  const steps = [
+    {
+      icon: <UserPlus className="text-3xl" />,
+      title: "Create your account",
+      desc: "Register in a minute and set up your workspace.",
+    },
+    {
+      icon: <ShieldCheck className="text-3xl" />,
+      title: "Connect safely",
+      desc: "Link your financial data with a security-first flow.",
+    },
+    {
+      icon: <RefreshCw className="text-3xl" />,
+      title: "Sync automatically",
+      desc: "Let TrackMyCash organize transactions and balances for you.",
+    },
+    {
+      icon: <Rocket className="text-3xl" />,
+      title: "Act on insights",
+      desc: "Use budgets, alerts, and reports to stay ahead of spending.",
+    },
+  ];
+
+  const testimonials = [
+    {
+      name: "Aarav Mehta",
+      role: "Freelance Designer",
+      text: "TrackMyCash made it easy to see where money was going without juggling separate apps.",
+      featured: true,
+    },
+    {
+      name: "Priya Sharma",
+      role: "Operations Manager",
+      text: "The budget alerts are practical. We catch overspending before it becomes a problem.",
+    },
+    {
+      name: "Nikhil Rao",
+      role: "Founder",
+      text: "The dashboard feels clean and useful, which is exactly what a finance tool should be.",
+    },
+  ];
+
+  const faqs = [
+    {
+      q: "Can I track multiple accounts?",
+      a: "Yes. TrackMyCash is designed to bring accounts, transactions, and budgets into one place so you do not need to switch tools.",
+    },
+    {
+      q: "Does it help with monthly budgeting?",
+      a: "Yes. You can create budgets, monitor progress, and review spending patterns before the month closes.",
+    },
+    {
+      q: "Is the data easy to export?",
+      a: "Yes. Reports and transaction summaries are built to be practical for sharing, reviewing, and archiving.",
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-background text-on-background">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md shadow-2xl shadow-black/40">
-        <div className="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
-          <Link href={'/'} className="text-xl font-bold tracking-tight text-on-background flex items-center gap-2">
-            <HatGlasses className="text-primary" />
+    <div className="relative min-h-screen overflow-hidden bg-background text-on-background">
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.16),transparent_35%),radial-gradient(circle_at_right,rgba(255,181,150,0.10),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.02),transparent_25%)]" />
+
+      <nav className="fixed top-0 z-50 w-full border-b border-outline-variant/10 bg-background/75 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+          <Link href="/" className="flex items-center gap-3 text-lg font-bold tracking-tight text-on-background">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-container/20 text-primary shadow-lg shadow-primary/10">
+              <SquareTerminal className="h-5 w-5" />
+            </div>
             TrackMyCash
           </Link>
-          <div className="hidden md:flex gap-8 items-center">
-            {["Features", "How it Works", "Pricing", "Testimonials"].map(
-              (item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="text-on-surface-variant hover:text-on-background transition-colors text-sm font-medium"
-                >
-                  {item}
-                </a>
-              ),
-            )}
+          <div className="hidden items-center gap-8 md:flex">
+            {["Features", "How it Works", "Reviews", "FAQ"].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
+                className="text-sm font-medium text-on-surface-variant transition-colors hover:text-on-background"
+              >
+                {item}
+              </a>
+            ))}
           </div>
-          <div className="flex items-center gap-4">
-            <Link href={'/login'} className="text-on-surface-variant hover:text-on-background transition-all px-4 py-2 text-sm font-medium active:scale-95">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/login"
+              className="rounded-full px-4 py-2 text-sm font-medium text-on-surface-variant transition-colors hover:text-on-background"
+            >
               Login
             </Link>
-            <Link href={'/register'} className="bg-primary-container text-on-primary-container px-6 py-2.5 rounded-lg font-semibold hover:bg-primary-container/90 active:scale-95 transition-transform shadow-lg shadow-primary-container/20">
+            <Link
+              href="/register"
+              className="rounded-full bg-primary-container px-5 py-2.5 text-sm font-semibold text-on-primary-container shadow-lg shadow-primary-container/20 transition-transform hover:scale-[1.02]"
+            >
               Get Started
             </Link>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="pt-40 pb-24 px-8 max-w-7xl mx-auto overflow-hidden">
-        <div className="text-center relative">
-          <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-200 h-200 bg-primary/10 rounded-full blur-[160px] -z-10 opacity-60"></div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-highest/50 border border-outline-variant/20 text-primary mb-6"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-            <span className="text-[10px] font-bold tracking-[0.2em] uppercase">
-              Enterprise Grade Security
-            </span>
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-8 leading-[1.05]"
-          >
-            Master the Art of <br />
-            <span className="hero-gradient">High-Fidelity Finance</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-on-surface-variant text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed font-medium opacity-80"
-          >
-            A surgical instrument for your wealth. Experience unified tracking
-            and predictive budgeting designed for the high-performance
-            individual.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="flex flex-col sm:flex-row justify-center gap-4 mb-20"
-          >
-            <button className="cta-gradient text-on-primary-container px-8 py-4 rounded-xl font-bold text-lg hover:opacity-90 active:scale-95 transition-all shadow-xl shadow-primary-container/25">
-              Begin Your Ledger
-            </button>
-            <button className="bg-surface-container-high/50 backdrop-blur text-on-surface px-8 py-4 rounded-xl font-bold text-lg border border-outline-variant/10 hover:bg-surface-bright active:scale-95 transition-all flex items-center justify-center gap-2">
-              <CirclePlay /> Watch Simulation
-            </button>
-          </motion.div>
+      <main>
+        <section className="mx-auto flex max-w-7xl flex-col gap-12 px-6 pb-20 pt-32 lg:px-8 lg:pt-40">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-surface-container/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-primary"
+              >
+                <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+                Finance tracking that stays clear
+              </motion.div>
 
-          {/* Dashboard Mockup */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="relative max-w-5xl mx-auto"
-          >
-            <div className="absolute -inset-4 bg-linear-to-tr from-primary/20 via-transparent to-primary/10 rounded-[2.5rem] blur-2xl opacity-40"></div>
-            <div className="border-8 border-surface-container rounded-4xl shadow-2xl bg-surface-container-lowest overflow-hidden group">
-              <div className="w-full h-8 bg-surface-container flex items-center px-4 gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-error/40"></div>
-                <div className="w-2 h-2 rounded-full bg-tertiary/40"></div>
-                <div className="w-2 h-2 rounded-full bg-primary/40"></div>
+              <motion.h1
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05 }}
+                className="max-w-2xl text-5xl font-black tracking-tight text-on-background md:text-6xl lg:text-7xl"
+              >
+                One dashboard for your money, budgets, and decisions.
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="mt-6 max-w-xl text-lg leading-8 text-on-surface-variant"
+              >
+                TrackMyCash brings accounts, transactions, budgets, and reports together so you can understand spending faster and act sooner.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+                className="mt-8 flex flex-col gap-4 sm:flex-row"
+              >
+                <Link
+                  href="/register"
+                  className="cta-gradient inline-flex items-center justify-center gap-2 rounded-2xl px-7 py-4 text-base font-bold text-on-primary-container shadow-xl shadow-primary-container/25 transition-transform hover:scale-[1.01]"
+                >
+                  Start free
+                </Link>
+                <a
+                  href="#features"
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-outline-variant/15 bg-surface-container/70 px-7 py-4 text-base font-bold text-on-surface transition-colors hover:bg-surface-container-high"
+                >
+                  <CirclePlay className="h-5 w-5" />
+                  Explore features
+                </a>
+              </motion.div>
+
+              <div className="mt-8 flex flex-wrap gap-3 text-sm text-on-surface-variant">
+                {benefits.map((item) => (
+                  <span key={item} className="inline-flex items-center gap-2 rounded-full border border-outline-variant/10 bg-surface-container/40 px-4 py-2">
+                    <Check className="h-4 w-4 text-primary" />
+                    {item}
+                  </span>
+                ))}
               </div>
-              <div className="relative bg-surface-container-lowest aspect-16/10 flex items-center justify-center overflow-hidden">
-                <img
-                  alt="TrackMyCash High Fidelity Dashboard"
-                  className="w-full h-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-[1.02]"
-                  src="https://lh3.googleusercontent.com/aida/ADBb0uhVO-vt1Ul1xXou3ST4f6mTbZDYXgz2iWlLj5kRzyqG88GvSlrlVndWTpcg3AZSDIp_7p7fA5LtVJKCcupBGv7vc-rsOhC35ndNvXrxCUXX9zczo7xzbEh4f_sLNSctwqeGfQeNuCx2pShrbG2e4BFdRaYTyHqKSb39_wB90A_QJoibEBEtPdAk-c6qKn2H3WrlsECPs-CBEN9pG95lyJpilQZuhdpKVBb2T4Oeu_mEz7srLB2JZDAbTwbALDsx8wkqKkRHD04Lj2Q"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-surface-container-lowest via-transparent to-transparent opacity-40"></div>
-                <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity">
-                  <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center">
-                    <Play className="text-4xl text-white" />
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.18, duration: 0.5 }}
+              className="relative"
+            >
+              <div className="absolute -inset-6 rounded-[2.5rem] bg-primary/10 blur-3xl" />
+              <div className="relative overflow-hidden rounded-4xl border border-outline-variant/10 bg-surface-container-lowest shadow-2xl shadow-black/30">
+                <div className="flex items-center gap-2 border-b border-outline-variant/10 bg-surface-container px-5 py-4">
+                  <span className="h-3 w-3 rounded-full bg-error/70" />
+                  <span className="h-3 w-3 rounded-full bg-tertiary/70" />
+                  <span className="h-3 w-3 rounded-full bg-primary/70" />
+                  <span className="ml-3 text-xs font-medium uppercase tracking-[0.18em] text-on-surface-variant">
+                    Live overview
+                  </span>
+                </div>
+                <div className="grid gap-4 p-5 md:grid-cols-[1.15fr_0.85fr]">
+                  <div className="overflow-hidden rounded-3xl border border-outline-variant/10 bg-surface-container">
+                    <img
+                      alt="TrackMyCash dashboard preview"
+                      className="h-full w-full object-cover"
+                      src="https://lh3.googleusercontent.com/aida/ADBb0uhVO-vt1Ul1xXou3ST4f6mTbZDYXgz2iWlLj5kRzyqG88GvSlrlVndWTpcg3AZSDIp_7p7fA5LtVJKCcupBGv7vc-rsOhC35ndNvXrxCUXX9zczo7xzbEh4f_sLNSctwqeGfQeNuCx2pShrbG2e4BFdRaYTyHqKSb39_wB90A_QJoibEBEtPdAk-c6qKn2H3WrlsECPs-CBEN9pG95lyJpilQZuhdpKVBb2T4Oeu_mEz7srLB2JZDAbTwbALDsx8wkqKkRHD04Lj2Q"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                  <div className="grid gap-4">
+                    {[
+                      { label: "Monthly budget used", value: "68%" },
+                      { label: "Transactions reviewed", value: "1,284" },
+                      { label: "Alerts this week", value: "07" },
+                    ].map((item) => (
+                      <div key={item.label} className="rounded-3xl border border-outline-variant/10 bg-surface-container p-5">
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-on-surface-variant">
+                          {item.label}
+                        </p>
+                        <p className="mt-3 text-3xl font-black tracking-tight text-on-background">
+                          {item.value}
+                        </p>
+                      </div>
+                    ))}
+                    <div className="rounded-3xl border border-primary/15 bg-primary/5 p-5">
+                      <p className="text-sm font-semibold text-on-background">
+                        Budget insight
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-on-surface-variant">
+                        Your dining spend is trending 12% above last month. Adjust the limit before the next cycle.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
-          {/* Stats Bar */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-24 py-12 px-8 bg-surface-container/40 backdrop-blur border border-outline-variant/10 rounded-4xl">
+          <div className="grid gap-4 rounded-4xl border border-outline-variant/10 bg-surface-container/50 p-5 shadow-2xl shadow-black/10 md:grid-cols-3 md:p-8">
             {[
-              { label: "Verified Curators", value: "12,000+" },
-              { label: "Assets Logged", value: "₹4.2Cr+" },
-              { label: "Engine Uptime", value: "99.9%" },
+              { label: "Connected accounts", value: "12+" },
+              { label: "Categories tracked", value: "32" },
+              { label: "Reports generated", value: "100%" },
             ].map((stat, idx) => (
               <div
-                key={idx}
+                key={stat.label}
                 className={cn(
-                  "flex flex-col items-center",
-                  idx === 1 &&
-                    "border-y md:border-y-0 md:border-x border-outline-variant/10 py-8 md:py-0",
+                  "rounded-2xl bg-surface-container-low px-6 py-6 text-center",
+                  idx === 1 && "md:border-x md:border-outline-variant/10",
                 )}
               >
-                <span className="text-4xl font-extrabold text-on-surface tracking-tight">
+                <p className="text-4xl font-black tracking-tight text-on-background">
                   {stat.value}
-                </span>
-                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-on-surface-variant mt-2 opacity-60">
+                </p>
+                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.2em] text-on-surface-variant">
                   {stat.label}
-                </span>
+                </p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Trust Bar */}
-      <section className="py-16 border-y border-outline-variant/10 bg-surface-container-lowest/30 overflow-hidden">
-        <div className="flex whitespace-nowrap animate-marquee gap-16">
-          {[1, 2].map((i) => (
-            <div
-              key={i}
-              className="flex gap-16 items-center min-w-full justify-around"
-            >
-              <span className="text-sm font-bold text-outline/40 flex items-center gap-2 tracking-[0.3em]">
-                <Drum className="text-lg" /> ACME CORP
-              </span>
-              <span className="text-sm font-bold text-outline/40 flex items-center gap-2 tracking-[0.3em]">
-                <Shredder className="text-lg" /> NEXUS LABS
-              </span>
-              <span className="text-sm font-bold text-outline/40 flex items-center gap-2 tracking-[0.3em]">
-                <Radar className="text-lg" /> ORBIT FINANCE
-              </span>
-              <span className="text-sm font-bold text-outline/40 flex items-center gap-2 tracking-[0.3em]">
-                <Infinity className="text-lg" /> INFINITY SVCS
-              </span>
-              <span className="text-sm font-bold text-outline/40 flex items-center gap-2 tracking-[0.3em]">
-                <Moon className="text-lg" /> TITAN SECURE
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Problem Section */}
-      <section className="py-32 px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-24">
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-8 tracking-tight">
-            Financial friction is <br /> a{" "}
-            <span className="text-error">system failure</span>.
-          </h2>
-          <p className="text-on-surface-variant max-w-xl mx-auto text-lg opacity-70">
-            Legacy tools are built on friction. Spreadsheets break, bank apps
-            lag, and manual entries fail when you need them most.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            {
-              icon: <SquareTerminal />,
-              title: "Static Ledger Decay",
-              desc: "Broken formulas and outdated rows. Spending hours troubleshooting sheets instead of building wealth.",
-            },
-            {
-              icon: <EyeOff />,
-              title: "Opaque Cashflows",
-              desc: 'Ghost subscriptions and silent drains. The "where did it go?" syndrome is a symptom of poor tooling.',
-            },
-            {
-              icon: <BellDot />,
-              title: "Reactive Alerting",
-              desc: "Notifications that arrive after the damage is done. Realizing overspending only once the statement closes.",
-            },
-          ].map((item, idx) => (
-            <div
-              key={idx}
-              className="p-10 bg-surface-container/60 rounded-3xl border border-outline-variant/10 hover:border-error/30 transition-all duration-500 group"
-            >
-              <div className="w-14 h-14 bg-error-container/10 rounded-xl flex items-center justify-center mb-8 text-error border border-error/20 group-hover:scale-110 transition-transform">
-                {item.icon}
-              </div>
-              <h3 className="text-2xl font-bold mb-4 tracking-tight">
-                {item.title}
-              </h3>
-              <p className="text-on-surface-variant leading-relaxed font-medium opacity-80">
-                {item.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Features Bento Grid */}
-      <section
-        id="features"
-        className="py-32 px-8 max-w-7xl mx-auto bg-surface-container-lowest rounded-[4rem] border border-outline-variant/10"
-      >
-        <div className="text-center mb-24">
-          <span className="text-primary font-bold tracking-[0.3em] text-[10px] uppercase mb-4 block">
-            Engineered for Fidelity
-          </span>
-          <h2 className="text-4xl font-extrabold tracking-tight">
-            The Core Financial OS
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
-          <div className="md:col-span-4 bg-surface-container p-12 rounded-[2.5rem] relative overflow-hidden group border border-outline-variant/10 hover:border-primary/30 transition-colors">
-            <div className="relative z-10 max-w-md">
-              <LayoutDashboard className="text-5xl text-primary mb-8" />
-              <h3 className="text-3xl font-bold mb-6 tracking-tight">
-                Real-Time Core Dashboard
-              </h3>
-              <p className="text-on-surface-variant text-lg leading-relaxed opacity-80">
-                A millisecond-accurate view of your entire financial universe.
-                No refreshing, no waiting, just pure data.
-              </p>
-            </div>
+        <section className="border-y border-outline-variant/10 bg-surface-container-lowest/40 py-10">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-12 gap-y-4 px-6 text-sm font-semibold uppercase tracking-[0.24em] text-on-surface-variant/70 lg:px-8">
+            <span>Accounts</span>
+            <span>Budgets</span>
+            <span>Transactions</span>
+            <span>Reports</span>
+            <span>Alerts</span>
           </div>
-          <div className="md:col-span-2 bg-surface-container p-10 rounded-[2.5rem] border border-primary/10 hover:border-primary/30 transition-colors">
-            <Brain className="text-4xl text-tertiary mb-6" />
-            <h3 className="text-2xl font-bold mb-4 tracking-tight">
-              AI Forecaster
-            </h3>
-            <p className="text-on-surface-variant font-medium opacity-70">
-              Predictive algorithms that map your future spending based on
-              current velocity and seasonal trends.
+        </section>
+
+        <section id="features" className="mx-auto max-w-7xl px-6 py-24 lg:px-8 lg:py-28">
+          <div className="mb-12 max-w-2xl">
+            <p className="text-xs font-bold uppercase tracking-[0.28em] text-primary">Features</p>
+            <h2 className="mt-4 text-3xl font-black tracking-tight text-on-background md:text-4xl">
+              Everything the landing page should explain, in plain language.
+            </h2>
+            <p className="mt-4 text-lg leading-8 text-on-surface-variant">
+              The product is strongest when it shows immediate value. This version focuses on clarity, not jargon.
             </p>
           </div>
-          <div className="md:col-span-2 bg-surface-container p-10 rounded-[2.5rem] border border-outline-variant/10 hover:border-primary/30 transition-colors">
-            <FingerprintPattern className="text-4xl text-secondary mb-6" />
-            <h3 className="text-xl font-bold mb-4 tracking-tight">
-              Neural Classification
-            </h3>
-            <p className="text-on-surface-variant text-sm opacity-70">
-              Autonomous merchant recognition that categorizes every rupee with
-              99% accuracy.
-            </p>
-          </div>
-          <div className="md:col-span-2 bg-surface-container p-10 rounded-[2.5rem] border border-outline-variant/10 hover:border-primary/30 transition-colors">
-            <VectorSquare className="text-4xl text-primary mb-6" />
-            <h3 className="text-xl font-bold mb-4 tracking-tight">
-              Vector Reports
-            </h3>
-            <p className="text-on-surface-variant text-sm opacity-70">
-              High-resolution visualizations of your habits, exportable as
-              professional-grade financial dossiers.
-            </p>
-          </div>
-          <div className="md:col-span-2 bg-surface-container p-10 rounded-[2.5rem] border border-outline-variant/10 hover:border-primary/30 transition-colors">
-            <GlobeX name="hub" className="text-4xl text-tertiary mb-6" />
-            <h3 className="text-xl font-bold mb-4 tracking-tight">
-              Omni-Connect
-            </h3>
-            <p className="text-on-surface-variant text-sm opacity-70">
-              Direct secure links to 15,000+ financial nodes. One conduit for
-              all your data streams.
-            </p>
-          </div>
-        </div>
-      </section>
 
-      {/* Deep Dives */}
-      <section className="py-32 space-y-48">
-        {/* Row 1 */}
-        <div className="px-8 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-20">
-          <div className="flex-1 relative">
-            <div className="absolute -inset-10 bg-primary/5 blur-[100px] -z-10"></div>
-            <div className="border-8 border-surface-container rounded-4xl bg-surface-container-lowest p-4">
-              <img
-                alt="Dashboard Deep Dive"
-                className="rounded-xl w-full"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV4-1yxjYpgJmkHXPrFYJuTokXl8_d_B0WPu34KB-zWbDeb2f8qgYAw84pOclKijB2EF4ZI-tsfYuSYBzcOmwDzHj9mO0sLeFYePZrVkJ-q0jW37aY7yADUwPR6DvawkfOhWrFKVQpx2rJglaikTwiznz4nCSCivIPS2UuSvlGcN5cF1kTnRHpbXIrz8b6bXATl8D2rj8C5HCFKzWOcoMyqWFM1FCvTMdyGddn9XosVaQN0e3o4tll0GWtrj--MIZ0wI_zNTyZnjSF"
-                referrerPolicy="no-referrer"
-              />
-            </div>
-          </div>
-          <div className="flex-1 space-y-8">
-            <span className="text-primary font-bold tracking-[0.2em] text-[10px] uppercase">
-              Telemetry
-            </span>
-            <h3 className="text-4xl font-extrabold tracking-tight">
-              Command Center Protocol
-            </h3>
-            <p className="text-on-surface-variant text-lg leading-relaxed opacity-80">
-              Stop fragmented tracking. TrackMyCash aggregates your entire
-              financial ecosystem into a single, high-fidelity command center
-              designed for rapid decision-making.
-            </p>
-            <div className="grid grid-cols-1 gap-4">
-              <div className="flex items-center gap-4 p-4 bg-surface-container/40 rounded-2xl border border-outline-variant/10">
-                <RefreshCw className="text-primary  " />
-                <span className="font-bold text-sm tracking-tight">
-                  Instant Balance Synchronization
-                </span>
-              </div>
-              <div className="flex items-center gap-4 p-4 bg-surface-container/40 rounded-2xl border border-outline-variant/10">
-                <GlobeX className="text-primary  " />
-                <span className="font-bold text-sm tracking-tight">
-                  Global Currency Localization
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Row 2 */}
-        <div className="px-8 max-w-7xl mx-auto flex flex-col md:flex-row-reverse items-center gap-20">
-          <div className="flex-1 relative">
-            <div className="absolute -inset-10 bg-tertiary/5 blur-[100px] -z-10"></div>
-            <div className="border-8 border-surface-container rounded-4xl bg-surface-container-lowest p-4">
-              <img
-                alt="Budgeting Deep Dive"
-                className="rounded-xl w-full"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIQeLOd8hYLEtg5Jmhb7DsacY-MHWX82RvXAGA7r3rhwmGElGPHWB1bzh8oqOsK3BKxu10T_RFg3OsMxnZhZhuIXcBWgxabz32nkOfDM01Zsk7jpw32YF5FxwcqzY_tfBBV1YJLM1dn81a12fbLAAXOhZ5qswr8tB7gKKXcFUdsCXCnR4KjP13gPo10KCAO5Be93EVkosVfzMF1O9TDzTuMAQs3tukpW6pXtjQvoqAep-U3pnTjjewwu6POqMb0fZof4Y1BlE0VLtl"
-                referrerPolicy="no-referrer"
-              />
-            </div>
-          </div>
-          <div className="flex-1 space-y-8">
-            <span className="text-tertiary font-bold tracking-[0.2em] text-[10px] uppercase">
-              Intelligence
-            </span>
-            <h3 className="text-4xl font-extrabold tracking-tight">
-              Predictive Resource Allocation
-            </h3>
-            <p className="text-on-surface-variant text-lg leading-relaxed opacity-80">
-              Budgeting redefined. Our engine maps your expenditure velocity to
-              forecast month-end balances, alerting you to overages before they
-              materialize.
-            </p>
-            <div className="p-8 bg-surface-container/40 rounded-3xl border-l-4 border-tertiary border-y border-r relative overflow-hidden">
-              <Quote className="absolute top-4 right-4 text-tertiary/20 text-6xl" />
-              <p className="text-lg italic font-medium leading-relaxed opacity-90 relative z-10">
-                "The predictive alerts felt like having a personal CFO. I saved
-                ₹1.2 Lakhs by trimming automated drains I didn't even notice."
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section
-        id="how-it-works"
-        className="py-32 px-8 max-w-7xl mx-auto relative"
-      >
-        <div className="text-center mb-24">
-          <h2 className="text-4xl font-extrabold tracking-tight">
-            The Onboarding Sequence
-          </h2>
-          <p className="mt-4 text-on-surface-variant opacity-60">
-            Zero to high-fidelity in four technical steps.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 relative">
-          <div className="hidden md:block absolute top-15 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-outline-variant/20 to-transparent -z-10"></div>
-          {[
-            {
-              icon: <UserPlus className="text-3xl" />,
-              title: "01. Initialization",
-              desc: "Establish your secure profile with enterprise-grade encryption.",
-            },
-            {
-              icon: <House className="text-3xl" />,
-              title: "02. Node Connection",
-              desc: "Securely bridge your financial institutions via read-only APIs.",
-            },
-            {
-              icon: <CableCar className="text-3xl" />,
-              title: "03. Neural Sync",
-              desc: "Automated ledger population with AI-driven categorization.",
-            },
-            {
-              icon: <Rocket className="text-3xl" />,
-              title: "04. Deep Insight",
-              desc: "Unlock full-spectrum visibility and predictive growth tools.",
-            },
-          ].map((step, idx) => (
-            <div key={idx} className="text-center space-y-6 group">
-              <div className="w-16 h-16 bg-surface-container rounded-2xl flex items-center justify-center mx-auto text-xl font-bold text-primary border border-outline-variant/20 shadow-xl group-hover:border-primary/50 transition-all duration-300">
-                {step.icon}
-              </div>
-              <div className="space-y-2">
-                <h4 className="font-bold text-lg">{step.title}</h4>
-                <p className="text-xs text-on-surface-variant leading-relaxed opacity-70">
-                  {step.desc}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section id="testimonials" className="py-32 px-8 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            {
-              name: "Priya Sharma",
-              role: "Creative Director",
-              text: '"The interface design is surgical. Finally, a finance application that treats data with the respect it deserves. It’s a joy to use."',
-            },
-            {
-              name: "Rahul Mehta",
-              role: "Fintech Analyst",
-              text: '"As an analyst, I demand precision. This tool provides the depth of a terminal with the intuition of a flagship mobile OS."',
-              featured: true,
-            },
-            {
-              name: "Ananya Patel",
-              role: "Software Engineer",
-              text: '"It turned our chaotic family finances into a structured discipline. Worth every rupee for the peace of mind alone."',
-            },
-          ].map((t, idx) => (
-            <div
-              key={idx}
-              className={cn(
-                "p-10 rounded-4xl border border-outline-variant/10 flex flex-col justify-between",
-                t.featured
-                  ? "bg-surface-container-high border-primary/20 shadow-2xl shadow-primary/5 transform md:-translate-y-4"
-                  : "bg-surface-container/40",
-              )}
-            >
-              <div>
-                <div className="flex gap-1 text-tertiary mb-8">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="text-sm fill-current" />
-                  ))}
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {coreFeatures.map((feature) => (
+              <div key={feature.title} className="group rounded-4xl border border-outline-variant/10 bg-surface-container p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:bg-surface-container-high">
+                <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/15">
+                  {feature.icon}
                 </div>
-                <p className="text-on-background mb-10 leading-relaxed font-medium opacity-90">
-                  {t.text}
+                <h3 className="text-2xl font-bold tracking-tight text-on-background">
+                  {feature.title}
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-on-surface-variant">
+                  {feature.desc}
                 </p>
               </div>
-              <div className="flex items-center gap-4 border-t border-outline-variant/10 pt-6">
-                <div className="w-12 h-12 rounded-full bg-surface-container-highest border border-outline-variant/20"></div>
-                <div>
-                  <p className="font-bold text-sm">{t.name}</p>
-                  <p className="text-[10px] uppercase tracking-widest text-on-surface-variant">
-                    {t.role}
+            ))}
+          </div>
+        </section>
+
+        <section id="how-it-works" className="mx-auto max-w-7xl px-6 py-24 lg:px-8 lg:py-28">
+          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.28em] text-tertiary">
+                How it works
+              </p>
+              <h2 className="mt-4 text-3xl font-black tracking-tight text-on-background md:text-4xl">
+                A simple flow from setup to useful insight.
+              </h2>
+              <p className="mt-4 max-w-xl text-lg leading-8 text-on-surface-variant">
+                The goal is not to overwhelm users. It is to help them connect data, understand trends, and make better money decisions quickly.
+              </p>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              {steps.map((step, index) => (
+                <div key={step.title} className="rounded-[1.75rem] border border-outline-variant/10 bg-surface-container/70 p-6">
+                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-surface-container-high text-primary">
+                    {step.icon}
+                  </div>
+                  <p className="text-xs font-bold uppercase tracking-[0.22em] text-on-surface-variant">
+                    Step {index + 1}
+                  </p>
+                  <h3 className="mt-2 text-xl font-bold text-on-background">
+                    {step.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-on-surface-variant">
+                    {step.desc}
                   </p>
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="reviews" className="mx-auto max-w-7xl px-6 py-24 lg:px-8 lg:py-28">
+          <div className="grid gap-6 lg:grid-cols-3">
+            {testimonials.map((testimonial) => (
+              <div
+                key={testimonial.name}
+                className={cn(
+                  "rounded-4xl border p-8",
+                  testimonial.featured
+                    ? "border-primary/20 bg-surface-container-high shadow-2xl shadow-primary/5"
+                    : "border-outline-variant/10 bg-surface-container/70",
+                )}
+              >
+                <div className="mb-6 flex gap-1 text-tertiary">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star key={star} className="h-4 w-4 fill-current" />
+                  ))}
+                </div>
+                <p className="text-lg leading-8 text-on-background">
+                  {testimonial.text}
+                </p>
+                <div className="mt-8 flex items-center gap-4 border-t border-outline-variant/10 pt-6">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-surface-container-highest font-bold text-primary">
+                    {testimonial.name.slice(0, 1)}
+                  </div>
+                  <div>
+                    <p className="font-bold text-on-background">
+                      {testimonial.name}
+                    </p>
+                    <p className="text-xs uppercase tracking-[0.18em] text-on-surface-variant">
+                      {testimonial.role}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="faq" className="mx-auto max-w-4xl px-6 py-24 lg:px-8 lg:py-28">
+          <div className="text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.28em] text-primary">
+              FAQ
+            </p>
+            <h2 className="mt-4 text-3xl font-black tracking-tight text-on-background md:text-4xl">
+              Questions users will ask before they sign up.
+            </h2>
+          </div>
+
+          <div className="mt-12 space-y-4">
+            {faqs.map((faq, index) => (
+              <div key={faq.q} className="overflow-hidden rounded-2xl border border-outline-variant/10 bg-surface-container/60">
+                <button
+                  onClick={() => setActiveFaq(activeFaq === index ? null : index)}
+                  className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left text-sm font-semibold text-on-background transition-colors hover:bg-surface-container/80"
+                >
+                  <span>{faq.q}</span>
+                  <ChevronDown className={cn("h-5 w-5 shrink-0 text-primary transition-transform", activeFaq === index && "rotate-180")} />
+                </button>
+                <AnimatePresence>
+                  {activeFaq === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-6 pb-6 text-sm leading-7 text-on-surface-variant">
+                        {faq.a}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-6 py-24 lg:px-8 lg:pb-32 lg:pt-10">
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-linear-to-r from-primary-container via-primary-container to-tertiary-container p-8 text-on-primary-container shadow-2xl shadow-primary/20 md:p-14">
+            <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
+            <div className="absolute -bottom-16 left-1/3 h-56 w-56 rounded-full bg-white/10 blur-3xl" />
+            <div className="relative z-10 mx-auto max-w-3xl text-center">
+              <h2 className="text-3xl font-black tracking-tight md:text-5xl">
+                Start with a cleaner view of your money today.
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-base leading-8 opacity-90 md:text-lg">
+                If the goal is better spending visibility, the landing page should say that clearly and let users move straight into the product.
+              </p>
+              <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+                <Link href="/register" className="inline-flex items-center justify-center rounded-2xl bg-white px-8 py-4 text-base font-black text-primary-container shadow-xl transition-transform hover:scale-[1.01]">
+                  Create account
+                </Link>
+                <Link href="/login" className="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/10 px-8 py-4 text-base font-semibold text-white backdrop-blur transition-colors hover:bg-white/15">
+                  Sign in
+                </Link>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section id="pricing" className="py-32 px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-extrabold tracking-tight mb-8">
-            Tiered Subscriptions
-          </h2>
-          <div className="inline-flex items-center gap-4 bg-surface-container p-1 rounded-full border border-outline-variant/10">
-            <button className="px-6 py-2 rounded-full bg-surface-bright text-on-surface text-sm font-bold">
-              Monthly
-            </button>
-            <button className="px-6 py-2 rounded-full text-on-surface-variant hover:text-on-surface text-sm font-bold">
-              Yearly (-20%)
-            </button>
           </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-end">
-          {[
-            {
-              title: "Essential",
-              desc: "Fundamental tracking.",
-              price: "0",
-              features: ["3 Account Connections", "Manual Data Entry"],
-              missing: ["Predictive Insights"],
-            },
-            {
-              title: "High-Fidelity",
-              desc: "Full autonomous engine.",
-              price: "499",
-              features: [
-                "Unlimited Account Nodes",
-                "Autonomous Bank Sync",
-                "Predictive Forecasting",
-                "24/7 Priority Support",
-              ],
-              featured: true,
-            },
-            {
-              title: "Institutional",
-              desc: "Enterprise scale tools.",
-              price: "1,299",
-              features: [
-                "Multi-User Permissions",
-                "Tax Compliance Exports",
-                "Direct API Access",
-              ],
-            },
-          ].map((plan, idx) => (
-            <div
-              key={idx}
-              className={cn(
-                "p-12 rounded-[2.5rem] border transition-colors",
-                plan.featured
-                  ? "bg-surface-container-high border-primary relative shadow-2xl shadow-primary/10 rounded-[3rem]"
-                  : "bg-surface-container border-outline-variant/10 hover:border-outline",
-              )}
-            >
-              {plan.featured && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-on-primary-container text-[9px] font-black uppercase tracking-[0.2em] px-5 py-1.5 rounded-full">
-                  Recommended
-                </div>
-              )}
-              <h3 className="text-xl font-bold mb-2">{plan.title}</h3>
-              <p className="text-on-surface-variant text-sm mb-6 font-medium">
-                {plan.desc}
-              </p>
-              <p className="text-4xl font-extrabold mb-8 tracking-tighter">
-                ₹{plan.price}{" "}
-                <span className="text-sm font-normal text-on-surface-variant">
-                  /mo
-                </span>
-              </p>
-              <ul className="space-y-4 mb-10">
-                {plan.features.map((f) => (
-                  <li key={f} className="flex gap-3 text-sm font-bold">
-                    <Check
-                      name="check_circle"
-                      className="text-primary text-lg"
-                    />{" "}
-                    {f}
-                  </li>
-                ))}
-                {plan.missing?.map((m) => (
-                  <li
-                    key={m}
-                    className="flex gap-3 text-sm font-medium text-on-surface-variant/40"
-                  >
-                    <X name="cancel" className="text-lg" /> {m}
-                  </li>
-                ))}
-              </ul>
-              <button
-                className={cn(
-                  "w-full py-4 rounded-xl font-bold text-sm transition-all",
-                  plan.featured
-                    ? "cta-gradient text-on-primary-container font-black shadow-lg shadow-primary/25 active:scale-[0.98]"
-                    : "bg-surface-container-highest hover:bg-surface-bright border border-outline-variant/10",
-                )}
-              >
-                {plan.featured ? "Initialize Pro" : "Begin Free Trial"}
-              </button>
-            </div>
-          ))}
-        </div>
-      </section>
+        </section>
+      </main>
 
-      {/* FAQ */}
-      <section className="py-32 px-8 max-w-3xl mx-auto">
-        <h2 className="text-4xl font-extrabold text-center mb-16 tracking-tight">
-          Technical Support
-        </h2>
-        <div className="space-y-3">
-          {[
-            {
-              q: "Security Protocols & Encryption",
-              a: "We employ bank-grade AES-256 encryption for all data at rest and TLS 1.3 for data in transit. Your credentials are never stored on our servers; we use tokenized OAuth sessions for read-only access.",
-            },
-            {
-              q: "Institutional Compatibility",
-              a: "TrackMyCash is compatible with 15,000+ global financial nodes, including all major tier-1 and tier-2 banks in India (HDFC, ICICI, SBI, Axis, etc.).",
-            },
-            {
-              q: "Data Portability",
-              a: "You maintain absolute sovereignty over your data. All transactions and reports can be exported in standardized CSV, JSON, or high-fidelity PDF formats instantly.",
-            },
-          ].map((faq, idx) => (
-            <div
-              key={idx}
-              className="group bg-surface-container/40 rounded-2xl border border-outline-variant/10 overflow-hidden"
-            >
-              <button
-                onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-                className="w-full flex justify-between items-center p-6 cursor-pointer font-bold text-sm tracking-tight hover:bg-surface-container/60 transition-colors"
-              >
-                {faq.q}
-                <ChevronDown
-                  name="expand_more"
-                  className={cn(
-                    "transition-transform text-primary",
-                    activeFaq === idx && "rotate-180",
-                  )}
-                />
-              </button>
-              <AnimatePresence>
-                {activeFaq === idx && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="px-6 pb-6 text-on-surface-variant text-xs leading-relaxed opacity-70">
-                      {faq.a}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-24 px-8 max-w-7xl mx-auto mb-32">
-        <div className="cta-gradient p-12 md:p-24 rounded-[4rem] text-center text-on-primary-container relative overflow-hidden shadow-2xl shadow-primary/20">
-          <div className="absolute top-0 right-0 w-125 h-125bg-white/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 opacity-50"></div>
-          <div className="relative z-10">
-            <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-tighter">
-              Establish your digital <br /> financial legacy.
-            </h2>
-            <p className="text-lg opacity-80 max-w-xl mx-auto mb-12 font-medium">
-              Join 12,000+ high-fidelity curators managing their wealth with
-              institutional precision.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-6">
-              <button className="bg-white text-primary-container px-12 py-5 rounded-2xl font-black text-xl hover:bg-on-background active:scale-95 transition-all shadow-xl">
-                Deploy My Ledger
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-surface-container-lowest w-full pt-20 pb-12 border-t border-outline-variant/10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 px-8 max-w-7xl mx-auto mb-20">
-          <div className="col-span-2 md:col-span-1">
-            <div className="text-xl font-bold text-on-background mb-6 flex items-center gap-2">
-              <HatGlasses name="account_balance" className="text-primary" />
-              TrackMyCash
-            </div>
-            <p className="text-on-surface-variant text-sm leading-relaxed font-medium opacity-60">
-              The digital ledger of high-fidelity financial management for the
-              modern era.
+      <footer className="border-t border-outline-variant/10 bg-surface-container-lowest/70 py-12">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+          <div>
+            <p className="text-lg font-bold text-on-background">TrackMyCash</p>
+            <p className="mt-2 max-w-md text-sm leading-7 text-on-surface-variant">
+              A clearer way to track accounts, budgets, transactions, and reports.
             </p>
           </div>
-          {[
-            {
-              title: "Protocol",
-              links: [
-                "System Features",
-                "Institutional Pricing",
-                "Mobile Nodes",
-                "Security Core",
-              ],
-            },
-            {
-              title: "Organization",
-              links: ["About the Lab", "Research Blog", "Open Roles"],
-            },
-            {
-              title: "Governance",
-              links: ["Privacy Directive", "Terms of Use", "Audit Security"],
-            },
-          ].map((col, idx) => (
-            <div key={idx}>
-              <p className="font-bold text-on-surface mb-8 text-sm uppercase tracking-widest">
-                {col.title}
-              </p>
-              <ul className="space-y-4 text-sm font-medium text-on-surface-variant opacity-60">
-                {col.links.map((link) => (
-                  <li key={link}>
-                    <a
-                      className="hover:text-primary transition-colors"
-                      href="#"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div className="px-8 max-w-7xl mx-auto pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs font-bold text-on-surface-variant opacity-40 uppercase tracking-widest">
-            © 2024 TrackMyCash. High Fidelity Financial Systems.
-          </p>
-          <div className="flex gap-6 opacity-40">
-            <Share2
-              name="share"
-              className="text-xl hover:text-primary cursor-pointer transition-colors"
-            />
-            <Podcast
-              name="podcasts"
-              className="text-xl hover:text-primary cursor-pointer transition-colors"
-            />
-            <SquareTerminal
-              name="terminal"
-              className="text-xl hover:text-primary cursor-pointer transition-colors"
-            />
+          <div className="flex flex-wrap gap-4 text-sm font-medium text-on-surface-variant">
+            <a href="#features" className="transition-colors hover:text-on-background">
+              Features
+            </a>
+            <a href="#how-it-works" className="transition-colors hover:text-on-background">
+              How it works
+            </a>
+            <a href="#faq" className="transition-colors hover:text-on-background">
+              FAQ
+            </a>
           </div>
         </div>
       </footer>
